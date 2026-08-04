@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听众名单 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 夜莺记账的习惯：重要的东西，用 Base64 记。 -->
+
+<div class="container">
+  <h1 class="glitch-text" data-text="午夜听众名单">午夜听众名单</h1>
+  <p class="tagline">第13期《听众来信特辑》· 来信听众存档</p>
+
+  <table class="roster">
+    <tr><th>编号</th><th>听众</th><th>最后收听</th><th>状态</th></tr>
+    <tr><td>001</td><td>顶楼的水箱</td><td>1999-03-03</td><td class="status-lost">失联</td></tr>
+    <tr><td>002</td><td>没有署名（信纸潮湿）</td><td>1999-03-10</td><td class="status-lost">失联</td></tr>
+    <tr><td>003</td><td>失眠十年的人</td><td>1999-03-17</td><td class="status-lost">失联</td></tr>
+    <tr><td>004</td><td>电话亭里的女人</td><td>1999-03-24</td><td class="status-lost">失联</td></tr>
+    <tr><td>005</td><td>对着镜子说话的男孩</td><td>1999-04-01</td><td class="status-lost">失联</td></tr>
+    <tr><td>006</td><td>代班主播</td><td>——</td><td class="status-lost">查无此人</td></tr>
+    <tr><td>007</td><td>S</td><td>1999-04-13</td><td class="status-lost">失联</td></tr>
+    <tr>
+      <td>008</td>
+      <td id="you-name" class="danger">……</td>
+      <td id="you-date" class="danger">今天</td>
+      <td class="status-you">收听中</td>
+    </tr>
+  </table>
+
+  <p class="muted small">名单管理：夜莺 · 每周三凌晨更新</p>
+
+  <p style="margin:44px 0 6px;" class="muted small">名单背面的底片上，还印着一行洗不掉的字：</p>
+  <!-- 这张"底片"永远加载失败，注意它的 alt -->
+  <img src="negative.png" alt="MDMtMDAuaHRtbA==">
+  <p class="whisper small">底片要用"底片的方式"去看。</p>
+
+  <div id="unlock-box" style="margin-top:36px; display:none;">
+    <input type="text" id="unlock-input" placeholder="底片上的字，解码后输入" autocomplete="off">
+    <button id="unlock-btn">前往</button>
+    <p id="unlock-msg" class="small" style="min-height:26px;"></p>
+  </div>
+
+  <p style="margin-top:40px;"><a href="live.html">← 返回直播间</a></p>
+
+  <div class="footer">FM-MIDNIGHT · 名单上的人，会一直在名单上</div>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+FM.require('heard', 'live.html');
+FM.flag('listener');
+
+(function () {
+  var d = FM.load();
+  document.getElementById('you-name').textContent = d.name ? d.name : '没有留下名字的你';
+  var now = new Date();
+  document.getElementById('you-date').textContent =
+    now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+  /* 点击底片 alt 区域后展开输入框（或直接展示输入框） */
+  var box = document.getElementById('unlock-box');
+  box.style.display = 'block';
+
+  var msg = document.getElementById('unlock-msg');
+  function go() {
+    var v = document.getElementById('unlock-input').value.trim().toLowerCase();
+    if (!v) return;
+    if (v === '03-00.html' || v === '03-00') {
+      msg.className = 'danger small';
+      msg.textContent = '底片洗出来了。凌晨三点，准时开门。';
+      setTimeout(function () { location.href = '03-00.html'; }, 1800);
+    } else {
+      msg.className = 'muted small';
+      msg.textContent = '洗不出来。你确定解码对了吗？（Base64）';
+    }
+  }
+  document.getElementById('unlock-btn').addEventListener('click', go);
+  document.getElementById('unlock-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+})();
+</script>
+</body>
+</html>

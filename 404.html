@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 Not Found</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container" style="text-align:center; padding-top:12vh;">
+  <h1 style="font-size:72px; letter-spacing:.2em;" class="glitch">404</h1>
+  <p class="muted">Not Found — 你要找的页面不存在。</p>
+
+  <p style="margin:40px 0;">
+    <!-- 这张"图片"永远加载失败，注意它的 alt -->
+    <img src="void.png" alt="它从来没被删掉：把地址栏里的 404 换成 episode-13 再试一次">
+  </p>
+
+  <p class="whisper small">它从来没被删掉。</p>
+
+  <p style="margin-top:60px;"><a href="home.html">返回首页</a></p>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+FM.flag('saw404');
+
+/* 页面标题在两个状态之间闪烁：仔细看标签页 */
+(function () {
+  var titles = ['404 Not Found', '它还在播出', '404 Not Found', '别回头看'];
+  var i = 0;
+  setInterval(function () {
+    i = (i + 1) % titles.length;
+    document.title = titles[i];
+  }, 2600);
+})();
+</script>
+</body>
+</html>

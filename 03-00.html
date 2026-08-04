@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03:00</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { background: #000; }
+  .mono { text-align: center; }
+  .ending { display: none; text-align: center; }
+  #meta-report { color: #6b6558; font-size: 13px; margin: 34px 0; }
+  #meta-report span { color: #b03030; }
+</style>
+</head>
+<body>
+
+<div class="container mono" style="padding-top:12vh;">
+  <p class="tagline flicker" style="letter-spacing:.5em;">0 3 : 0 0</p>
+
+  <div id="monologue">
+    <p class="fade-line">你来了。</p>
+    <p class="fade-line">我等这期节目，等了很久。</p>
+    <p class="fade-line">名单上的每一个人，都坐到过你现在这个位置。</p>
+    <p class="fade-line">她们听见摩斯电码的时候，表情都和你一样。</p>
+  </div>
+
+  <div id="meta-report">
+    <p class="fade-line">这是你第 <span id="r-visits">?</span> 次打开本台。</p>
+    <p class="fade-line">你在电台里停留了 <span id="r-stay">?</span>。</p>
+    <p class="fade-line">现在，你的时间是 <span id="r-time">?</span>。</p>
+    <p class="fade-line">你不该在凌晨三点醒着的，<span id="r-name">听众</span>。</p>
+  </div>
+
+  <p style="margin-top:48px;">
+    <button id="final-btn">听她最后一句</button>
+  </p>
+</div>
+
+<!-- jumpscare 覆盖层 -->
+<div class="scare-overlay" id="scare" style="display:none;">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#000"/>
+    <ellipse cx="100" cy="105" rx="52" ry="68" fill="#d8d2c2"/>
+    <ellipse cx="82" cy="88" rx="11" ry="16" fill="#fff"/>
+    <ellipse cx="118" cy="88" rx="11" ry="16" fill="#fff"/>
+    <circle cx="82" cy="92" r="4" fill="#000"/>
+    <circle cx="118" cy="92" r="4" fill="#000"/>
+    <path d="M 70 140 Q 100 175 130 140 Q 100 155 70 140 Z" fill="#1a0000"/>
+    <path d="M 60 60 Q 100 30 140 60" stroke="#000" stroke-width="2" fill="none" opacity=".5"/>
+    <rect x="0" y="0" width="200" height="6" fill="#000" opacity=".8"/>
+    <rect x="0" y="120" width="200" height="3" fill="#000" opacity=".6"/>
+  </svg>
+</div>
+
+<div class="container ending" id="ending" style="padding-top:16vh;">
+  <h1 class="glitch-text" data-text="欢迎常驻">欢迎常驻</h1>
+  <p class="muted" style="margin-top:30px;">
+    你是第 <span id="r-number">8</span> 位常驻听众。<br>
+    直播永不结束。<br>
+    我们凌晨三点见。每天见。
+  </p>
+  <p class="danger small flicker" style="margin-top:40px;">FM-MIDNIGHT · 只对醒着的人广播</p>
+  <p style="margin-top:60px;">
+    <button id="replay-btn" class="muted">重新收听（清除存档）</button>
+  </p>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+FM.require('listener', 'home.html');
+
+(function () {
+  var d = FM.load();
+
+  /* 元恐怖数据播报 */
+  document.getElementById('r-visits').textContent = d.visits || 1;
+  var sec = Math.round(((d.totalStay || 0) + (Date.now() - (d.sessionStart || Date.now()))) / 1000);
+  document.getElementById('r-stay').textContent =
+    sec >= 60 ? Math.floor(sec / 60) + ' 分 ' + (sec % 60) + ' 秒' : sec + ' 秒';
+  var now = new Date();
+  document.getElementById('r-time').textContent =
+    String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+  document.getElementById('r-name').textContent = d.name ? d.name : '没有留下名字的听众';
+
+  /* 逐行浮现 */
+  var lines = document.querySelectorAll('.fade-line');
+  lines.forEach(function (el, i) {
+    setTimeout(function () { el.classList.add('show'); }, 1200 + i * 1600);
+  });
+
+  /* jumpscare */
+  document.getElementById('final-btn').addEventListener('click', function () {
+    var scare = document.getElementById('scare');
+    scare.style.display = 'flex';
+    try { FM.sting(); } catch (e) {}
+    document.title = '别 关 直 播';
+    setTimeout(function () {
+      scare.style.display = 'none';
+      document.querySelector('.mono').style.display = 'none';
+      document.getElementById('ending').style.display = 'block';
+      document.getElementById('r-number').textContent = 8;
+      document.title = 'FM-MIDNIGHT · 常驻听众';
+      FM.flag('end');
+    }, 1700);
+  });
+
+  /* 重新收听：清档 */
+  document.getElementById('replay-btn').addEventListener('click', function () {
+    if (confirm('确定要重新收听吗？夜莺会重新认识你。')) {
+      localStorage.removeItem('fm_midnight_save_v1');
+      location.href = 'index.html';
+    }
+  });
+})();
+
+FM.enableSoundUI();
+</script>
+</body>
+</html>

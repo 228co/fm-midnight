@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开始游戏 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container" style="text-align:center; padding-top:15vh;">
+  <h1 class="flicker-fast" style="letter-spacing:.5em;">开 始 游 戏</h1>
+
+  <p class="tagline" style="margin-top:20px;">FM-MIDNIGHT · 深夜电台</p>
+
+  <p style="margin-top:48px;">开始收听前，请注意本电台包含以下要素：</p>
+  <p class="muted">
+    闪烁画面 · 突发音效 · 故障干扰<br>
+    以及可能令人不适的叙事内容
+  </p>
+
+  <p class="danger small" style="margin-top:36px;">
+    光敏性癫痫患者、心脏疾病患者请立即关闭本页。<br>
+    建议佩戴耳机，在凌晨三点收听。
+  </p>
+
+  <p style="margin-top:56px;">
+    <button id="enter">我清楚风险，开始游戏</button>
+  </p>
+  <p><a href="about:blank" class="muted small">离开</a></p>
+
+  <p class="muted small" style="margin-top:70px;">FM-MIDNIGHT · 只对醒着的人广播</p>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+document.getElementById('enter').addEventListener('click', function () {
+  FM.flag('warned');
+  location.href = 'home.html';
+});
+</script>
+</body>
+</html>

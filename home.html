@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FM-MIDNIGHT | 只在凌晨3:00直播的电台</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================
+     技术员留言（勿删）：
+     都别再问我第13期的事了。带子没有被销毁，
+     它只是回到了"原来的位置、原来的名字"。
+     往期的网址规则一直没变过。
+     —— T
+     ============================================ -->
+
+<div class="container">
+  <h1 class="glitch-text" data-text="FM-MIDNIGHT"><span class="fm">FM</span>-MIDNIGHT</h1>
+  <p class="tagline flicker">只在凌晨 3:00 直播的电台</p>
+
+  <h2>本周节目表</h2>
+  <table>
+    <tr><th>期数</th><th>主题</th><th>状态</th></tr>
+    <tr><td>第14期</td><td>《凌晨的电话亭》</td><td class="muted">预告</td></tr>
+    <tr class="deleted-row"><td><span class="deleted">第13期</span></td><td><span class="deleted">《听众来信特辑》</span></td><td class="danger">已删除</td></tr>
+    <tr><td>第12期</td><td>《楼顶的脚步声》</td><td class="muted">已播出</td></tr>
+  </table>
+
+  <h2>导览</h2>
+  <p>
+    <a href="archive.html">→ 往期节目文字稿</a><br>
+    <a href="#subscribe" class="muted">→ 订阅深夜提醒</a>
+  </p>
+
+  <p id="visit-line" class="danger small" style="display:none;"></p>
+
+  <h2 id="subscribe">订阅深夜提醒</h2>
+  <p class="muted small">留下你的名字，开播前我们会"通知"你。</p>
+  <p>
+    <input type="text" id="name-input" placeholder="你的名字" maxlength="12">
+    <button id="name-btn">登记</button>
+  </p>
+  <p id="name-reply" class="small" style="display:none;"></p>
+
+  <div class="footer">
+    FM-MIDNIGHT © 1999 — 本台不对收听后果负责<br>
+    <span class="whisper">你在读这一行，说明你习惯看最底下。好习惯。</span>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+(function () {
+  var d = FM.load();
+
+  /* 老听众回归彩蛋 */
+  if (d.visits >= 3) {
+    var line = document.getElementById('visit-line');
+    line.style.display = 'block';
+    line.textContent = '你又来了。第 ' + d.visits + ' 次。';
+  }
+
+  /* 登记名字（会被"名单"记住） */
+  var reply = document.getElementById('name-reply');
+  if (d.name) {
+    reply.style.display = 'block';
+    reply.textContent = '已登记：' + d.name + '。夜莺记得你。';
+  }
+  document.getElementById('name-btn').addEventListener('click', function () {
+    var v = document.getElementById('name-input').value.trim();
+    if (!v) return;
+    FM.save({ name: v });
+    reply.style.display = 'block';
+    reply.textContent = '已登记：' + v + '。夜莺会记住这个名字的。';
+  });
+
+  /* 直接进入跳过警告页的情况：补标记 */
+  FM.flag('warned');
+})();
+</script>
+</body>
+</html>

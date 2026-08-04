@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVE - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:#000;">
+
+<canvas class="snow" id="snow"></canvas>
+
+<div class="container" style="position:relative; z-index:2;">
+  <h1><span class="live-dot"></span>LIVE <span class="muted" style="font-size:16px;">直播中 · 03:00</span></h1>
+  <p class="tagline">33.3 MHz · 信号来源不明</p>
+
+  <p class="muted">电流声里，似乎有人在反复敲着什么。不是音乐。是信号。</p>
+  <p class="muted small">（建议开启声音，戴耳机。注意听蜂鸣的长短。）</p>
+
+  <p style="margin-top:44px;">
+    <button id="hear-btn">我听清了杂音里的词</button>
+  </p>
+
+  <div id="answer-box" style="display:none; margin-top:20px;">
+    <input type="text" id="answer-input" placeholder="你听到的词（英文）" maxlength="12" autocomplete="off">
+    <button id="answer-submit">确认</button>
+    <p id="answer-msg" class="small" style="min-height:26px;"></p>
+  </div>
+
+  <p id="whisper-line" class="whisper small" style="margin-top:60px;">它敲的是摩斯电码。短短长，长短短。写下来。</p>
+
+  <div class="footer">本直播不设回放 · 观看人数：1</div>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+FM.require('tuned', 'tuner.html');
+
+/* ---------- Canvas 雪花噪点 ---------- */
+(function () {
+  var cv = document.getElementById('snow');
+  var ctx = cv.getContext('2d');
+  var pulse = 0.5; // 噪点强度（摩斯播放时增强）
+
+  function resize() { cv.width = innerWidth; cv.height = innerHeight; }
+  addEventListener('resize', resize);
+  resize();
+
+  function draw() {
+    var w = cv.width, h = cv.height;
+    var img = ctx.createImageData(w, h);
+    var buf = new Uint32Array(img.data.buffer);
+    var intensity = pulse * 255;
+    for (var i = 0; i < buf.length; i++) {
+      var v = Math.random() * intensity;
+      buf[i] = (255 << 24) | (v << 16) | (v << 8) | v;
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  setInterval(draw, 66);
+
+  window.__snowPulse = function (v) { pulse = v; };
+})();
+
+/* ---------- 开启声音后：低鸣 + 循环摩斯 SAVEME ---------- */
+FM.onSoundEnabled = function () {
+  FM.hum(0.045);
+  var ANSWER = 'SAVEME';
+  function loopMorse() {
+    window.__snowPulse(0.85);
+    var dur = FM.morse(ANSWER);
+    setTimeout(function () {
+      window.__snowPulse(0.4);
+      setTimeout(loopMorse, 5000); // 每轮间隔 5 秒
+    }, dur);
+  }
+  loopMorse();
+};
+
+/* ---------- 答题 ---------- */
+(function () {
+  var box = document.getElementById('answer-box');
+  var input = document.getElementById('answer-input');
+  var msg = document.getElementById('answer-msg');
+  var wrong = 0;
+
+  document.getElementById('hear-btn').addEventListener('click', function () {
+    box.style.display = 'block';
+    input.focus();
+  });
+
+  function submit() {
+    var v = input.value.trim().toUpperCase();
+    if (!v) return;
+    if (v === 'SAVEME') {
+      msg.className = 'danger small';
+      msg.textContent = '它听见你回答了。';
+      FM.flag('heard');
+      try { FM.static(1.2, 0.25); } catch (e) {}
+      setTimeout(function () { location.href = 'listener.html'; }, 2200);
+    } else {
+      wrong++;
+      msg.className = 'muted small';
+      msg.textContent = wrong >= 3
+        ? '提示：S 是三点，A 是点长。从开头慢慢记。'
+        : '不是这个。再听。';
+      try { FM.static(0.4, 0.1); } catch (e) {}
+    }
+  }
+
+  document.getElementById('answer-submit').addEventListener('click', submit);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+})();
+
+FM.enableSoundUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调频 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1 class="glitch-text" data-text="手动调频">手动调频</h1>
+  <p class="tagline">老式旋钮机 · 请输入你要收听的频率</p>
+
+  <div class="tuner-display flicker" id="display">87.5 MHz</div>
+
+  <div class="tuner-btns" style="text-align:center;">
+    <button data-step="-1">≪ -1.0</button>
+    <button data-step="-0.1">‹ -0.1</button>
+    <button data-step="0.1">+0.1 ›</button>
+    <button data-step="1">+1.0 ≫</button>
+  </div>
+
+  <p style="text-align:center; margin-top:24px;">
+    <input type="text" id="freq-input" placeholder="直接输入频率" style="width:160px; text-align:center;">
+    <button id="lock-btn">锁定频率</button>
+  </p>
+
+  <p id="msg" class="muted small" style="text-align:center; min-height:28px;"></p>
+  <p id="hint" class="whisper small" style="text-align:center; display:none;">信里写了频率。回到第13期，把那行字"拨回三格"。</p>
+
+  <p style="margin-top:48px;"><a href="episode-13.html">← 返回文字稿</a></p>
+
+  <div class="footer">频段范围 20.0 — 108.0 MHz · 超出公共广播频段的信号，本台概不负责</div>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+FM.require('ep13', 'archive.html');
+
+(function () {
+  var TARGET = 33.3;
+  var current = 87.5;
+  var wrong = 0;
+  var display = document.getElementById('display');
+  var msg = document.getElementById('msg');
+
+  function render() {
+    display.textContent = current.toFixed(1) + ' MHz';
+  }
+
+  function noise() {
+    try { FM.static(0.6, 0.12); } catch (e) {}
+  }
+
+  document.querySelectorAll('.tuner-btns button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      current = Math.round((current + parseFloat(b.dataset.step)) * 10) / 10;
+      if (current < 20) current = 20;
+      if (current > 108) current = 108;
+      render();
+      noise();
+    });
+  });
+
+  function tryLock(v) {
+    noise();
+    if (Math.abs(v - TARGET) < 0.05) {
+      msg.className = 'danger';
+      msg.textContent = '……你锁定了一个不在任何频段表上的信号。';
+      display.classList.add('glitch');
+      FM.flag('tuned');
+      setTimeout(function () { location.href = 'live.html'; }, 2600);
+    } else {
+      wrong++;
+      var lines = ['……只有杂音。', '……不对。有什么在很远的地方。', '……它听到你在乱调了。'];
+      msg.className = 'muted small';
+      msg.textContent = lines[Math.min(wrong - 1, lines.length - 1)];
+      if (wrong >= 3) document.getElementById('hint').style.display = 'block';
+    }
+  }
+
+  document.getElementById('lock-btn').addEventListener('click', function () {
+    var v = parseFloat(document.getElementById('freq-input').value);
+    if (isNaN(v)) { msg.textContent = '请输入数字。'; return; }
+    current = Math.round(v * 10) / 10;
+    render();
+    tryLock(current);
+  });
+
+  document.getElementById('freq-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('lock-btn').click();
+  });
+
+  render();
+  FM.enableSoundUI();
+})();
+</script>
+</body>
+</html>
