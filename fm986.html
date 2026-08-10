@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正在直播 · 音乐广播 98.6</title>
+<style>
+  /* ===== 音乐广播 98.6 独立主题：黑底 + 霓虹紫粉 ===== */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #120d1a;
+    color: #d8d2e6;
+    font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    font-size: 15px; line-height: 1.8; min-height: 100vh;
+  }
+  a { color: #ff5fa2; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 18px 60px; }
+
+  .mast {
+    background: linear-gradient(120deg, #1a0f2a, #2a0f2e 60%, #120d1a);
+    border-bottom: 3px solid #b06aff;
+    padding: 20px 0 16px;
+  }
+  .mast .inner { max-width: 860px; margin: 0 auto; padding: 0 18px; }
+  .mast h1 { margin: 0; font-size: 28px; color: #fff; letter-spacing: .08em; font-weight: bold; }
+  .mast h1 .no {
+    background: linear-gradient(90deg, #ff5fa2, #b06aff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .mast .sl { color: #a68fc9; font-size: 12px; letter-spacing: .3em; margin-top: 3px; }
+
+  .nav { background: #1c1426; border-bottom: 1px solid #2a1f3a; padding: 7px 0; }
+  .nav .inner { max-width: 860px; margin: 0 auto; padding: 0 18px; }
+  .nav a { color: #b9a8d6; text-decoration: none; margin-right: 18px; font-size: 14px; }
+  .nav a:hover { color: #ff5fa2; }
+
+  .panel {
+    background: #1b1426; border: 1px solid #2c2140;
+    border-radius: 8px;
+    padding: 16px 20px; margin-top: 18px;
+  }
+  .panel h2 {
+    margin: 0 0 12px; font-size: 16px;
+    background: linear-gradient(90deg, #ff5fa2, #b06aff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: .1em;
+    border-bottom: 1px solid #2c2140; padding-bottom: 6px;
+  }
+  .muted { color: #8a7fa3; }
+  .small { font-size: 12px; }
+  .fake { color: #ff5fa2; text-decoration: underline; cursor: pointer; }
+  .chart { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #2c2140; font-size: 14px; }
+  .chart .rank { color: #b06aff; font-weight: bold; }
+  /* 跳动的均衡器装饰 */
+  .eq { display: inline-flex; gap: 3px; align-items: flex-end; height: 16px; margin-right: 8px; }
+  .eq i { width: 4px; background: linear-gradient(180deg, #ff5fa2, #b06aff); animation: eqb 0.9s infinite ease-in-out; }
+  .eq i:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .eq i:nth-child(2) { height: 14px; animation-delay: .15s; }
+  .eq i:nth-child(3) { height: 6px; animation-delay: .3s; }
+  .eq i:nth-child(4) { height: 12px; animation-delay: .45s; }
+  @keyframes eqb { 0%,100% { transform: scaleY(.4);} 50% { transform: scaleY(1);} }
+  .colophon { margin-top: 48px; padding-top: 14px; border-top: 1px solid #2c2140; color: #6a5f83; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="inner">
+    <h1><span class="no">音乐广播</span> FM 98.6</h1>
+    <div class="sl">好 音 乐 · 不 打 烊</div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="inner">
+    <a href="index.html">返回晨曦FM</a>
+    <a href="#" class="fake" data-fake>本周榜单</a>
+    <a href="#" class="fake" data-fake>歌手专访</a>
+    <a href="#" class="fake" data-fake>演出资讯</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+    <h2><span class="eq"><i></i><i></i><i></i><i></i></span>正在直播 · 深夜留声机</h2>
+    <p class="muted small">DJ：阿May · 黑胶专场</p>
+    <p>（轻柔的钢琴曲中）"欢迎收听深夜留声机。这个点还没睡的你，在想什么呢？有人失眠，有人赶路，也有人……在等一个不存在的节目。今晚我们循环播放一些老唱片，陪你们到天亮。"</p>
+    <p class="muted small">—— 唱片里传来一阵细微的、像是唱针划过的杂音。</p>
+  </div>
+
+  <div class="panel">
+    <h2>本周热播榜</h2>
+    <div class="chart"><span><span class="rank">01</span> 夜来香 · 老唱片</span><span class="fake" data-fake>试听</span></div>
+    <div class="chart"><span><span class="rank">02</span> 月光曲 · 钢琴版</span><span class="fake" data-fake>试听</span></div>
+    <div class="chart"><span><span class="rank">03</span> 路灯下的小姑娘</span><span class="fake" data-fake>试听</span></div>
+    <div class="chart"><span><span class="rank">04</span> 无词的哼唱</span><span class="fake" data-fake>试听</span></div>
+  </div>
+
+  <div class="panel">
+    <h2>乐迷服务</h2>
+    <p class="muted">
+      <span class="fake" data-fake>黑胶订购</span> ·
+      <span class="fake" data-fake>演唱会门票</span> ·
+      <span class="fake" data-fake>乐迷俱乐部</span> ·
+      <span class="fake" data-fake>点歌通道</span>
+    </p>
+  </div>
+
+  <p style="margin-top:20px;"><a href="index.html">← 返回首页（继续调频）</a></p>
+  <div class="colophon">音乐广播 FM 98.6 · 正在直播</div>
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

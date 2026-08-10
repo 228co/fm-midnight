@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>（占位：第X期《标题》- FM-MIDNIGHT）</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/episode.css">
+</head>
+<body>
+
+<!-- ============================================================
+  【作者指引 · 期入口页模板】（上线前可整段删除，不影响功能）
+
+  一、如何开新一期
+    1. 复制整个 episodes/_template/ 目录，改名为 episodes/epXX/
+       （XX 为期号，如 ep03，与 EP.progress.list 的命名一致）。
+    2. 每一页底部 EP.config({ id: 'epXX', ... }) 的 id 必须改成
+       对应期号，且【全期所有页面必须使用同一个 id】，
+       否则 flag 与通关记录会互相串期。
+    3. 期入口固定命名为 index.html，方便 archive.html 链接进来。
+
+  二、如何新增页面
+    1. 复制 page.html 改成任意文件名（如 page2.html、last.html）。
+    2. 用 EP.require('某个flag', '踢回页面') 做门禁，防止玩家跳关。
+    3. 上一页 EP.gate 的 goto 指向新文件名，把玩家送过来。
+
+  三、如何接密码门（本页下方有完整可改示例）
+    1. hash 填答案的 SHA-256：先用本地服务器打开站点（node server.js），
+       在浏览器控制台执行：EP.sha256('你的答案').then(console.log)
+       把输出的 64 位 hex 粘贴到 hash 处。
+       （file:// 直接打开没有 crypto.subtle，会报错，务必用服务器）
+    2. 校验前会自动 trim 加转小写，大小写和首尾空格不影响玩家作答。
+    3. 永远不要在本文件写明文答案，注释里也不要写。
+
+  四、?debug=1 后门
+    任何页面 URL 加上 ?debug=1，EP.require 门禁全部直接放行，
+    方便作者自测流程；玩家正常访问不受影响。
+
+  五、可用风格类速查（详见 css/style.css 与 css/episode.css 顶部注释）
+    期页结构：.ep-head / .ep-no / .ep-title / .ep-meta / .ep-story / .ep-divider
+    密码门：  .ep-gate / .ep-gate-msg
+    氛围：    .glitch-text（需 data-text 与文字一致）/ .flicker /
+              .whisper（近隐形，选中可见）/ .danger / .muted / .small /
+              .ep-secret / .ep-broken-img
+    其它：    .ep-back / .footer / .tagline
+============================================================ -->
+
+<div class="container">
+
+  <!-- 期页头：期号 + 标题 + 播出信息行 -->
+  <div class="ep-head">
+    <div class="ep-no">（占位：第X期）</div>
+    <!-- glitch-text 的 data-text 必须与可见文字完全一致；不想要故障残影就去掉 class 和 data-text -->
+    <h1 class="ep-title glitch-text" data-text="（占位：《标题》）">（占位：《标题》）</h1>
+    <div class="ep-meta">（占位：播出信息，如「FM 104.3 · 凌晨 3:33 · 主播：夜莺」）</div>
+  </div>
+
+  <!-- ===== 故事正文：替换为你的故事 ===== -->
+  <div class="ep-story">
+    <p>（占位：第一段故事。）</p>
+    <p>（占位：第二段故事。段落可自由增删，小节之间可用一条 hr.ep-divider 分隔。）</p>
+  </div>
+
+  <!-- 示例：.whisper 隐藏文字（近隐形，玩家选中文字才能看见）。这两处是示例，可删。 -->
+  <p class="whisper small">（占位：一句藏起来的话。）</p>
+  <!-- 示例：HTML 注释藏线索（玩家查看源代码可见）。这两处是示例，可删。占位：注释里的线索。 -->
+
+  <hr class="ep-divider">
+
+  <!-- ===== 密码门示例骨架：玩家答对后跳转 page.html ===== -->
+  <div class="ep-gate">
+    <p class="muted small">（占位：密码门引导语，如「念出那个名字。」）</p>
+    <input type="text" id="answer" placeholder="（占位：输入框提示）" autocomplete="off">
+    <button id="submit">确认</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="../../js/episode.js"></script>
+<script>
+/* 注册本期：id 必须改成对应期号（如 'ep03'），且全期所有页面 id 必须一致 */
+EP.config({ id: 'epXX', title: '（占位：第X期《标题》- FM-MIDNIGHT）' });
+
+/* 密码门：答对后写入 flag 'gate1' 并跳转 page.html。
+   hash 生成方法：本地服务器运行后，在浏览器控制台执行
+     EP.sha256('你的答案').then(console.log)
+   把输出的 64 位 hex 粘贴到下方 hash 处（校验前会自动 trim 加转小写）。 */
+EP.gate({
+  input:  '#answer',
+  button: '#submit',
+  msg:    '#msg',
+  hash:   '<在这里填答案的SHA-256>',
+  flag:   'gate1',
+  hints:  { 3: '（占位：第 3 次答错时给出的提示）' },
+  okText: '（占位：答对时的文案，如「对了。」）',
+  goto:   'page.html'
+});
+</script>
+
+</body>
+</html>

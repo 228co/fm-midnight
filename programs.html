@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>节目表 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>晨曦FM 87.5 · 本周节目表</h2>
+    <table>
+      <tr><th>时间</th><th>节目</th><th>主持人</th></tr>
+      <tr><td>05:30 – 07:00</td><td>《清晨第一线》新闻早班车</td><td>王建国</td></tr>
+      <tr><td>07:00 – 09:00</td><td>《上班路上》路况·资讯</td><td>李晓梅</td></tr>
+      <tr><td>09:00 – 11:00</td><td>《音乐下午茶·上午版》</td><td>张小舟</td></tr>
+      <tr><td>11:00 – 12:00</td><td>《生活百事通》</td><td>陈晓芸</td></tr>
+      <tr><td>12:00 – 13:00</td><td>午间新闻</td><td>王建国</td></tr>
+      <tr><td>13:00 – 15:00</td><td>《戏曲大观园》</td><td>刘一鸣</td></tr>
+      <tr><td>15:00 – 17:00</td><td>《音乐下午茶》</td><td>张小舟</td></tr>
+      <tr><td>17:00 – 19:00</td><td>《下班快乐购》路况·广告</td><td>李晓梅</td></tr>
+      <tr><td>19:00 – 20:00</td><td>晚间新闻</td><td>王建国</td></tr>
+      <tr><td>20:00 – 22:00</td><td>《夜空下的点歌台》</td><td>陈晓芸</td></tr>
+      <tr><td>22:00 – 00:30</td><td>《晚安曲》轻音乐</td><td>（自动播出）</td></tr>
+      <tr><td>00:30 – 05:30</td><td class="muted">停机检修 / 无节目</td><td class="muted">——</td></tr>
+    </table>
+    <p class="muted small mt">注：每日 00:30 至次日 05:30 本台停机检修，无节目播出。</p>
+  </div>
+
+  <!-- 兄弟频率（干扰项） -->
+  <div class="panel">
+    <h2>本地可收听的兄弟频率</h2>
+    <p class="muted small">以下为本地区其它广播电台，供听众参考选台。</p>
+    <table>
+      <tr><th>频率</th><th>台名</th><th>主打内容</th></tr>
+      <tr><td>FM 92.8</td><td>交通之声</td><td>路况、车流信息</td></tr>
+      <tr><td>FM 98.6</td><td>音乐广播</td><td>流行金曲、唱片欣赏</td></tr>
+      <tr><td>FM 103.5</td><td>戏曲曲艺</td><td>戏曲、评书、相声</td></tr>
+    </table>
+  </div>
+
+  <!-- 虚假板块 -->
+  <div class="panel">
+    <h2>节目回看</h2>
+    <p class="muted small">
+      <span class="fake-link" data-fake>《清晨第一线》回看</span> ·
+      <span class="fake-link" data-fake>《音乐下午茶》回看</span> ·
+      <span class="fake-link" data-fake>《夜空下的点歌台》回看</span> ·
+      <span class="fake-link" data-fake>更多往期</span>
+    </p>
+    <p class="muted small">（回看功能升级维护中，暂不可用）</p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">晨曦FM 87.5 广播电台 · 版权所有 © 1999</div>
+
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

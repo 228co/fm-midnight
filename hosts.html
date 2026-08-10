@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主持人 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>主持人风采</h2>
+
+    <div class="host-row">
+      <img class="host-ava" src="images/host-wjg.png" alt="王建国">
+      <div class="host-info">
+        <p><b>王建国</b>　《清晨第一线》《午间新闻》《晚间新闻》<br>
+        <span class="muted small">台里的"老黄牛"，从业三十年，嗓音浑厚，播报一丝不苟。听友编号：CX1987。</span></p>
+      </div>
+    </div>
+
+    <div class="host-row">
+      <img class="host-ava" src="images/host-lxm.png" alt="李晓梅">
+      <div class="host-info">
+        <p><b>李晓梅</b>　《上班路上》《下班快乐购》<br>
+        <span class="muted small">活泼亲切，最擅长和打进热线的司机师傅唠家常。</span></p>
+      </div>
+    </div>
+
+    <div class="host-row">
+      <img class="host-ava" src="images/host-zxz.png" alt="张小舟">
+      <div class="host-info">
+        <p><b>张小舟</b>　《音乐下午茶》<br>
+        <span class="muted small">音乐编辑出身，收藏黑胶唱片两千余张，自称"只为好音乐熬夜"。</span></p>
+      </div>
+    </div>
+
+    <div class="host-row">
+      <img class="host-ava" src="images/host-cxy.png" alt="陈晓芸">
+      <div class="host-info">
+        <p><b>陈晓芸</b>　《生活百事通》《夜空下的点歌台》<br>
+        <span class="muted small">温柔耐心，每年收到听友来信最多的一位。</span></p>
+      </div>
+    </div>
+
+    <div class="host-row">
+      <img class="host-ava" src="images/host-lym.png" alt="刘一鸣">
+      <div class="host-info">
+        <p><b>刘一鸣</b>　《戏曲大观园》<br>
+        <span class="muted small">票友出身，京剧、越剧、黄梅戏样样能来两段。</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>加入晨曦</h2>
+    <p class="muted small">本台长期招聘播音主持、导播、技术维护人员。有意者请将简历寄至台务办公室（地址见"关于我们"）。夜班岗位常年空缺，待遇从优。</p>
+  </div>
+
+  <div class="panel">
+    <h2>主持人动态</h2>
+    <p class="muted small">李晓梅本周做客交通之声：<span class="fake-link" data-fake>收听回放</span></p>
+    <p class="muted small">张小舟黑胶藏品展即将开幕：<span class="fake-link" data-fake>预约参观</span></p>
+    <p class="muted small">陈晓芸读者见面会：<span class="fake-link" data-fake>报名参加</span></p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">
+    晨曦FM 87.5 广播电台 · 版权所有 © 1999
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

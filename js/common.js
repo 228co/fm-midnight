@@ -161,6 +161,77 @@
       n.start(now);
     },
 
+    /* 循环静电底噪：返回可调音量的句柄 {setVol, stop} */
+    staticLoop: function (vol) {
+      vol = (vol === undefined) ? 0.12 : vol;
+      var ac = this.ac();
+      var src = ac.createBufferSource();
+      src.buffer = this._noise(2);
+      src.loop = true;
+      // 稍微压低高频，让底噪更"闷"更像老收音机
+      var filter = ac.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 3200;
+      var g = ac.createGain();
+      g.gain.value = vol;
+      src.connect(filter); filter.connect(g); g.connect(ac.destination);
+      src.start();
+      return {
+        setVol: function (v) {
+          g.gain.setTargetAtTime(Math.max(0, v), ac.currentTime, 0.05);
+        },
+        stop: function () { try { src.stop(); } catch (e) {} }
+      };
+    },
+
+    /* 无具体语义的电波低语：含糊人声的呢喃，持续返回 {setVol, stop} */
+    whisper: function () {
+      var ac = this.ac();
+      var out = ac.createGain();
+      out.gain.value = 0;
+      out.connect(ac.destination);
+
+      // 用数个缓慢扫频的带通滤波噪声叠加，模拟"隔着电波的人声咕哝"
+      var noiseBuf = this._noise(2);
+      var nodes = [];
+      var formants = [300, 750, 1400]; // 人声共振峰大致区域
+      formants.forEach(function (f0, idx) {
+        var src = ac.createBufferSource();
+        src.buffer = noiseBuf;
+        src.loop = true;
+        var bp = ac.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = f0;
+        bp.Q.value = 6;
+        var g = ac.createGain();
+        g.gain.value = idx === 0 ? 0.5 : 0.28;
+        // 缓慢 LFO 让共振峰上下游移，产生"含糊说话"的流动感
+        var lfo = ac.createOscillator();
+        lfo.frequency.value = 1.6 + idx * 0.9;
+        var lfoG = ac.createGain();
+        lfoG.gain.value = f0 * 0.35;
+        lfo.connect(lfoG); lfoG.connect(bp.frequency);
+        // 振幅也轻微抖动，模拟气息断续
+        var alfo = ac.createOscillator();
+        alfo.frequency.value = 3.1 + idx * 1.3;
+        var alfoG = ac.createGain();
+        alfoG.gain.value = g.gain.value * 0.6;
+        alfo.connect(alfoG); alfoG.connect(g.gain);
+        src.connect(bp); bp.connect(g); g.connect(out);
+        src.start(); lfo.start(); alfo.start();
+        nodes.push(src, lfo, alfo);
+      });
+
+      return {
+        setVol: function (v) {
+          out.gain.setTargetAtTime(Math.max(0, v), ac.currentTime, 0.08);
+        },
+        stop: function () {
+          nodes.forEach(function (n) { try { n.stop(); } catch (e) {} });
+        }
+      };
+    },
+
     /* 声音激活按钮（浏览器要求用户手势后才能出声） */
     enableSoundUI: function (label) {
       var btn = document.createElement('button');

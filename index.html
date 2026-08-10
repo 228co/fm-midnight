@@ -3,40 +3,318 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>开始游戏 - FM-MIDNIGHT</title>
-<link rel="stylesheet" href="css/style.css">
+<title>晨曦FM 87.5 | 您身边的好声音</title>
+<link rel="stylesheet" href="css/day.css">
 </head>
 <body>
-<div class="container" style="text-align:center; padding-top:15vh;">
-  <h1 class="flicker-fast" style="letter-spacing:.5em;">开 始 游 戏</h1>
 
-  <p class="tagline" style="margin-top:20px;">FM-MIDNIGHT · 深夜电台</p>
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
 
-  <p style="margin-top:48px;">开始收听前，请注意本电台包含以下要素：</p>
-  <p class="muted">
-    闪烁画面 · 突发音效 · 故障干扰<br>
-    以及可能令人不适的叙事内容
-  </p>
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+    <a href="#" class="fake-link" data-fake>手机收听</a>
+    <a href="#" class="fake-link" data-fake>微博互动</a>
+  </div>
+</div>
 
-  <p class="danger small" style="margin-top:36px;">
-    光敏性癫痫患者、心脏疾病患者请立即关闭本页。<br>
-    建议佩戴耳机，在凌晨三点收听。
-  </p>
+<div class="wrap">
 
-  <p style="margin-top:56px;">
-    <button id="enter">我清楚风险，开始游戏</button>
-  </p>
-  <p><a href="about:blank" class="muted small">离开</a></p>
+  <!-- 焦点区：大图 + 新闻列表 -->
+  <div class="cols">
+    <div class="col-2">
+      <div class="hero">
+        <img src="images/hero-studio.png" alt="晨曦FM 直播间">
+        <div class="hero-cap">本台直播间完成数字化改造，将以崭新面貌服务听众</div>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="sec-head" style="margin-top:0;"><span class="t">本台要闻</span><span class="more fake-link" data-fake>更多&gt;&gt;</span></div>
+      <ul class="news-list">
+        <li><a href="notice.html">本台凌晨时段无节目的声明</a><span class="d">04-12</span></li>
+        <li><a href="programs.html">本周节目表（4月）</a><span class="d">04-10</span></li>
+        <li><a class="fake-link" data-fake>我台荣获"省级文明单位"称号</a><span class="d">04-08</span></li>
+        <li><a class="fake-link" data-fake>《上班路上》收听率创新高</a><span class="d">04-05</span></li>
+        <li><a class="fake-link" data-fake>发射塔春季检修顺利完成</a><span class="d">04-02</span></li>
+      </ul>
+    </div>
+  </div>
 
-  <p class="muted small" style="margin-top:70px;">FM-MIDNIGHT · 只对醒着的人广播</p>
+  <!-- 广告横幅（虚假） -->
+  <div class="ad-banner">
+    <span class="ad-tag">广告</span>
+    <img src="images/ad-banner.png" alt="广告">
+  </div>
+
+  <!-- 在线收听（亮色调双旋钮） -->
+  <div class="cols">
+    <div class="col-2">
+      <div class="listen-box">
+        <div class="listen-title"><span>在线收听 · 手动调频</span><span class="live-dot2">● LIVE</span></div>
+
+        <div class="tune-display" id="tune-display">87.5 <span class="mhz">MHz</span></div>
+
+        <div class="tune-knobs">
+          <div class="tune-unit">
+            <div class="knobL knobL-lg" id="knob-int"><div class="knobL-pointer"></div></div>
+            <div class="tune-label">整数位</div>
+          </div>
+          <div class="tune-unit">
+            <div class="knobL knobL-sm" id="knob-frac"><div class="knobL-pointer"></div></div>
+            <div class="tune-label">小数位</div>
+          </div>
+        </div>
+
+        <div class="tune-now" id="tune-now">正在播出：晨曦FM 87.5 · <a href="fm875.html">进入直播页</a></div>
+        <div class="tune-tip">转动旋钮搜索你熟悉的频率 · 有些频段，本台概不负责</div>
+      </div>
+    </div>
+
+    <!-- 右侧栏 -->
+    <div class="side-col">
+      <div class="side-box">
+        <h3>主持人风采</h3>
+        <img src="images/hosts-team.png" alt="主持人团队" style="width:100%; border:1px solid #ccc4a8;">
+        <p class="small muted" style="margin:6px 0 0;">本台主持团队合影（1998）</p>
+        <p class="small" style="margin:6px 0 0;"><a href="hosts.html">认识他们 →</a></p>
+      </div>
+      <div class="side-box">
+        <h3>节目预约</h3>
+        <p class="small" style="margin:0;">想不错过心爱的节目？<br><span class="fake-link" data-fake>开通短信提醒</span></p>
+      </div>
+      <div class="side-box">
+        <h3>听友信箱</h3>
+        <p class="small" style="margin:0;">有话对主持人说？<br><span class="fake-link" data-fake>写信给我们</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 节目推荐 + 生活资讯（两栏） -->
+  <div class="cols">
+    <div class="col-1">
+      <div class="sec-head"><span class="t">金牌栏目</span><span class="more fake-link" data-fake>更多&gt;&gt;</span></div>
+      <ul class="news-list">
+        <li><a href="programs.html">《清晨第一线》</a><span class="d">05:30</span></li>
+        <li><a href="programs.html">《音乐下午茶》</a><span class="d">15:00</span></li>
+        <li><a href="programs.html">《夜空下的点歌台》</a><span class="d">20:00</span></li>
+        <li><a class="fake-link" data-fake>《周末大放送》</a><span class="d">周六</span></li>
+      </ul>
+    </div>
+    <div class="col-1">
+      <div class="sec-head"><span class="t">生活资讯</span><span class="more fake-link" data-fake>更多&gt;&gt;</span></div>
+      <ul class="news-list">
+        <li><a class="fake-link" data-fake>明日天气：多云转晴</a><span class="d">04-13</span></li>
+        <li><a class="fake-link" data-fake>菜价行情早知道</a><span class="d">04-13</span></li>
+        <li><a class="fake-link" data-fake>春季养生小常识</a><span class="d">04-12</span></li>
+        <li><a class="fake-link" data-fake>公交改线通知</a><span class="d">04-11</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 虚假合作板块 -->
+  <div class="sec-head"><span class="t">合作伙伴</span><span class="more fake-link" data-fake>更多&gt;&gt;</span></div>
+  <div class="panel" style="margin-top:10px; text-align:center;">
+    <p style="margin:6px 0;">
+      <span class="fake-link" data-fake>省广播电视总台</span> ·
+      <span class="fake-link" data-fake>市文化和旅游局</span> ·
+      <span class="fake-link" data-fake>老年之声</span> ·
+      <span class="fake-link" data-fake>戏曲频道</span> ·
+      <span class="fake-link" data-fake>新华书店</span> ·
+      <span class="fake-link" data-fake>光明电器厂</span>
+    </p>
+  </div>
+
+  <div class="colophon">
+    晨曦FM 87.5 广播电台 · 版权所有 © 1999 · 站长：技术科<br>
+    地址：省广播电视大楼 14 层 · 邮编 310000 · <a href="about.html">联系我们</a>
+  </div>
+
+</div>
+
+<!-- 404 闪现 -->
+<div class="flash404" id="flash404">
+  <div class="big">404</div>
+  <div class="sm">SIGNAL NOT FOUND</div>
 </div>
 
 <script src="js/common.js"></script>
 <script>
-document.getElementById('enter').addEventListener('click', function () {
-  FM.flag('warned');
-  location.href = 'home.html';
-});
+(function () {
+  /* ---------- 虚假板块：点了没反应（佯装加载/死链） ---------- */
+  document.querySelectorAll('[data-fake]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var old = el.textContent;
+      el.textContent = '加载中…';
+      setTimeout(function () { el.textContent = old; }, 900);
+    });
+  });
+
+  /* ---------- 频率与电台表 ---------- */
+  var STATIONS = {
+    '87.5':  { name: '晨曦FM 87.5',   page: 'fm875.html'  },
+    '92.8':  { name: '交通之声 92.8',  page: 'fm928.html'  },
+    '98.6':  { name: '音乐广播 98.6',  page: 'fm986.html'  },
+    '103.5': { name: '戏曲曲艺 103.5', page: 'fm1035.html' }
+  };
+  var TARGET = 33.3;
+
+  var intPart = 87, fracPart = 5;
+  var display = document.getElementById('tune-display');
+  var nowEl = document.getElementById('tune-now');
+  var locked = false;
+
+  function currentFreq() { return intPart + fracPart / 10; }
+  function freqStr() { return currentFreq().toFixed(1); }
+
+  function render() {
+    display.innerHTML = freqStr() + ' <span class="mhz">MHz</span>';
+    var key = freqStr();
+    if (STATIONS[key]) {
+      var s = STATIONS[key];
+      display.classList.remove('hot');
+      nowEl.innerHTML = '正在播出：' + s.name + ' · <a href="' + s.page + '">进入直播页</a>';
+    } else if (Math.abs(currentFreq() - TARGET) < 0.05) {
+      display.classList.add('hot');
+      nowEl.innerHTML = '<span class="bad">……这个频率不在任何频段表上。</span>';
+    } else {
+      display.classList.remove('hot');
+      nowEl.textContent = '……只有杂音。';
+    }
+  }
+
+  /* ---------- 分档咔哒旋钮 ---------- */
+  function makeDetentKnob(el, opts) {
+    var pointer = el.querySelector('.knobL-pointer');
+    var STEP_DEG = 20;
+    var acc = 0, dragging = false, lastAngle = 0;
+
+    function centerOf() {
+      var r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    }
+    function angleOf(x, y) {
+      var c = centerOf();
+      return Math.atan2(y - c.y, x - c.x) * 180 / Math.PI;
+    }
+    function delta(a, b) {
+      var d = a - b;
+      while (d > 180) d -= 360;
+      while (d <= -180) d += 360;
+      return d;
+    }
+    function renderPointer() {
+      var range = opts.max - opts.min;
+      var ratio = range === 0 ? 0 : (opts.get() - opts.min) / range;
+      pointer.style.transform = 'translate(-50%,0) rotate(' + (-135 + ratio * 270) + 'deg)';
+    }
+    function clickSound() { try { FM.static(0.04, 0.05); } catch (e) {} }
+
+    function onDown(e) {
+      if (locked) return;
+      dragging = true; el.classList.add('dragging');
+      lastAngle = angleOf(evX(e), evY(e)); acc = 0;
+      e.preventDefault();
+    }
+    function onMove(e) {
+      if (!dragging || locked) return;
+      var a = angleOf(evX(e), evY(e));
+      acc += delta(a, lastAngle);
+      lastAngle = a;
+      while (acc >= STEP_DEG) {
+        if (opts.get() < opts.max) { opts.set(opts.get() + 1); clickSound(); onChanged(); }
+        acc -= STEP_DEG;
+      }
+      while (acc <= -STEP_DEG) {
+        if (opts.get() > opts.min) { opts.set(opts.get() - 1); clickSound(); onChanged(); }
+        acc += STEP_DEG;
+      }
+      renderPointer(); render();
+      e.preventDefault();
+    }
+    function onUp() {
+      if (!dragging) return;
+      dragging = false; el.classList.remove('dragging'); acc = 0;
+    }
+
+    if (window.PointerEvent) {
+      el.addEventListener('pointerdown', onDown);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    } else {
+      el.addEventListener('mousedown', onDown);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+      el.addEventListener('touchstart', onDown, { passive: false });
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onUp);
+    }
+    renderPointer();
+  }
+
+  function evX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  function evY(e) { return e.touches ? e.touches[0].clientY : e.clientY; }
+
+  function onChanged() {
+    if (Math.abs(currentFreq() - TARGET) < 0.05) {
+      locked = true;
+      setTimeout(startScare, 700);
+    }
+  }
+
+  /* ---------- 失控 → 404 → 深夜电台 ---------- */
+  function startScare() {
+    document.body.classList.add('going-dark');
+    display.classList.add('rolling');
+    try { FM.static(2.5, 0.2); FM.hum(0.08); } catch (e) {}
+
+    var t = 0;
+    var roll = setInterval(function () {
+      t++;
+      if (t < 60) {
+        display.innerHTML = (Math.random() * 140).toFixed(1) + ' <span class="mhz">MHz</span>';
+      } else if (t < 90) {
+        display.innerHTML = (33.3 + (Math.random() - 0.5) * 0.6).toFixed(1) + ' <span class="mhz">MHz</span>';
+      } else {
+        clearInterval(roll);
+        display.innerHTML = '33.3 <span class="mhz">MHz</span>';
+        setTimeout(show404, 500);
+      }
+    }, 50);
+  }
+
+  function show404() {
+    document.getElementById('flash404').classList.add('show');
+    try { FM.sting(); } catch (e) {}
+    try { FM.flag('warned'); } catch (e) {}
+    setTimeout(function () { location.href = 'home.html'; }, 2400);
+  }
+
+  /* ---------- 初始化 ---------- */
+  makeDetentKnob(document.getElementById('knob-int'), {
+    min: 20, max: 108,
+    get: function () { return intPart; }, set: function (v) { intPart = v; }
+  });
+  makeDetentKnob(document.getElementById('knob-frac'), {
+    min: 0, max: 9,
+    get: function () { return fracPart; }, set: function (v) { fracPart = v; }
+  });
+  render();
+
+  FM.enableSoundUI('[ 打开收音机声音 ]');
+})();
 </script>
+
 </body>
 </html>

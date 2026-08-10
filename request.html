@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线点歌 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>在线点歌</h2>
+    <p class="muted small">点歌将在《夜空下的点歌台》（每晚 20:00 – 22:00）播出。请留下你的称呼、想点的歌和想对 TA 说的话。</p>
+
+    <p>
+      你的称呼：<br>
+      <input type="text" id="rq-name" maxlength="12" style="width:200px;">
+    </p>
+    <p>
+      想点的歌：<br>
+      <input type="text" id="rq-song" maxlength="30" style="width:260px;">
+    </p>
+    <p>
+      想说的话：<br>
+      <textarea id="rq-msg" rows="4" style="width:100%; max-width:480px;"></textarea>
+    </p>
+    <p><button id="rq-btn">提交点歌</button></p>
+    <p id="rq-reply" class="small" style="display:none; color:#3a6aa8;"></p>
+  </div>
+
+  <div class="panel">
+    <h2>点歌排行</h2>
+    <p class="muted small">本周点播最多的歌：<span class="fake-link" data-fake>查看榜单</span></p>
+    <p class="muted small">点歌规则说明：<span class="fake-link" data-fake>阅读须知</span></p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">
+    晨曦FM 87.5 广播电台 · 版权所有 © 1999
+  </div>
+
+</div>
+
+<script>
+document.getElementById('rq-btn').addEventListener('click', function () {
+  var name = document.getElementById('rq-name').value.trim();
+  var song = document.getElementById('rq-song').value.trim();
+  var reply = document.getElementById('rq-reply');
+  if (!name || !song) {
+    reply.style.display = 'block';
+    reply.textContent = '请至少填写称呼和歌名。';
+    return;
+  }
+  reply.style.display = 'block';
+  reply.textContent = '已收到你的点歌，' + name + '。《' + song + '》将在今晚的点歌台为你播出，请准时收听。';
+  document.getElementById('rq-name').value = '';
+  document.getElementById('rq-song').value = '';
+  document.getElementById('rq-msg').value = '';
+});
+
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

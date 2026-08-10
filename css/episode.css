@@ -1,0 +1,171 @@
+/* ============================================================
+   FM-MIDNIGHT 剧集补充样式（episode.css）
+   用途：episodes/epXX/ 下的 12 期独立故事页面 与 archive.html 选集页
+   说明：本文件仅作补充，须在 css/style.css 之后引入；
+         配色、等宽字体、CRT 扫描线、.flicker 等沿用 style.css，
+         此处不重复定义、不覆盖任何已有类；无外部资源、无 JS 钩子。
+   ============================================================ */
+
+/* ---------- 1. 期页头 ---------- */
+
+/* 期页顶部区域：与正文拉开较大距离 */
+.ep-head { margin-bottom: 48px; }
+
+/* 期号（如"第1期"）：暗红、宽字距、小号 */
+.ep-no {
+  color: #9c1f1f;
+  font-size: 12px;
+  letter-spacing: .4em;
+  margin-bottom: 6px;
+}
+
+/* 期标题：大号、浅色 */
+.ep-title {
+  font-size: 26px;
+  letter-spacing: .25em;
+  color: #d8d2c2;
+  font-weight: normal;
+  margin: 0 0 8px;
+}
+
+/* 播出时间等元信息：muted 小字 */
+.ep-meta {
+  color: #57534a;
+  font-size: 12px;
+  letter-spacing: .2em;
+}
+
+/* ---------- 2. 故事正文 ---------- */
+
+/* 故事段落容器：行高 2，颜色略暗，如旧稿纸 */
+.ep-story {
+  color: #948d7d;
+  line-height: 2;
+}
+
+/* 故事段落：段间距 + 首行缩进 2em */
+.ep-story p {
+  margin: 0 0 18px;
+  text-indent: 2em;
+}
+
+/* ---------- 3. 分隔 ---------- */
+
+/* 暗色虚线分隔：用于故事小节之间（hr 或 div 均可） */
+.ep-divider {
+  border: none;
+  border-top: 1px dashed #2a241d;
+  margin: 40px 0;
+}
+
+/* ---------- 4. 密码门 ---------- */
+
+/* 密码输入区容器：暗色边框 + 略浅底色 */
+.ep-gate {
+  border: 1px solid #33302a;
+  background: #0d0c0a;
+  padding: 20px;
+  margin: 30px 0;
+}
+
+/* 密码提示 / 报错行：暗红小字；
+   min-height 预留一行，防止文字出现时页面抖动 */
+.ep-gate-msg {
+  color: #9c1f1f;
+  font-size: 12px;
+  letter-spacing: .1em;
+  min-height: 1.9em;
+  margin: 10px 0 0;
+}
+
+/* ---------- 5. 假 404 页 ---------- */
+
+/* 假 404 容器：整体居中，距顶 15vh，灰 */
+.ep-404-box {
+  margin-top: 15vh;
+  text-align: center;
+  color: #57534a;
+}
+
+/* "404 / 信号不存在"大字：极暗灰、宽字距；
+   闪烁感直接叠加 style.css 已有的 .flicker 类，此处不写动画 */
+.ep-404-code {
+  font-size: 72px;
+  letter-spacing: .5em;
+  color: #3d3a33;
+  margin-bottom: 16px;
+}
+
+/* ---------- 6. 返回链接区 ---------- */
+
+/* 返回选集 / 首页的链接区 */
+.ep-back {
+  margin-top: 60px;
+  font-size: 12px;
+  letter-spacing: .15em;
+}
+
+/* ---------- 7. archive 选集页条目 ---------- */
+
+/* 每期条目块：底部细暗线分隔 */
+.ep-entry {
+  border-bottom: 1px solid #1e1c18;
+  padding: 10px 4px;
+}
+
+/* 期标题链接：沿用全站链接色，仅微调字距 */
+.ep-entry a { letter-spacing: .1em; }
+
+/* "已收听"标记：暗红小字，带微弱红晕 */
+.ep-status-done {
+  color: #9c1f1f;
+  font-size: 12px;
+  margin-left: 12px;
+  text-shadow: 0 0 6px rgba(156, 31, 31, .35);
+}
+
+/* "【待补】"标记：灰暗小字 */
+.ep-status-todo {
+  color: #4a463e;
+  font-size: 12px;
+  margin-left: 12px;
+}
+
+/* 待补条目整体：链接压暗，hover 不变红，光标保持默认（不可点击的观感） */
+.ep-entry-todo a {
+  color: #57534a;
+  border-bottom-color: #2a241d;
+  cursor: default;
+}
+.ep-entry-todo a:hover {
+  color: #57534a;
+  border-bottom-color: #2a241d;
+  text-shadow: none;
+}
+
+/* ---------- 8. 主线联动占位区块 ---------- */
+
+/* 与主线谜题联动的占位 / 隐藏区块：暗红虚线框 */
+.ep-secret {
+  border: 1px dashed #3a1515;
+  background: #0a0808;
+  padding: 16px;
+  margin-top: 40px;
+}
+
+/* ---------- 9. 坏图占位（供 alt 藏字谜题） ---------- */
+
+/* 模拟"图片丢失"的占位框：虚线边框 + 居中占位小字 */
+.ep-broken-img {
+  border: 1px dashed #2a241d;
+  min-height: 80px;
+  padding: 12px;
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #57534a;
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-align: center;
+}

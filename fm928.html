@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正在直播 · 交通之声 92.8</title>
+<style>
+  /* ===== 交通之声 92.8 独立主题：都市硬朗（深灰 + 橙黄警示） ===== */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #23262b;
+    color: #d8dce2;
+    font-family: "SimHei", "Microsoft YaHei", sans-serif;
+    font-size: 15px; line-height: 1.8; min-height: 100vh;
+  }
+  a { color: #ffb400; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 18px 60px; }
+
+  .mast {
+    background: linear-gradient(90deg, #1a1c20 60%, #2a2e35);
+    border-bottom: 4px solid #ffb400;
+    padding: 18px 0 14px;
+  }
+  .mast .inner { max-width: 860px; margin: 0 auto; padding: 0 18px; }
+  .mast h1 { margin: 0; font-size: 26px; color: #fff; letter-spacing: .05em; }
+  .mast h1 .no { color: #ffb400; }
+  .mast .sl { color: #9aa2ad; font-size: 12px; letter-spacing: .25em; margin-top: 3px; }
+  /* 顶部斜纹警示条 */
+  .stripe {
+    height: 8px;
+    background: repeating-linear-gradient(45deg, #ffb400 0 16px, #23262b 16px 32px);
+  }
+
+  .nav { background: #2e323a; border-bottom: 1px solid #1a1c20; padding: 7px 0; }
+  .nav .inner { max-width: 860px; margin: 0 auto; padding: 0 18px; }
+  .nav a { color: #c8ced6; text-decoration: none; margin-right: 18px; font-size: 14px; }
+  .nav a:hover { color: #ffb400; }
+
+  .panel {
+    background: #2b2f36; border: 1px solid #1c1f24;
+    border-left: 4px solid #ffb400;
+    padding: 16px 20px; margin-top: 18px;
+  }
+  .panel h2 {
+    margin: 0 0 12px; font-size: 16px; color: #ffb400;
+    font-family: "SimHei", sans-serif; letter-spacing: .1em;
+    border-bottom: 1px solid #3a3f47; padding-bottom: 6px;
+  }
+  .muted { color: #8a929d; }
+  .small { font-size: 12px; }
+  .fake { color: #ffb400; text-decoration: underline; cursor: pointer; }
+  .road { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #3a3f47; font-size: 14px; }
+  .road .ok { color: #4ec24e; }
+  .colophon { margin-top: 48px; padding-top: 14px; border-top: 1px solid #3a3f47; color: #6a7280; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="inner">
+    <h1><span class="no">交通之声</span> FM 92.8</h1>
+    <div class="sl">路 况 第 一 时 间 · 平 安 伴 你 行</div>
+  </div>
+</div>
+<div class="stripe"></div>
+
+<div class="nav">
+  <div class="inner">
+    <a href="index.html">返回晨曦FM</a>
+    <a href="#" class="fake" data-fake>实时路况图</a>
+    <a href="#" class="fake" data-fake>违章查询</a>
+    <a href="#" class="fake" data-fake>路况爆料</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>● 正在直播 · 午夜路况</h2>
+    <p class="muted small">主播：老K · 实时更新</p>
+    <p>"现在是凌晨路况时间。城区各主干道通行正常，无事故、无拥堵。环城高速双向畅通。提醒各位夜班的司机朋友：后半夜容易犯困，请合理安排休息，切勿疲劳驾驶。"</p>
+    <p class="muted small">"……下面这条路况有点奇怪。有听众来电反映，老电厂宿舍区附近的一条无名小路，导航上查不到，可他说自己已经在那条路上开了四十分钟了，一直没开到头。我们的记者正在核实……"</p>
+  </div>
+
+  <div class="panel">
+    <h2>即时路况</h2>
+    <div class="road"><span>中山路口</span><span class="ok">通行正常</span></div>
+    <div class="road"><span>环城高速东段</span><span class="ok">畅通</span></div>
+    <div class="road"><span>火车站周边</span><span class="ok">车流较少</span></div>
+    <div class="road"><span>解放路立交</span><span class="ok">通行正常</span></div>
+  </div>
+
+  <div class="panel">
+    <h2>为您服务</h2>
+    <p class="muted">
+      <span class="fake" data-fake>代驾预约</span> ·
+      <span class="fake" data-fake>加油优惠</span> ·
+      <span class="fake" data-fake>洗车网点</span> ·
+      <span class="fake" data-fake>年检代办</span>
+    </p>
+  </div>
+
+  <p style="margin-top:20px;"><a href="index.html">← 返回首页（继续调频）</a></p>
+  <div class="colophon">交通之声 FM 92.8 · 正在直播</div>
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

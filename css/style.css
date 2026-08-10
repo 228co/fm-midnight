@@ -203,7 +203,84 @@ canvas.snow {
   margin: 24px 0;
   font-family: "Courier New", monospace;
 }
-.tuner-btns button { margin: 0 6px 8px 0; padding: 8px 16px; }
+/* ---------- 调谐双旋钮 ---------- */
+
+/* 旋钮区布局 */
+.knob-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 56px;
+  margin: 12px 0 8px;
+}
+.knob-unit { text-align: center; }
+.knob-label {
+  margin-top: 12px;
+  color: #57534a;
+  font-size: 11px;
+  letter-spacing: .25em;
+}
+
+/* 旋钮本体：暗色胶木质感 */
+.knob {
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #23211c 0%, #16140f 55%, #0c0b08 100%);
+  border: 1px solid #33302a;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, .7),
+    inset 0 -2px 4px rgba(216, 178, 58, .04),
+    0 4px 10px rgba(0, 0, 0, .6);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.knob.dragging { cursor: grabbing; }
+/* 边缘的防滑纹（细刻度） */
+.knob::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(0, 0, 0, .35) 0deg 2deg,
+    transparent 2deg 6deg
+  );
+  /* 只留外圈一圈纹路 */
+  -webkit-mask: radial-gradient(circle, transparent 62%, #000 64%);
+          mask: radial-gradient(circle, transparent 62%, #000 64%);
+  pointer-events: none;
+}
+/* 指示线（琥珀色，随旋钮旋转） */
+.knob .knob-pointer {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2px;
+  height: 40%;
+  background: #d8b23a;
+  box-shadow: 0 0 6px rgba(216, 178, 58, .8);
+  transform-origin: 50% 0%;
+  transform: translate(-50%, 0) rotate(0deg);
+  pointer-events: none;
+}
+/* 中心轴点 */
+.knob::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #0a0906;
+  border: 1px solid #2c2820;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* 大/小旋钮尺寸 */
+.knob-large { width: 128px; height: 128px; }
+.knob-small { width: 76px;  height: 76px; }
 
 /* 听众名单 */
 .roster td.status-lost { color: #57534a; }

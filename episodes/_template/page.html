@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>（占位：第X期《标题》- FM-MIDNIGHT）</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/episode.css">
+</head>
+<body>
+
+<!-- ============================================================
+  【作者指引 · 内容页/后续页模板】（上线前可整段删除，不影响功能）
+
+  一、用途
+    本页是"第二页及以后"的骨架：入口页 index.html 的密码门答对后
+    跳到这里。一期可以有多个这样的页面，页链长度由你决定。
+
+  二、门禁：防止玩家直接输网址跳关
+    下方 JS 已给出示例：EP.require('gate1', 'index.html')
+    含义：没有 'gate1' 这个 flag（即没通过入口页密码门）的玩家
+    会被踢回 index.html。flag 名必须与上一页 EP.gate 里写的一致。
+    新增第三页时同理：第二页的密码门写 flag:'gate2'，
+    第三页就 EP.require('gate2', 'page.html')。
+
+  三、如何新增更多页面
+    复制本文件改名（如 page2.html），同步修改三处：
+    EP.config 的 id（值不变，全期一致）、EP.require 的 flag 名、
+    上一页 EP.gate 的 goto 文件名。
+
+  四、通关标记
+    只有本期【最后一页】才调用 EP.done()（下方示例默认注释掉）。
+    调用后 archive.html 会给本期打上"已收听"标记；
+    中间的过渡页不要调用。
+============================================================ -->
+
+<div class="container">
+
+  <!-- 期页头：与 index.html 同款；后续页可用 .ep-no 标"第X期 · 续"，
+       标题也可以改小字号或直接省略 h1，只保留期号与 meta -->
+  <div class="ep-head">
+    <div class="ep-no">（占位：第X期 · 续）</div>
+    <h1 class="ep-title">（占位：《标题》）</h1>
+    <div class="ep-meta">（占位：播出信息）</div>
+  </div>
+
+  <!-- ===== 故事正文：替换为你的故事 ===== -->
+  <div class="ep-story">
+    <p>（占位：承接入口页的故事。）</p>
+    <p>（占位：第二段故事。）</p>
+  </div>
+
+  <!-- ===== 下一关线索放置区 =====
+    在这里布置通往下一页的线索，常见玩法（任选或组合）：
+    1. .whisper 隐藏文字（选中可见）；
+    2. HTML 注释藏字（查看源代码可见）；
+    3. EP.consoleHint 控制台线索（需在文案里引导玩家按 F12）；
+    4. .ep-broken-img 坏图 alt 藏字（参考 404.html 示例）；
+    5. 再摆一个 .ep-gate 密码门：复制 index.html 的结构与 JS，
+       flag 换成 'gate2'，goto 指向下一页文件名。 -->
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="../../js/episode.js"></script>
+<script>
+/* id 必须与全期其它页面完全一致 */
+EP.config({ id: 'epXX', title: '（占位：第X期《标题》- FM-MIDNIGHT）' });
+
+/* 门禁：未通过入口页密码门（没有 flag 'gate1'）的玩家踢回 index.html。
+   ?debug=1 时自动放行，方便作者自测。 */
+EP.require('gate1', 'index.html');
+
+/* 通关标记：只有本期最后一页才取消下面这行的注释。
+   调用后 archive.html 会显示本期"已收听"。 */
+// EP.done();
+</script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ package-lock.json
 .wrangler-logs/
 .wrangler-home/
 .wrangler-xdg/
+.trae/
 .DS_Store
 debug.log
 gcm-diagnose.log

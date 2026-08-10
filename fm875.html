@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正在直播 · 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>● 正在直播 · 晨曦FM 87.5</h2>
+    <p class="muted small">现在时段：《夜空下的点歌台》 · 主持人 陈晓芸</p>
+    <p>（播音声中）"……接下来这首歌，是一位署名'老听众'的朋友点的。他没有留歌名，只说想点给'每一个还醒着的人'。那我们就放一首《夜来香》吧。夜深了，早点休息。明天清晨五点半，我们不见不散。"</p>
+    <p class="muted small">—— 旋律缓缓响起，是一首很老的曲子。</p>
+  </div>
+
+  <div class="panel">
+    <h2>本期互动</h2>
+    <p class="muted small">今晚你想听谁的歌？<span class="fake-link" data-fake>点我留言点歌</span></p>
+    <p class="muted small">本期话题：你印象最深的一次深夜收听。<span class="fake-link" data-fake>参与讨论</span></p>
+  </div>
+
+  <div class="panel">
+    <h2>相关节目</h2>
+    <p class="muted small">
+      <a href="programs.html">查看完整节目表</a> ·
+      <span class="fake-link" data-fake>上期回放</span> ·
+      <span class="fake-link" data-fake>主持人信箱</span>
+    </p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页（继续调频）</a></p>
+  <div class="colophon">晨曦FM 87.5 广播电台 · 正在直播</div>
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

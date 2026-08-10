@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听众论坛 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 未登录：只显示登录框 -->
+  <div class="login-panel" id="login-box">
+    <h2>听众论坛 · 登录</h2>
+    <p class="muted small">本论坛仅对登记听友开放。请输入你的听友编号与口令。</p>
+    <input type="text" id="login-user" placeholder="听友编号（如：CX0000）" autocomplete="off">
+    <input type="password" id="login-pass" placeholder="口令" autocomplete="off">
+    <button id="login-btn" style="width:100%;">登 录</button>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-tip">提示：编号与口令散落在本站各处。常去"主持人"和"关于我们"看看的老听友，都知道在哪儿。</div>
+  </div>
+
+  <!-- 已登录：论坛两栏 -->
+  <div id="forum-body" style="display:none;">
+    <div class="forum-cols">
+
+      <div class="forum-main">
+        <div class="panel" style="margin-top:0;">
+          <h2>听友交流区</h2>
+          <p class="muted small">欢迎回来，<span id="who"></span>。请文明发帖。</p>
+
+          <div class="thread-item">
+            <span class="t-title"><a href="#">【点歌分享】昨晚给老妈点了首《常回家看看》</a></span>
+            <span class="t-meta">听友-阿强 · 12 回复</span>
+          </div>
+          <div class="thread-item">
+            <span class="t-title"><a href="#">【建议】能不能把《戏曲大观园》延长半小时？</a></span>
+            <span class="t-meta">老戏迷 · 8 回复</span>
+          </div>
+          <div class="thread-item">
+            <span class="t-title"><a href="#">【晒图】我收集的晨曦FM历年台标</a></span>
+            <span class="t-meta">收藏控 · 21 回复</span>
+          </div>
+          <div class="thread-item">
+            <span class="t-title"><a href="#">【咨询】信号不好的山区怎么收听？</a></span>
+            <span class="t-meta">山里人 · 5 回复</span>
+          </div>
+          <div class="thread-item hot">
+            <span class="t-title"><a href="thread.html">【讨论】有人收到过凌晨三点多的那个台吗？</a></span>
+            <span class="t-meta">失眠的老周 · 387 回复</span>
+          </div>
+          <div class="thread-item">
+            <span class="t-title"><a href="thread2.html">【安利】103.5 戏曲台的夜半书场，谁懂？</a></span>
+            <span class="t-meta">戏比天大 · 96 回复</span>
+          </div>
+          <div class="thread-item">
+            <span class="t-title"><a href="#">【灌水】主持人里谁的声音最好听？</a></span>
+            <span class="t-meta">夜猫子 · 44 回复</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="forum-side">
+        <div class="side-box">
+          <h3>论坛公告</h3>
+          请勿在站内讨论、传播任何"凌晨时段不明信号"的内容。一经发现，删帖封号。
+        </div>
+        <div class="side-box">
+          <h3>在线听友</h3>
+          当前在线：2 人<br>
+          <span class="muted small">你，和另一个还没睡的人。</span>
+        </div>
+        <div class="side-box">
+          <h3>操作</h3>
+          <a href="#" id="logout">退出登录</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">晨曦FM 87.5 广播电台 · 听众论坛</div>
+
+</div>
+
+<script>
+(function () {
+  /* 账号藏在 hosts.html：王建国 工号 CX1987
+     密码藏在 about.html：点歌专线尾号 0333 */
+  var USER = 'CX1987';
+  var PASS = '0333';
+  var KEY = 'chenxi_forum_login';
+
+  var loginBox = document.getElementById('login-box');
+  var forumBody = document.getElementById('forum-body');
+  var err = document.getElementById('login-err');
+
+  function showForum(user) {
+    loginBox.style.display = 'none';
+    forumBody.style.display = 'block';
+    document.getElementById('who').textContent = user;
+  }
+
+  /* 已登录则直接显示 */
+  if (localStorage.getItem(KEY) === USER) {
+    showForum(USER);
+  }
+
+  document.getElementById('login-btn').addEventListener('click', function () {
+    var u = document.getElementById('login-user').value.trim().toUpperCase();
+    var p = document.getElementById('login-pass').value.trim();
+    if (u === USER && p === PASS) {
+      localStorage.setItem(KEY, USER);
+      showForum(USER);
+    } else {
+      err.textContent = '编号或口令不对。再想想——它们就藏在本站里。';
+    }
+  });
+  document.getElementById('login-pass').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('login-btn').click();
+  });
+
+  document.getElementById('logout').addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem(KEY);
+    location.reload();
+  });
+})();
+</script>
+
+</body>
+</html>

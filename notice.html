@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台务公告 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>台务公告</h2>
+
+    <p><b>【设备检修通知】</b> <span class="muted small">1999-04-10</span><br>
+    为配合发射塔例行维护，本台每周三凌晨 00:30 – 05:30 停机检修，期间无法收听，敬请谅解。</p>
+
+    <p><b>【关于网络传言的说明】</b> <span class="muted small">1999-04-12</span><br>
+    近期有听众反映在凌晨时段收听到疑似本台信号的节目，并有"午夜电台"等传言。特此声明：<b>本台每日 00:30 后即停止一切播音，凌晨时段没有任何节目</b>。任何自称与本台有关的"午夜节目"均与本台无关，请广大听众切勿轻信、切勿寻找不明信号源，以免上当受骗或影响正常休息。</p>
+
+    <p><b>【失物招领】</b> <span class="muted small">1999-04-13</span><br>
+    有热心听众在广电大楼门口拾到录音笔一支，已交至传达室。请失主携带有效证件前来认领。</p>
+  </div>
+
+  <div class="panel">
+    <h2>公告检索</h2>
+    <p class="muted small">
+      <span class="fake-link" data-fake>往年公告存档</span> ·
+      <span class="fake-link" data-fake>招标采购公示</span> ·
+      <span class="fake-link" data-fake>听众投诉受理</span>
+    </p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">
+    晨曦FM 87.5 广播电台 · 版权所有 © 1999
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -10,19 +10,22 @@
 
 <div class="container">
   <h1 class="glitch-text" data-text="手动调频">手动调频</h1>
-  <p class="tagline">老式旋钮机 · 请输入你要收听的频率</p>
+  <p class="tagline">老式旋钮机 · 大旋钮调频点前的数，小旋钮调频点后的那一格</p>
 
   <div class="tuner-display flicker" id="display">87.5 MHz</div>
 
-  <div class="tuner-btns" style="text-align:center;">
-    <button data-step="-1">≪ -1.0</button>
-    <button data-step="-0.1">‹ -0.1</button>
-    <button data-step="0.1">+0.1 ›</button>
-    <button data-step="1">+1.0 ≫</button>
+  <div class="knob-row">
+    <div class="knob-unit">
+      <div class="knob knob-large" id="knob-int"><div class="knob-pointer"></div></div>
+      <div class="knob-label">整数位</div>
+    </div>
+    <div class="knob-unit">
+      <div class="knob knob-small" id="knob-frac"><div class="knob-pointer"></div></div>
+      <div class="knob-label">小数位</div>
+    </div>
   </div>
 
-  <p style="text-align:center; margin-top:24px;">
-    <input type="text" id="freq-input" placeholder="直接输入频率" style="width:160px; text-align:center;">
+  <p style="text-align:center; margin-top:28px;">
     <button id="lock-btn">锁定频率</button>
   </p>
 
@@ -40,35 +43,134 @@ FM.require('ep13', 'archive.html');
 
 (function () {
   var TARGET = 33.3;
-  var current = 87.5;
+  var intPart = 87;   // 整数位 20–108
+  var fracPart = 5;   // 小数位 0–9（代表 .0 – .9）
   var wrong = 0;
+
   var display = document.getElementById('display');
   var msg = document.getElementById('msg');
 
+  /* 音效句柄（开启声音后才有） */
+  var staticLoop = null;
+  var whisper = null;
+
+  function currentFreq() {
+    return intPart + fracPart / 10;
+  }
+
+  /* ---------- 渲染 ---------- */
   function render() {
-    display.textContent = current.toFixed(1) + ' MHz';
+    display.textContent = currentFreq().toFixed(1) + ' MHz';
+    renderSignal();
   }
 
-  function noise() {
-    try { FM.static(0.6, 0.12); } catch (e) {}
+  function renderSignal() {
+    var d = Math.abs(currentFreq() - TARGET);
+    var maxD = Math.max(TARGET - 20, 108 - TARGET);
+    var p = 1 - Math.min(d / maxD, 1); // 0=正对 1=最远
+    if (staticLoop) staticLoop.setVol(0.16 * (1 - p) + 0.02);
+    if (whisper) {
+      var w = d < 1.2 ? (1 - d / 1.2) * 0.2 : 0;
+      whisper.setVol(w);
+    }
   }
 
-  document.querySelectorAll('.tuner-btns button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      current = Math.round((current + parseFloat(b.dataset.step)) * 10) / 10;
-      if (current < 20) current = 20;
-      if (current > 108) current = 108;
+  /* ---------- 分档咔哒旋钮 ----------
+     拧过 STEP_DEG 角度走一格；到边界停；每格一声咔哒。
+     opts.get() 返回当前档值；opts.set(v) 设置档值；
+     opts.min / opts.max 档位范围。 */
+  function makeDetentKnob(el, opts) {
+    var pointer = el.querySelector('.knob-pointer');
+    var STEP_DEG = 20;          // 每多少度走一档
+    var acc = 0;                // 累计未结算的角度
+    var dragging = false;
+    var lastAngle = 0;
+
+    function centerOf() {
+      var r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    }
+    function angleOf(x, y) {
+      var c = centerOf();
+      return Math.atan2(y - c.y, x - c.x) * 180 / Math.PI;
+    }
+    function delta(a, b) {
+      var d = a - b;
+      while (d > 180) d -= 360;
+      while (d <= -180) d += 360;
+      return d;
+    }
+    function renderPointer() {
+      // 把当前档值映射到指针角度，让指针位置能反映档位
+      var range = opts.max - opts.min;
+      var ratio = range === 0 ? 0 : (opts.get() - opts.min) / range;
+      var deg = -135 + ratio * 270; // -135° ~ +135° 的扇形
+      pointer.style.transform = 'translate(-50%,0) rotate(' + deg + 'deg)';
+    }
+    function clickSound() {
+      try { FM.static(0.04, 0.05); } catch (e) {}
+    }
+
+    function onDown(e) {
+      dragging = true;
+      el.classList.add('dragging');
+      lastAngle = angleOf(evX(e), evY(e));
+      acc = 0;
+      e.preventDefault();
+    }
+    function onMove(e) {
+      if (!dragging) return;
+      var a = angleOf(evX(e), evY(e));
+      acc += delta(a, lastAngle);
+      lastAngle = a;
+      // 每累计 STEP_DEG 走一档
+      while (acc >= STEP_DEG) {
+        if (opts.get() < opts.max) { opts.set(opts.get() + 1); clickSound(); }
+        acc -= STEP_DEG;
+      }
+      while (acc <= -STEP_DEG) {
+        if (opts.get() > opts.min) { opts.set(opts.get() - 1); clickSound(); }
+        acc += STEP_DEG;
+      }
+      renderPointer();
       render();
-      noise();
-    });
-  });
+      e.preventDefault();
+    }
+    function onUp() {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove('dragging');
+      acc = 0;
+    }
 
+    if (window.PointerEvent) {
+      el.addEventListener('pointerdown', onDown);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    } else {
+      el.addEventListener('mousedown', onDown);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+      el.addEventListener('touchstart', onDown, { passive: false });
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onUp);
+    }
+
+    renderPointer();
+  }
+
+  function evX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  function evY(e) { return e.touches ? e.touches[0].clientY : e.clientY; }
+
+  /* ---------- 锁定判定 ---------- */
   function tryLock(v) {
-    noise();
+    try { FM.static(0.2, 0.08); } catch (e) {}
     if (Math.abs(v - TARGET) < 0.05) {
       msg.className = 'danger';
       msg.textContent = '……你锁定了一个不在任何频段表上的信号。';
       display.classList.add('glitch');
+      if (whisper) whisper.setVol(0.3);
+      if (staticLoop) staticLoop.setVol(0.02);
       FM.flag('tuned');
       setTimeout(function () { location.href = 'live.html'; }, 2600);
     } else {
@@ -81,17 +183,27 @@ FM.require('ep13', 'archive.html');
   }
 
   document.getElementById('lock-btn').addEventListener('click', function () {
-    var v = parseFloat(document.getElementById('freq-input').value);
-    if (isNaN(v)) { msg.textContent = '请输入数字。'; return; }
-    current = Math.round(v * 10) / 10;
-    render();
-    tryLock(current);
+    tryLock(currentFreq());
   });
 
-  document.getElementById('freq-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') document.getElementById('lock-btn').click();
-  });
+  /* ---------- 声音开启后挂上底噪与低语 ---------- */
+  FM.onSoundEnabled = function () {
+    staticLoop = FM.staticLoop(0.16);
+    whisper = FM.whisper();
+    renderSignal();
+  };
 
+  /* ---------- 初始化 ---------- */
+  makeDetentKnob(document.getElementById('knob-int'), {
+    min: 20, max: 108,
+    get: function () { return intPart; },
+    set: function (v) { intPart = v; }
+  });
+  makeDetentKnob(document.getElementById('knob-frac'), {
+    min: 0, max: 9,
+    get: function () { return fracPart; },
+    set: function (v) { fracPart = v; }
+  });
   render();
   FM.enableSoundUI();
 })();

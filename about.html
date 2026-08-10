@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于我们 | 晨曦FM 87.5</title>
+<link rel="stylesheet" href="css/day.css">
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="inner">
+    <a href="index.html">首页</a>
+    <a href="programs.html">节目表</a>
+    <a href="hosts.html">主持人</a>
+    <a href="request.html">在线点歌</a>
+    <a href="notice.html">台务公告</a>
+    <a href="about.html">关于我们</a>
+    <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="panel">
+    <h2>关于我们</h2>
+    <p>晨曦FM 87.5 广播电台，成立于 1987 年，隶属省广播电视总台。三十余年来，我们始终坚持"贴近生活、服务听众"的宗旨，陪伴了几代人的清晨与夜晚。</p>
+  </div>
+
+  <div class="panel">
+    <h2>联系方式</h2>
+    <table>
+      <tr><th>项目</th><th>内容</th></tr>
+      <tr><td>热线电话</td><td>0571-8888XXXX（工作日 9:00–17:00）</td></tr>
+      <tr><td>点歌专线</td><td>0571-8888-0333（每日 20:00–22:00）<span class="muted small">　※ 论坛听友口令即本专线尾号四位</span></td></tr>
+      <tr><td>通信地址</td><td>省广播电视大楼 14 层 晨曦FM 收（邮编 310000）</td></tr>
+      <tr><td>电子邮箱</td><td>chenxi875@broadcast.example.cn</td></tr>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>收听方式</h2>
+    <p class="muted small">
+      调频 FM 87.5 MHz，覆盖全省大部分地区。<br>
+      请使用正规收音机在本台公布的时间段收听。本台信号稳定、频率固定，<b>不存在其他频点</b>。
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>在线服务</h2>
+    <p class="muted small">
+      <span class="fake-link" data-fake>收听客户端下载</span> ·
+      <span class="fake-link" data-fake>听众意见反馈</span> ·
+      <span class="fake-link" data-fake>广告投放咨询</span> ·
+      <span class="fake-link" data-fake>网站地图</span>
+    </p>
+  </div>
+
+  <p class="mt"><a href="index.html">← 返回首页</a></p>
+
+  <div class="colophon">
+    晨曦FM 87.5 广播电台 · 版权所有 © 1999
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('[data-fake]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = el.textContent;
+    el.textContent = '加载中…';
+    setTimeout(function () { el.textContent = old; }, 900);
+  });
+});
+</script>
+
+</body>
+</html>

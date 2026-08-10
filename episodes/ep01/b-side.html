@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第1期 · B面 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/episode.css">
+</head>
+<body>
+
+<!--
+  ============================================================
+  第1期《深夜点歌台》· B面页
+  到达条件：已通过 index.html 的密码门（flag: gate1）
+  注意：本文件里的"设计备注"注释是给作者看的，玩家查看源码才看得到——这正是本游戏特色。
+  ============================================================
+-->
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第1期</div>
+    <h1 class="ep-title glitch-text" data-text="B 面">B 面</h1>
+    <p class="ep-meta">播出：1999-XX-XX 03:33 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文（占位故事，待替换） -->
+  <div class="ep-story">
+    <p>（占位故事，待替换）B 面从来没人听过。唱片公司说这批磁带只压了 A 面，可夜莺把磁带翻过来的时候，带轮自己转了。</p>
+    <p>（占位故事，待替换）念到一半，录音里开始倒放。倒放的不是歌，是前一通来电里，那位听众没说完的半句话。</p>
+    <p>（占位故事，待替换）夜莺没有停。她说，B 面的最后一首，要留给会自己找过来的人。</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!--
+    设计备注（谜题2：Base64 + 改网址）
+    谜面：下面这张"磁带标签扫描图"加载失败（坏图是设计，不是 bug）
+    线索位置：下一条 HTML 注释（玩家查看源码可见）；页面底部 .whisper 隐藏文字"Base64。翻译成网址。"
+    解法：Base64 解码 dGFwZS5odG1s → "tape.html"，在地址栏把 b-side.html 改成 tape.html
+    答案：tape.html（EP.b64encode('tape.html') === 'dGFwZS5odG1s'）
+  -->
+  <div class="ep-broken-img">磁带标签扫描图加载失败<br>标签上的字被磨掉了</div>
+
+  <!-- 磁带标签残片：dGFwZS5odG1s —— 懂行的人知道这是 Base64 -->
+
+  <!-- 隐藏耳语：颜色与背景几乎一致，玩家选中文字才能看到 -->
+  <p class="whisper">Base64。翻译成网址。</p>
+
+  <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
+
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  // 注册本期（与 index.html 同 id，共用 ep01 存档命名空间）
+  EP.config({ id: 'ep01', title: '第1期 · B面 - FM-MIDNIGHT' });
+
+  // 门禁：须先通过 index.html 的密码门（URL 带 ?debug=1 时放行，便于作者自测）
+  EP.require('gate1', 'index.html');
+
+  // 标签页标题闪烁：每 1200ms 在两个标题间切换，营造"它还在转"的不安感
+  EP.titleBlink(['第1期 · B面', '它 还 在 转'], 1200);
+</script>
+</body>
+</html>

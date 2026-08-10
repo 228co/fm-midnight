@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/episode.css">
+</head>
+<body>
+
+<!-- ============================================================
+  【作者指引 · 期内假 404 页模板】（上线前可整段删除，不影响功能）
+
+  一、用途："手动改网址"类谜题
+    在故事或线索里暗示玩家"这期存档不存在 / 信号丢了"，
+    玩家把地址栏里的文件名改成 404.html 来到本页；
+    本页负责把【真正的下一页文件名】藏给玩家，
+    玩家再把地址栏里的 404 改成正确文件名，进入下一页。
+
+  二、藏线索的位置（本页已各给一处示例，可删改）
+    1. 坏图 alt：下方 .ep-broken-img 里的 img，src 指向不存在的文件，
+       图片加载失败会显示裂图与 alt 文字，玩家也可能审查元素看到。
+    2. 控制台：EP.consoleHint 输出线索，记得在页面文案里
+       引导玩家"按 F12"。
+    3. 标签页标题：EP.titleBlink 在"404"和一句诡异的话之间切换。
+    也可以再叠加 .whisper 隐藏文字、HTML 注释藏字等玩法。
+
+  三、注意
+    EP.config 的 id 同样必须与全期一致；本页一般不接密码门，
+    也【不要】调用 EP.done()（除非本页就是设计上的终点）。
+============================================================ -->
+
+<div class="container">
+
+  <div class="ep-404-box">
+    <div class="ep-404-code flicker">404</div>
+    <p>（占位：诡异文案，如「信号不存在。频率的那一头，没有人在播音。」）</p>
+    <p class="muted small">（占位：引导玩家找线索的话，如「可它明明还在响。按 F12，凑近听听。」）</p>
+
+    <!-- 坏图占位：src 是不存在的文件，加载失败后显示 alt；
+         alt 里藏真正的下一页线索（玩家看裂图文字或审查元素可见） -->
+    <div class="ep-broken-img">
+      <img src="（占位：不存在的文件）.svg" alt="（占位：在这里用 alt 藏线索，如真正的下一页文件名）">
+    </div>
+  </div>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="../../js/episode.js"></script>
+<script>
+/* id 必须改成对应期号，且与全期其它页面完全一致 */
+EP.config({ id: 'epXX', title: '404 - FM-MIDNIGHT' });
+
+/* 控制台线索：需在页面文案里引导玩家按 F12 后才看得到 */
+EP.consoleHint('（占位：控制台里的线索，如「把地址栏里的 404 改成真正的文件名。」）');
+
+/* 标签页标题在"404"和一句诡异的话之间切换（第二个参数是切换间隔毫秒）；
+   它返回一个停止函数，本模板用不到，无需处理 */
+EP.titleBlink(['404', '（占位：一句诡异的话，如「它还在播出」）'], 2600);
+</script>
+
+</body>
+</html>
