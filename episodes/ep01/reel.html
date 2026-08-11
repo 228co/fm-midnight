@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第1期 · 带尾 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=2.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第1期</div>
+    <h1 class="ep-title glitch-text" data-text="带 尾">带 尾</h1>
+    <p class="ep-meta">信号来源：不明 · 时长：41:00</p>
+  </div>
+
+  <!-- 故事收尾 -->
+  <div class="ep-story">
+    <p>节目放完了。磁带没有停，还在往前走，走到带尾，走出一段谁也没录过的空白。</p>
+    <p>空白里有一行字——不知道是谁写上去的，也不知道是写给谁的。它是反的，像所有 B 面的东西一样。</p>
+  </div>
+
+  <!-- 谜题3：倒放文字（整句倒序显示，点"倒带"正过来读） -->
+  <div class="ep-reversed" id="reversed"></div>
+  <p><button id="rewind">倒 带</button></p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>夜莺关掉了设备。临走前她对着已经断电的话筒说了最后一句话："下一期，我们读一封没有地址的信。"</p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <!-- 十二字集字：倒带完成后揭晓第一个字「孤」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">磁带停了。你翻过这盘母带——背面有人用针尖刻了一个字。</p>
+    <div class="ep-rune flicker">孤</div>
+    <p class="ep-rune-cap">十二个字里的第一个</p>
+  </div>
+
+  <!-- 期尾收尾卡：未完待续 -->
+  <div class="ep-tbc" id="tbc" style="display:none;">
+    <p class="ep-tbc-zh">— 未完待续 —</p>
+    <p class="ep-tbc-en">TO BE CONTINUED</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">别念出声</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep01', title: '第1期 · 带尾 - FM-MIDNIGHT' });
+
+  // 门禁：须先在 B 面选对磁带
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 标记本期通关
+    EP.done();
+
+    // 轻微噪点：带尾信号不稳
+    EP.snow(0.1);
+
+    // 谜题3：整句倒序。正文在 JS 里，页面初始显示倒序版
+    var plain = 'B面走到头了。你听到的最后这段话，本来就是说给会倒带的人听的。深夜点歌台，感谢收听。';
+    var box = document.getElementById('reversed');
+    var reversed = Array.from(plain).reverse().join('');
+    box.textContent = reversed;
+
+    var flipped = false;
+    document.getElementById('rewind').addEventListener('click', function () {
+      if (flipped) return;
+      flipped = true;
+      // 倒带：逐字翻转回正序
+      var i = 0;
+      var timer = setInterval(function () {
+        i++;
+        var head = Array.from(plain).slice(0, i).join('');
+        var tail = reversed.slice(i);
+        box.textContent = head + tail;
+        if (i >= plain.length) {
+          clearInterval(timer);
+          box.classList.add('ep-reversed-done');
+          document.getElementById('after').style.display = '';
+          document.getElementById('done-mark').style.display = '';
+          // 稍停一拍，再浮现刻字
+          var rune = document.getElementById('rune');
+          setTimeout(function () {
+            rune.style.display = '';
+            requestAnimationFrame(function () { rune.style.opacity = '1'; });
+          }, 1200);
+          // 收尾卡最后浮现
+          setTimeout(function () {
+            document.getElementById('tbc').style.display = '';
+          }, 2600);
+        }
+      }, 30);
+    });
+  }
+</script>
+</body>
+</html>

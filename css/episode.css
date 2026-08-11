@@ -49,6 +49,9 @@
   text-indent: 2em;
 }
 
+/* 故事内强调（如夜莺念出的规则）：暗红 */
+.ep-story strong { color: #9c1f1f; font-weight: normal; }
+
 /* ---------- 3. 分隔 ---------- */
 
 /* 暗色虚线分隔：用于故事小节之间（hr 或 div 均可） */
@@ -153,7 +156,209 @@
   margin-top: 40px;
 }
 
-/* ---------- 9. 坏图占位（供 alt 藏字谜题） ---------- */
+/* ---------- 9.5 磁带选择（真话假话谜题） ---------- */
+
+/* 磁带横排容器：同排拉伸，保证每盘等高 */
+.ep-tapes { display: flex; gap: 16px; flex-wrap: wrap; align-items: stretch; margin: 28px 0 8px; }
+
+/* 单盘磁带：卡带机身，圆角 + 暗色渐变外壳；等比 flex 保证同排等宽 */
+.ep-tape {
+  position: relative;
+  flex: 1 1 150px;
+  border: 2px solid #33302a;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #181510 0%, #0d0c0a 100%);
+  padding: 14px 14px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  color: #948d7d;
+  text-align: left;
+  letter-spacing: .05em;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.ep-tape:hover {
+  border-color: #9c1f1f;
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(156, 31, 31, .18);
+}
+
+/* 四角螺丝：一层四个径向渐变点，随盒体自适应 */
+.tape-screws {
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 3px at 3px 3px, #3a362e 98%, transparent),
+    radial-gradient(circle 3px at calc(100% - 3px) 3px, #3a362e 98%, transparent),
+    radial-gradient(circle 3px at 3px calc(100% - 3px), #3a362e 98%, transparent),
+    radial-gradient(circle 3px at calc(100% - 3px) calc(100% - 3px), #3a362e 98%, transparent);
+}
+
+/* 顶部标签条：旧纸条质感 */
+.tape-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  background: #221e17;
+  border: 1px solid #2a241d;
+  padding: 7px 10px;
+  margin-bottom: 12px;
+}
+.tape-name { color: #d8d2c2; font-size: 13px; letter-spacing: .25em; }
+.tape-year { color: #57534a; font-size: 11px; letter-spacing: .15em; }
+
+/* 中间带窗：两个缓慢转动的带轮 + 中间的磁带 */
+.tape-window {
+  display: flex;
+  align-items: center;
+  background: #080706;
+  border: 1px solid #2a241d;
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.reel {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 50%;
+  border: 2px solid #9c1f1f;
+  background:
+    radial-gradient(circle at center, #9c1f1f 0 4px, transparent 5px),
+    conic-gradient(
+      #9c1f1f 0 18deg, transparent 18deg 60deg,
+      #9c1f1f 60deg 78deg, transparent 78deg 120deg,
+      #9c1f1f 120deg 138deg, transparent 138deg 180deg,
+      #9c1f1f 180deg 198deg, transparent 198deg 240deg,
+      #9c1f1f 240deg 258deg, transparent 258deg 300deg,
+      #9c1f1f 300deg 318deg, transparent 318deg 360deg
+    );
+  animation: reel-spin 7s linear infinite;
+}
+
+/* 旧白带轮：与红色带轮成对出现，一红一白 */
+.reel-w {
+  border-color: #57534a;
+  background:
+    radial-gradient(circle at center, #57534a 0 4px, transparent 5px),
+    conic-gradient(
+      #57534a 0 18deg, transparent 18deg 60deg,
+      #57534a 60deg 78deg, transparent 78deg 120deg,
+      #57534a 120deg 138deg, transparent 138deg 180deg,
+      #57534a 180deg 198deg, transparent 198deg 240deg,
+      #57534a 240deg 258deg, transparent 258deg 300deg,
+      #57534a 300deg 318deg, transparent 318deg 360deg
+    );
+}
+.tape-band {
+  flex: 1;
+  height: 9px;
+  margin: 0 8px;
+  background: linear-gradient(180deg, #1a1712 0%, #0a0908 100%);
+  border-top: 1px solid #2a241d;
+  border-bottom: 1px solid #2a241d;
+}
+@keyframes reel-spin { to { transform: rotate(360deg); } }
+
+/* 盒上纸条那句话 */
+.tape-note { display: block; font-size: 12px; line-height: 1.9; color: #948d7d; }
+
+/* 折叠提示 */
+.ep-hint { margin: 14px 0 6px; font-size: 12px; letter-spacing: .1em; }
+.ep-hint summary { cursor: pointer; color: #6d675b; }
+.ep-hint p { margin: 10px 0 0; line-height: 1.9; color: #57534a; }
+.ep-hint strong { color: #9c1f1f; font-weight: normal; }
+
+/* ---------- 9.6 放错惩罚：全屏变红 ---------- */
+
+.ep-redout {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #4d0808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8vw;
+  text-align: center;
+  color: #f3e9e9;
+  font-size: 20px;
+  letter-spacing: .4em;
+  line-height: 2;
+  opacity: 0;
+  transition: opacity .1s;
+  animation: redout-flicker .16s infinite;
+}
+@keyframes redout-flicker { 50% { background: #6b0a0a; } }
+
+/* ---------- 9.6 倒放文字（带尾谜题） ---------- */
+
+/* 倒序文字块：虚线暗框，等宽观感，允许逐字断行 */
+.ep-reversed {
+  border: 1px dashed #2a241d;
+  background: #0a0908;
+  padding: 18px;
+  margin: 24px 0;
+  color: #6d675b;
+  line-height: 2;
+  letter-spacing: .15em;
+  word-break: break-all;
+}
+
+/* 倒带完成后：文字转正，颜色提亮 */
+.ep-reversed-done { color: #d8d2c2; border-color: #33302a; }
+
+/* ---------- 9.8 十二字集字（13期长线） ---------- */
+
+/* 单字揭晓块：居中，与正文拉开距离 */
+.ep-rune-block {
+  margin: 36px 0;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1.2s;
+}
+
+/* 刻字本身：大号暗红，微弱红晕 */
+.ep-rune {
+  font-size: 56px;
+  color: #9c1f1f;
+  text-shadow: 0 0 14px rgba(156, 31, 31, .45);
+  margin: 10px 0;
+}
+
+/* 刻字说明小字 */
+.ep-rune-cap {
+  color: #57534a;
+  font-size: 12px;
+  letter-spacing: .3em;
+}
+
+/* archive 集字进度行：灰暗小字，已集到的字泛暗红 */
+.ep-runes {
+  margin-top: 44px;
+  font-size: 13px;
+  letter-spacing: .45em;
+  color: #3d3a33;
+}
+.ep-runes b { color: #9c1f1f; font-weight: normal; text-shadow: 0 0 8px rgba(156, 31, 31, .35); }
+
+/* ---------- 9.10 期尾"未完待续"收尾卡 ---------- */
+
+.ep-tbc { margin-top: 64px; text-align: center; }
+.ep-tbc-zh {
+  color: #948d7d;
+  font-size: 18px;
+  letter-spacing: .8em;
+  text-indent: .8em; /* 补偿末字间距，视觉居中 */
+}
+.ep-tbc-en {
+  color: #3d3a33;
+  font-size: 11px;
+  letter-spacing: .5em;
+  margin-top: 8px;
+}
+
+/* ---------- 9.9 坏图占位（供 alt 藏字谜题） ---------- */
 
 /* 模拟"图片丢失"的占位框：虚线边框 + 居中占位小字 */
 .ep-broken-img {

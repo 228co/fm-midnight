@@ -4,54 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第1期《深夜点歌台》- FM-MIDNIGHT</title>
-<link rel="stylesheet" href="../../css/style.css">
-<link rel="stylesheet" href="../../css/episode.css">
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=2.6">
 </head>
 <body>
 
-<!--
-  ============================================================
-  第1期《深夜点歌台》· 期入口（A面）
-  本期流程：index.html →（密码门，答案 333）→ b-side.html →（Base64/改网址）→ tape.html
-  设计备注：FREQUENCY 凯撒+3 = IUHTXHQFB
-  注意：本文件里的"设计备注"注释是给作者看的，玩家查看源码才看得到——这正是本游戏特色。
-  ============================================================
--->
-
 <div class="container">
 
-  <!-- 期头：期号 / 期标题（故障字效） / 播出元信息 -->
+  <!-- 期头 -->
   <div class="ep-head">
     <div class="ep-no">第1期</div>
     <h1 class="ep-title glitch-text" data-text="深夜点歌台">深夜点歌台</h1>
-    <p class="ep-meta">播出：1999-XX-XX 03:00 · 主播：夜莺</p>
+    <p class="ep-meta">首播：1999-11-02 03:00 · 主播：夜莺</p>
   </div>
 
-  <!-- 故事正文（占位故事，待替换） -->
+  <!-- 故事正文：A面 -->
   <div class="ep-story">
-    <p>（占位故事，待替换）凌晨三点零七分，第一位听众打进热线，点了一首《月光下的河》。夜莺放完才发现，那张唱片从头到尾转的都是 B 面，唱针却根本没有落上去。</p>
-    <p>（占位故事，待替换）第二位听众没有说话，只在电流声里哼了半段旋律。夜莺替他报了歌名，他说不对——他说这首歌，要等下雪的时候才听得到。</p>
-    <p>（占位故事，待替换）第三位听众没有打电话，只寄来一封信，署名"S"。信的结尾写着一串谁也读不懂的乱码：IUHTXHQFB。夜莺念完信，对着话筒补了一句口播："把钟拨回三格，你就听懂了。本台的频率表上，只剩一个三位数了。"</p>
+    <p>这里是深夜点歌台，第一期。夜莺对着话筒试了三声，说设备都是旧的，磁带是新的，听众——还不知道有没有。</p>
+    <p>三点零七分，第一位听众打进热线，点了一首老歌。夜莺问怎么称呼，对方报了一个地址，说"送到这里就行"。挂断之后导播查了地图：那条街有，那个门牌号没有。那条街的门牌，到这一户的前一号就断了。</p>
+    <p>三点十九分，第二位听众没有说话。电流声里有一段很轻的旋律，还有另一个人的呼吸声——离话筒更远，节奏和打电话的人完全错开。夜莺替他报了歌名，他挂断了。</p>
+    <p>第三位听众没有打电话。台里收到一封信，信封上没有地址，没有邮票，署名只有一个字母：S。信纸很短，只有一行印刷体的字——</p>
+    <p style="text-align:center; letter-spacing:.5em; color:#d8d2c2;">P R R Q O L J K W</p>
+    <p>夜莺念完这封信，对着话筒停了很久，然后补了一句口播："S 先生是老听众了。他写信有个习惯——他写下的每个字，都比他想说的话，往后挪了三格。"</p>
+    <p>"如果你听得懂他在点什么歌，"她说，"就把歌名寄回来。B 面只放给寄对回信的人听。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!--
-    设计备注（谜题1：凯撒 + 密码门）
-    谜面：第三段故事中"S"来信结尾的乱码 IUHTXHQFB
-    线索位置：夜莺口播"把钟拨回三格"（暗示凯撒位移 -3）；"频率表上只剩一个三位数"（暗示答案是三个数字）
-    解法：IUHTXHQFB 每个字母往前数 3 格 → FREQUENCY（频率）→ 联系电台频率 → 333
-    答案：333（EP.gate 的 hash 参数即 "333" 经 trim+toLowerCase 后的 SHA-256）
-  -->
+  <!-- 谜题1：凯撒密码门（密文 PRRQOLJKW，前移3位 → MOONLIGHT） -->
   <div class="ep-gate">
-    <p class="muted small">调频：把频率拨过去，继续收听 B 面。</p>
-    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="---">
-    <button id="submit">拨 号</button>
+    <p class="muted small">回信：把 S 先生真正想点的歌名写在这里。</p>
+    <input type="text" id="answer" maxlength="16" autocomplete="off" placeholder="·········">
+    <button id="submit">寄 出</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
-  <!-- 隐藏耳语：颜色与背景几乎一致，玩家选中文字才能看到 -->
-  <p class="whisper">你听见 B 面了吗</p>
+  <!-- 隐藏耳语：选中文字才能看到 -->
+  <p class="whisper">S 先生从来不听 A 面</p>
 
   <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
 
@@ -60,27 +49,24 @@
 <script src="../../js/common.js"></script>
 <script src="../../js/episode.js"></script>
 <script>
-  // 注册本期：所有期页第一步必须先 EP.config（建立 ep01 存档命名空间）
   EP.config({ id: 'ep01', title: '第1期《深夜点歌台》- FM-MIDNIGHT' });
 
-  // 控制台线索：引导玩家按 F12 查看
-  EP.consoleHint('这里是第1期的控制台。技术员什么都没说。');
+  EP.consoleHint('这里是第1期的控制台。S 先生什么都想好了。');
 
-  // 谜题1 密码门：答案 333
-  // hints 按错误次数渐进放水：3 次给凯撒方向，5 次给中间答案，7 次直接给最终答案
+  // 谜题1：凯撒密码，答案 moonlight
   EP.gate({
     input: '#answer',
     button: '#submit',
     msg: '#msg',
-    hash: '556d7dc3a115356350f1f9910b1af1ab0e312d4b3e4fc788d2da63668f36d017',
+    hash: 'a22925b9c393ad6cfb3dec3997000e06e38a0ede0bad351603daa6922713dfa5',
     flag: 'gate1',
     hints: {
-      3: '把乱码每个字母往前数 3 格。',
-      5: 'FREQUENCY。频率。三个数字。',
-      7: '333'
+      3: '他写下的每个字，比他想说的话往后挪了三格。那就往前挪三格。',
+      5: '一首英文老歌的名字。今晚的月光很好。',
+      7: 'moonlight'
     },
-    deny: '电波没有回应。',
-    okText: '频率对上了。',
+    deny: '信被退回来了。地址不对。',
+    okText: '地址对了。B 面开始转了。',
     goto: 'b-side.html'
   });
 </script>

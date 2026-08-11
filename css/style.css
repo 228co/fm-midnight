@@ -329,3 +329,66 @@ details { border-bottom: 1px solid #1e1c18; padding: 10px 4px; }
 summary { cursor: pointer; color: #948d7d; letter-spacing: .1em; }
 summary:hover { color: #b03030; }
 details p { margin: 10px 0 4px 16px; color: #7c7668; font-size: 14px; }
+
+/* ============================================================
+   视觉精修（克制版：保持"安静恐怖"）
+   ============================================================ */
+
+/* 主标题：辉光呼吸（很轻微） */
+h1 { animation: h1Breath 5.5s ease-in-out infinite; }
+@keyframes h1Breath {
+  0%, 100% { text-shadow: 0 0 8px rgba(216, 210, 194, .06); }
+  50%      { text-shadow: 0 0 18px rgba(216, 210, 194, .16); }
+}
+
+/* 章节标题：红条微光 */
+h2 { text-shadow: 0 0 10px rgba(143, 136, 122, .12); }
+
+/* 表格行 hover：几乎察觉不到的微亮 */
+tr:hover td { background: rgba(216, 210, 194, .025); }
+
+/* 压暗资料照片（图 + 图注） */
+.dim-photo { margin: 20px 0 8px; }
+.dim-photo img {
+  width: 100%; display: block;
+  border: 1px solid #1e1c18;
+  filter: brightness(.62) saturate(.7);
+}
+.dim-photo .cap {
+  font-size: 12px; color: #3d3a33;
+  letter-spacing: .15em; margin-top: 6px;
+}
+
+/* 主页头图：发射塔夜景，底部渐隐入黑 */
+.hero-veil {
+  position: relative;
+  margin: -6px 0 26px;
+  border: 1px solid #16140f;
+}
+.hero-veil img {
+  width: 100%; display: block;
+  filter: brightness(.5) saturate(.6);
+}
+.hero-veil::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(6, 6, 6, .25) 0%,
+    rgba(6, 6, 6, 0) 40%,
+    rgba(6, 6, 6, .94) 100%);
+  pointer-events: none;
+}
+.hero-veil .cap {
+  position: absolute; right: 10px; bottom: 6px; z-index: 1;
+  font-size: 11px; color: #4a463e; letter-spacing: .2em;
+}
+
+/* 主页背景噪点：压到刚能察觉 */
+canvas.snow.quiet { opacity: .09; }
+
+/* 往期节目：母带损坏的期（断掉灰掉，不可进入） */
+.ep-entry.dead { opacity: .55; }
+.ep-dead {
+  color: #4a463e;
+  letter-spacing: .1em;
+  cursor: default;
+}

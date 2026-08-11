@@ -4,18 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第1期 · B面 - FM-MIDNIGHT</title>
-<link rel="stylesheet" href="../../css/style.css">
-<link rel="stylesheet" href="../../css/episode.css">
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=2.6">
 </head>
 <body>
-
-<!--
-  ============================================================
-  第1期《深夜点歌台》· B面页
-  到达条件：已通过 index.html 的密码门（flag: gate1）
-  注意：本文件里的"设计备注"注释是给作者看的，玩家查看源码才看得到——这正是本游戏特色。
-  ============================================================
--->
 
 <div class="container">
 
@@ -23,31 +15,96 @@
   <div class="ep-head">
     <div class="ep-no">第1期</div>
     <h1 class="ep-title glitch-text" data-text="B 面">B 面</h1>
-    <p class="ep-meta">播出：1999-XX-XX 03:33 · 主播：夜莺</p>
+    <p class="ep-meta">播出：1999-11-02 03:33 · 主播：夜莺</p>
   </div>
 
-  <!-- 故事正文（占位故事，待替换） -->
+  <!-- 故事正文：B面 -->
   <div class="ep-story">
-    <p>（占位故事，待替换）B 面从来没人听过。唱片公司说这批磁带只压了 A 面，可夜莺把磁带翻过来的时候，带轮自己转了。</p>
-    <p>（占位故事，待替换）念到一半，录音里开始倒放。倒放的不是歌，是前一通来电里，那位听众没说完的半句话。</p>
-    <p>（占位故事，待替换）夜莺没有停。她说，B 面的最后一首，要留给会自己找过来的人。</p>
+    <p>B 面开始之前，夜莺讲了一件事。她说今天下班前，导播间的抽屉里多了四盘磁带。不是台里的东西——台里的磁带都有编号，这四盘没有。</p>
+    <p>四盘磁带是四个旧人的值班带：三月的雨夜、六月的雾夜、九月的霜夜、腊月的雪夜。四个人，四盘带子，都是不明不白离职那晚留下的。每一盘的盒子上都贴着一张纸条，写满了字。</p>
+    <p>"四盘带子里，只有一盘录着今晚的节目。"夜莺说，"四张纸条里，<strong>只有一张写的是真话</strong>。放错了——带子里的东西，你就得自己听完。"</p>
+    <p>她顿了顿，又补了一句："我劝你别放错。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!--
-    设计备注（谜题2：Base64 + 改网址）
-    谜面：下面这张"磁带标签扫描图"加载失败（坏图是设计，不是 bug）
-    线索位置：下一条 HTML 注释（玩家查看源码可见）；页面底部 .whisper 隐藏文字"Base64。翻译成网址。"
-    解法：Base64 解码 dGFwZS5odG1s → "tape.html"，在地址栏把 b-side.html 改成 tape.html
-    答案：tape.html（EP.b64encode('tape.html') === 'dGFwZS5odG1s'）
-  -->
-  <div class="ep-broken-img">磁带标签扫描图加载失败<br>标签上的字被磨掉了</div>
+  <!-- 谜题2：真话假话（唯一解：六月·雾）
+       规则：节目只在某一盘带子里；四张纸条只有一张为真。
+       纸条逻辑内核：三月=「不在三月」六月=「在三月」九月=「不在六月」腊月=「在九月」
+       验算（按节目所在位置数真话张数）：
+         在三月 → 三月假、六月真、九月真、腊月假 = 2张
+         在六月 → 三月真、六月假、九月假、腊月假 = 1张 ✓ 唯一
+         在九月 → 三月真、六月假、九月真、腊月真 = 3张
+         在腊月 → 三月真、六月假、九月真、腊月假 = 2张 -->
+  <div class="ep-tapes">
 
-  <!-- 磁带标签残片：dGFwZS5odG1s —— 懂行的人知道这是 Base64 -->
+    <button class="ep-tape" data-tape="mar">
+      <span class="tape-screws"></span>
+      <span class="tape-strip">
+        <span class="tape-name">值班带</span>
+        <span class="tape-year">三月 · 雨</span>
+      </span>
+      <span class="tape-window">
+        <span class="reel"></span>
+        <span class="tape-band"></span>
+        <span class="reel reel-w"></span>
+      </span>
+      <span class="tape-note">纸条：「雨下了一整夜，带仓进了水，我录的全是雨声。今晚的节目，不在我这盘里。」</span>
+    </button>
 
-  <!-- 隐藏耳语：颜色与背景几乎一致，玩家选中文字才能看到 -->
-  <p class="whisper">Base64。翻译成网址。</p>
+    <button class="ep-tape" data-tape="jun">
+      <span class="tape-screws"></span>
+      <span class="tape-strip">
+        <span class="tape-name">值班带</span>
+        <span class="tape-year">六月 · 雾</span>
+      </span>
+      <span class="tape-window">
+        <span class="reel"></span>
+        <span class="tape-band"></span>
+        <span class="reel reel-w"></span>
+      </span>
+      <span class="tape-note">纸条：「雾最浓的那晚，我在导播间亲耳听见三月那盘转完了。节目在三月那盘里。」</span>
+    </button>
+
+    <button class="ep-tape" data-tape="sep">
+      <span class="tape-screws"></span>
+      <span class="tape-strip">
+        <span class="tape-name">值班带</span>
+        <span class="tape-year">九月 · 霜</span>
+      </span>
+      <span class="tape-window">
+        <span class="reel"></span>
+        <span class="tape-band"></span>
+        <span class="reel reel-w"></span>
+      </span>
+      <span class="tape-note">纸条：「霜降那晚我挨个检查过，六月那盘的带仓是空的，什么都没有。节目不在六月那盘里。」</span>
+    </button>
+
+    <button class="ep-tape" data-tape="dec">
+      <span class="tape-screws"></span>
+      <span class="tape-strip">
+        <span class="tape-name">值班带</span>
+        <span class="tape-year">腊月 · 雪</span>
+      </span>
+      <span class="tape-window">
+        <span class="reel"></span>
+        <span class="tape-band"></span>
+        <span class="reel reel-w"></span>
+      </span>
+      <span class="tape-note">纸条：「雪停之前，整层楼的人都听见九月那盘自己在转。节目在九月那盘里。」</span>
+    </button>
+
+  </div>
+
+  <details class="ep-hint">
+    <summary>夜莺的提示（想不明白再点开）</summary>
+    <p>"别急着猜。先假设节目在某盘带子里，再数一数——有几张纸条说了真话？只有当说真话的纸条恰好是<strong>一张</strong>的时候，你才算找对了。"</p>
+  </details>
+
+  <p id="msg" class="ep-gate-msg"></p>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">放错的那三盘，会在你睡着以后自己转完</p>
 
   <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
 
@@ -56,14 +113,45 @@
 <script src="../../js/common.js"></script>
 <script src="../../js/episode.js"></script>
 <script>
-  // 注册本期（与 index.html 同 id，共用 ep01 存档命名空间）
   EP.config({ id: 'ep01', title: '第1期 · B面 - FM-MIDNIGHT' });
 
-  // 门禁：须先通过 index.html 的密码门（URL 带 ?debug=1 时放行，便于作者自测）
+  // 门禁：须先通过 A 面的凯撒密码门
   EP.require('gate1', 'index.html');
 
-  // 标签页标题闪烁：每 1200ms 在两个标题间切换，营造"它还在转"的不安感
-  EP.titleBlink(['第1期 · B面', '它 还 在 转'], 1200);
+  // 谜题2：真话假话，唯一解为「值班带 · 六月·雾」
+  var msg = document.getElementById('msg');
+
+  // 放错磁带：全屏变红，随后踢回主页
+  function redout(text) {
+    var o = document.createElement('div');
+    o.className = 'ep-redout';
+    o.textContent = text;
+    document.body.appendChild(o);
+    requestAnimationFrame(function () { o.style.opacity = '1'; });
+    setTimeout(function () { location.href = '../../home.html'; }, 1600);
+  }
+
+  var deny = {
+    mar: '带子里是雨声。下了三十年，还没停。',
+    sep: '带子里是指甲刮过带仓的声音。它真的是空的。',
+    dec: '带子里是落雪声。雪落进屋里，落到你的手上。'
+  };
+
+  document.querySelectorAll('.ep-tape').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-tape');
+      if (t === 'jun') {
+        EP.flag('gate2');
+        msg.textContent = '带子里是今晚的节目。夜莺轻轻出了口气：就是这一盘。';
+        setTimeout(function () { location.href = 'reel.html'; }, 1000);
+      } else {
+        redout(deny[t]);
+      }
+    });
+  });
+
+  // 标签页标题闪烁：它还在转
+  EP.titleBlink(['第1期 · B面', '它 还 在 转'], 1600);
 </script>
 </body>
 </html>

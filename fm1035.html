@@ -76,7 +76,7 @@
     <a href="index.html">返回晨曦FM</a>
     <a href="#" class="fake" data-fake>名家名段</a>
     <a href="#" class="fake" data-fake>票友之家</a>
-    <a href="#" class="fake" data-fake>演出预告</a>
+    <a href="fm1035-yugao.html">演出预告</a>
   </div>
 </div>
 
@@ -89,10 +89,22 @@
   </div>
 
   <div class="panel">
+    <h2>书场一景</h2>
+    <p class="muted small">单先生的书案：一把三弦，一块醒木，一把折扇。每晚七点半，准时开书。</p>
+    <img src="images/fm1035-studio.jpg" alt="夜半书场直播间" style="width:100%; border:1px solid #cbb98a;">
+  </div>
+
+  <div class="panel">
     <h2>明日预告</h2>
     <div class="prog"><span>京剧《贵妃醉酒》选段</span><span class="muted small">13:00</span></div>
     <div class="prog"><span>评书《三更电台》续</span><span class="muted small">19:30</span></div>
     <div class="prog"><span>相声《学电台》</span><span class="muted small">21:00</span></div>
+  </div>
+
+  <div class="panel">
+    <h2>听友纪念卡</h2>
+    <p class="muted small">单先生为常年收听的热心听友颁发的纪念卡（部分展示）。持卡听友可凭口令进入"网上书场"，口令规矩见<a href="fm1035-yugao.html">演出预告</a>。</p>
+    <img src="images/fm1035-card.jpg" alt="夜半书场听友纪念卡" style="width:100%; max-width:520px; display:block; margin:0 auto; border:1px solid #cbb98a;">
   </div>
 
   <div class="panel">
@@ -105,7 +117,6 @@
     </p>
   </div>
 
-  <p style="margin-top:20px;"><a href="index.html">← 返回首页（继续调频）</a></p>
   <div class="colophon">戏曲曲艺 FM 103.5 · 正在直播</div>
 </div>
 
@@ -113,9 +124,6 @@
 document.querySelectorAll('[data-fake]').forEach(function (el) {
   el.addEventListener('click', function (e) {
     e.preventDefault();
-    var old = el.textContent;
-    el.textContent = '加载中…';
-    setTimeout(function () { el.textContent = old; }, 900);
   });
 });
 </script>

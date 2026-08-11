@@ -9,11 +9,13 @@ const MIME = {
   '.js': 'application/javascript',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.gif': 'image/gif',
   '.svg': 'image/svg+xml'
 };
 
 http.createServer((req, res) => {
-  let f = path.join(process.cwd(), req.url === '/' ? 'index.html' : decodeURIComponent(req.url));
+  const cleanUrl = decodeURIComponent(req.url.split('?')[0].split('#')[0]);
+  let f = path.join(process.cwd(), cleanUrl === '/' ? 'index.html' : cleanUrl);
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
   const ext = path.extname(f);
   fs.readFile(f, (e, d) => {

@@ -100,7 +100,6 @@
     </p>
   </div>
 
-  <p style="margin-top:20px;"><a href="index.html">← 返回首页（继续调频）</a></p>
   <div class="colophon">交通之声 FM 92.8 · 正在直播</div>
 </div>
 
@@ -108,9 +107,6 @@
 document.querySelectorAll('[data-fake]').forEach(function (el) {
   el.addEventListener('click', function (e) {
     e.preventDefault();
-    var old = el.textContent;
-    el.textContent = '加载中…';
-    setTimeout(function () { el.textContent = old; }, 900);
   });
 });
 </script>

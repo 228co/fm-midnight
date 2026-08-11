@@ -8,10 +8,43 @@
 </head>
 <body>
 
-<div class="masthead">
+<!-- 左右对联广告（2000 年门户经典悬浮位） -->
+<div class="side-fly left" id="fly-l">
+  <div class="fly-close"><span id="fly-close-l">关闭×</span></div>
+  <img src="images/side-ad-left.gif" alt="广告">
+  <div class="fly-tag">广告</div>
+</div>
+<div class="side-fly right" id="fly-r">
+  <div class="fly-close"><span id="fly-close-r">关闭×</span></div>
+  <img src="images/side-ad-right.gif" alt="广告">
+  <div class="fly-tag">广告</div>
+</div>
+
+<div class="topline">
   <div class="inner">
-    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
-    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+    <span>1999年4月13日 星期二<span class="sep">|</span>今日天气：晴转多云 12～22℃</span>
+    <span><a href="#" class="fake-link" data-fake>设为首页</a><span class="sep">|</span><a href="#" class="fake-link" data-fake>加入收藏</a><span class="sep">|</span><a href="about.html">联系我们</a></span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="inner masthead-row">
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="晨曦FM 87.5 台标"></a>
+    <div class="mast-text">
+      <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+      <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+    </div>
+    <div class="mast-right">
+      <div class="searchbox">
+        <input type="text" value="请输入关键字">
+        <button data-fake>搜 索</button>
+      </div>
+      <div class="mast-links">
+        <a href="#" class="fake-link" data-fake>电子邮件</a> |
+        <a href="#" class="fake-link" data-fake>网站地图</a> |
+        <a href="#" class="fake-link" data-fake>English</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -24,6 +57,13 @@
     <a href="notice.html">台务公告</a>
     <a href="about.html">关于我们</a>
     <a href="forum.html">听众论坛</a>
+  </div>
+</div>
+
+<div class="noticebar">
+  <div class="inner">
+    <img src="images/icon-speaker.png" class="nb-icon" alt="公告">
+    <marquee scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">欢迎访问晨曦FM 87.5 官方网站！　【声明】本台每日 00:30 后停止一切播音，凌晨时段没有任何节目，请广大听众切勿寻找不明信号源。　本周节目表（4月）已更新，欢迎按时收听。</marquee>
   </div>
 </div>
 
@@ -50,15 +90,28 @@
   </div>
 
   <div class="panel">
-    <h2>点歌排行</h2>
-    <p class="muted small">本周点播最多的歌：<span class="fake-link" data-fake>查看榜单</span></p>
-    <p class="muted small">点歌规则说明：<span class="fake-link" data-fake>阅读须知</span></p>
+    <h2>点歌排行 TOP5</h2>
+    <ul class="top10">
+      <li><span><span class="rk">1</span>《夜来香》</span><span class="cnt">387次</span></li>
+      <li><span><span class="rk">2</span>《常回家看看》</span><span class="cnt">291次</span></li>
+      <li><span><span class="rk">3</span>《月亮代表我的心》</span><span class="cnt">256次</span></li>
+      <li><span><span class="rk">4</span>《难忘今宵》</span><span class="cnt">233次</span></li>
+      <li><span><span class="rk">5</span>《同桌的你》</span><span class="cnt">198次</span></li>
+    </ul>
+    <p class="muted small mt">点歌规则说明：<span class="fake-link" data-fake>阅读须知</span></p>
   </div>
 
-  <p class="mt"><a href="index.html">← 返回首页</a></p>
 
-  <div class="colophon">
-    晨曦FM 87.5 广播电台 · 版权所有 © 1999
+  <div class="footer">
+    <div class="friend-links">
+      友情链接：<a href="#" class="fake-link" data-fake>省广播电视总台</a>|<a href="#" class="fake-link" data-fake>市文化和旅游局</a>|<a href="#" class="fake-link" data-fake>老年之声</a>|<a href="#" class="fake-link" data-fake>戏曲频道</a>|<a href="#" class="fake-link" data-fake>新华书店</a>|<a href="#" class="fake-link" data-fake>光明电器厂</a>
+    </div>
+    <div class="counter-line">您是本站的第 <span class="counter" id="visit-counter">0003333</span> 位访客 <span class="muted">（自1999年1月1日起累计）</span></div>
+    <div class="colophon">
+      晨曦FM 87.5 广播电台 · 版权所有 © 1999<br>
+      浙ICP备99000333号 · 地址：省广播电视大楼 14 层 · 邮编 310000 · <a href="about.html">联系我们</a><br>
+      <span class="muted">建议使用 IE 5.0 以上浏览器、800×600 以上分辨率浏览本站 · 本站推荐在白天访问</span>
+    </div>
   </div>
 
 </div>
@@ -83,12 +136,31 @@ document.getElementById('rq-btn').addEventListener('click', function () {
 document.querySelectorAll('[data-fake]').forEach(function (el) {
   el.addEventListener('click', function (e) {
     e.preventDefault();
-    var old = el.textContent;
-    el.textContent = '加载中…';
-    setTimeout(function () { el.textContent = old; }, 900);
   });
 });
 </script>
 
+<script>
+/* 访问计数器（localStorage 累计） */
+(function () {
+  var v = 3333;
+  try {
+    v = parseInt(localStorage.getItem('cx_visits') || '3332', 10) + 1;
+    localStorage.setItem('cx_visits', String(v));
+  } catch (e) {}
+  var c = document.getElementById('visit-counter');
+  if (c) c.textContent = ('0000000' + v).slice(-7);
+})();
+
+/* 对联广告关闭 */
+document.getElementById('fly-close-l').addEventListener('click', function () {
+  document.getElementById('fly-l').style.display = 'none';
+});
+document.getElementById('fly-close-r').addEventListener('click', function () {
+  document.getElementById('fly-r').style.display = 'none';
+});
+</script>
+
+<script src="js/search.js"></script>
 </body>
 </html>

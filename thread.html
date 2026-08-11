@@ -8,10 +8,43 @@
 </head>
 <body>
 
-<div class="masthead">
+<!-- 左右对联广告（2000 年门户经典悬浮位） -->
+<div class="side-fly left" id="fly-l">
+  <div class="fly-close"><span id="fly-close-l">关闭×</span></div>
+  <img src="images/side-ad-left.gif" alt="广告">
+  <div class="fly-tag">广告</div>
+</div>
+<div class="side-fly right" id="fly-r">
+  <div class="fly-close"><span id="fly-close-r">关闭×</span></div>
+  <img src="images/side-ad-right.gif" alt="广告">
+  <div class="fly-tag">广告</div>
+</div>
+
+<div class="topline">
   <div class="inner">
-    <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
-    <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+    <span>1999年4月13日 星期二<span class="sep">|</span>今日天气：晴转多云 12～22℃</span>
+    <span><a href="#" class="fake-link" data-fake>设为首页</a><span class="sep">|</span><a href="#" class="fake-link" data-fake>加入收藏</a><span class="sep">|</span><a href="about.html">联系我们</a></span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="inner masthead-row">
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="晨曦FM 87.5 台标"></a>
+    <div class="mast-text">
+      <h1><span class="fmno">晨曦FM 87.5</span> 广播电台</h1>
+      <div class="slogan">您 身 边 的 好 声 音 · 全 天 候 陪 伴</div>
+    </div>
+    <div class="mast-right">
+      <div class="searchbox">
+        <input type="text" value="请输入关键字">
+        <button data-fake>搜 索</button>
+      </div>
+      <div class="mast-links">
+        <a href="#" class="fake-link" data-fake>电子邮件</a> |
+        <a href="#" class="fake-link" data-fake>网站地图</a> |
+        <a href="#" class="fake-link" data-fake>English</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -27,8 +60,32 @@
   </div>
 </div>
 
+<div class="noticebar">
+  <div class="inner">
+    <img src="images/icon-speaker.png" class="nb-icon" alt="公告">
+    <marquee scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">欢迎访问晨曦FM 87.5 官方网站！　【声明】本台每日 00:30 后停止一切播音，凌晨时段没有任何节目，请广大听众切勿寻找不明信号源。　本周节目表（4月）已更新，欢迎按时收听。</marquee>
+  </div>
+</div>
+
 <div class="wrap">
 
+  <!-- 锁定层：需验证发帖人（失眠的老周）身份 -->
+  <div class="panel" id="thread-lock">
+    <h2>【讨论】有人收到过凌晨三点多的那个台吗？</h2>
+    <p class="muted small">本帖已被管理员锁定 · 仅发帖人验证身份后可见 · <a href="forum.html">返回列表</a></p>
+    <div class="login-panel" style="margin:18px auto;">
+      <h2>发帖人身份验证</h2>
+      <p class="muted small">请输入发帖人的听友编号与口令。</p>
+      <input type="text" id="tl-user" placeholder="听友编号" autocomplete="off">
+      <input type="password" id="tl-pass" placeholder="口令" autocomplete="off">
+      <button id="tl-btn" style="width:100%;">验 证</button>
+      <div class="login-err" id="tl-err"></div>
+      <div class="login-tip">提示：发帖人"失眠的老周"也是别家电台的常客。他的编号和口令，都散落在那家电台的网站上。</div>
+    </div>
+  </div>
+
+  <!-- 帖子正文（验证通过才显示） -->
+  <div id="thread-body" style="display:none;">
   <div class="panel">
     <h2>【讨论】有人收到过凌晨三点多的那个台吗？</h2>
     <p class="muted small">本帖已被顶起 387 次 · 最后回复 03:44 · <a href="forum.html">返回列表</a></p>
@@ -83,7 +140,7 @@
       <div class="p-body">9楼刚才发了一串数字，我截图还没来得及就删了。好像是个频率。谁看到了吗</div>
     </div>
 
-    <div class="post cursed">
+    <div class="post">
       <div class="p-head"><span class="p-user"><img class="u-ava" src="images/u-shuixiang.png" alt="">顶楼的水箱</span><span>11楼 · 03:41</span></div>
       <div class="p-body">别再往下翻了。它在等你们凑过来。
 
@@ -93,18 +150,74 @@
 
 调之前想清楚——有些台，一旦收到，就再也关不掉了。</div>
     </div>
-
-    <p class="mt center">
-      <a href="index.html#deck" style="color:#c0401a; font-weight:bold;">→ 我好像听清了……回到首页，去调到那个频率</a><br>
-      <a href="forum.html" class="muted small">算了，回论坛</a>
-    </p>
+  </div>
   </div>
 
-  <div class="colophon">
-    晨曦FM 87.5 广播电台 · 听众论坛 · 本帖已被管理员锁定
+  <div class="footer">
+    <div class="friend-links">
+      友情链接：<a href="#" class="fake-link" data-fake>省广播电视总台</a>|<a href="#" class="fake-link" data-fake>市文化和旅游局</a>|<a href="#" class="fake-link" data-fake>老年之声</a>|<a href="#" class="fake-link" data-fake>戏曲频道</a>|<a href="#" class="fake-link" data-fake>新华书店</a>|<a href="#" class="fake-link" data-fake>光明电器厂</a>
+    </div>
+    <div class="counter-line">您是本站的第 <span class="counter" id="visit-counter">0003333</span> 位访客 <span class="muted">（自1999年1月1日起累计）</span></div>
+    <div class="colophon">
+      晨曦FM 87.5 广播电台 · 听众论坛 · 本帖已被管理员锁定<br>
+      浙ICP备99000333号 · 地址：省广播电视大楼 14 层 · 邮编 310000 · <a href="about.html">联系我们</a><br>
+      <span class="muted">建议使用 IE 5.0 以上浏览器、800×600 以上分辨率浏览本站 · 本站推荐在白天访问</span>
+    </div>
   </div>
 
 </div>
 
+<script>
+/* 帖子锁：失眠的老周 身份验证（编号藏在 103.5 戏曲台网站的听友卡里，口令在演出预告页） */
+(function () {
+  var USER = 'XQ3312';
+  var PASS = '1930';
+  var KEY = 'cx_thread_unlock';
+  var lock = document.getElementById('thread-lock');
+  var body = document.getElementById('thread-body');
+  function show() { lock.style.display = 'none'; body.style.display = 'block'; }
+
+  /* debug 后门：?debug=1 直接放行 */
+  if (new URLSearchParams(location.search).get('debug') === '1') { show(); return; }
+  try { if (localStorage.getItem(KEY) === '1') { show(); return; } } catch (e) {}
+
+  document.getElementById('tl-btn').addEventListener('click', function () {
+    var u = document.getElementById('tl-user').value.trim().toUpperCase();
+    var p = document.getElementById('tl-pass').value.trim();
+    if (u === USER && p === PASS) {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      show();
+    } else {
+      document.getElementById('tl-err').textContent = '编号或口令不对。听说老周常听 103.5 戏曲台……';
+    }
+  });
+  document.getElementById('tl-pass').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('tl-btn').click();
+  });
+})();
+</script>
+
+<script>
+/* 访问计数器（localStorage 累计） */
+(function () {
+  var v = 3333;
+  try {
+    v = parseInt(localStorage.getItem('cx_visits') || '3332', 10) + 1;
+    localStorage.setItem('cx_visits', String(v));
+  } catch (e) {}
+  var c = document.getElementById('visit-counter');
+  if (c) c.textContent = ('0000000' + v).slice(-7);
+})();
+
+/* 对联广告关闭 */
+document.getElementById('fly-close-l').addEventListener('click', function () {
+  document.getElementById('fly-l').style.display = 'none';
+});
+document.getElementById('fly-close-r').addEventListener('click', function () {
+  document.getElementById('fly-r').style.display = 'none';
+});
+</script>
+
+<script src="js/search.js"></script>
 </body>
 </html>
