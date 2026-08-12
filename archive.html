@@ -4,21 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>往期节目 - FM-MIDNIGHT</title>
-<link rel="stylesheet" href="css/style.css?v=2.3">
-<link rel="stylesheet" href="css/episode.css?v=2.6">
+<link rel="stylesheet" href="css/style.css?v=2.5">
+<link rel="stylesheet" href="css/episode.css?v=4.6">
 </head>
 <body>
 
 <canvas class="snow quiet" id="snow"></canvas>
 
 <div class="container">
+  <img class="site-logo" src="images/logo-midnight.png" alt="FM-MIDNIGHT 台标">
   <h1 class="glitch-text" data-text="往期节目">往期节目</h1>
-  <p class="tagline">文字稿存档 · 由值班技术员整理</p>
+  <p class="tagline">文字稿存档 · 由值班技术员整理 · 按母带上架顺序排列</p>
 
-  <div class="dim-photo">
-    <img src="images/archive-shelf.jpg" alt="资料室">
-    <div class="cap">资料室 · 母带按期数上架，大多数位置还空着</div>
-  </div>
+  <!-- 剧情弧光（给作者看的排布逻辑）：
+       第1~4期  怪事还关在节目里（听众来信与热线）
+       第5~8期  怪事漫出节目，渗进听众的现实
+       第9~12期 电台本身开始不对劲——夜莺出事了
+       第13期   收口：主播之位空着，电台在等"听得最认真的人"
+       每期母带背面刻一个字，依次为：孤 灯 夜 雨 闻 莺 语 半 不 似 人 声 -->
 
   <!-- 第1期：唯一修复完成的母带（入口在 episodes/ep01/）。
        第2~12期：母带损坏，待修复（灰色，不可进入）。
@@ -27,101 +30,109 @@
     <a href="episodes/ep01/index.html">第1期《深夜点歌台》</a>
     <details>
       <summary class="muted small">文字稿摘要</summary>
-      <p>开播首期。夜莺为三位听众放了老歌。其中一位点播的歌，唱片公司说从未发行过。</p>
+      <p>开播首期。三份点歌申请：一份来自不存在的门牌，一份来自有两个人的电话，一份没有地址。夜莺念完第三封，在话筒前停了很久。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep02">
-    <span class="ep-dead">第2期《城市天气与路况》</span>
+  <div class="ep-entry" data-ep="ep02">
+    <a href="episodes/ep02/index.html">第2期《没有地址的信》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>同一条路况被念了三遍。导播间的回放里只念了一遍。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>那封信又寄来了。信封里只有一张节目单，印着一期从未播出过的节目——播出日期，是下周。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep03">
-    <span class="ep-dead">第3期《失眠者访谈》</span>
+  <div class="ep-entry" data-ep="ep03">
+    <a href="episodes/ep03/index.html">第3期《失眠者访谈》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>受访听众说自己十年没睡着过。录音第 3 分 33 秒，背景里有人替他睡着了，呼吸声很重。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>受访听众说自己十年没睡着过。录音第 3 分 33 秒，有人替他睡着了，呼吸声很重。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep04">
-    <span class="ep-dead">第4期《老楼的电梯》</span>
+  <div class="ep-entry" data-ep="ep04">
+    <a href="episodes/ep04/index.html">第4期《老楼的电梯》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>夜莺读了一封关于电梯的来信。信的落款地址，三年前就拆掉了。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>听众来信说，楼里的电梯总在凌晨三点自己开门。信的落款地址，三年前就拆掉了。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep05">
-    <span class="ep-dead">第5期《电话串线》</span>
+  <div class="ep-entry" data-ep="ep05">
+    <a href="episodes/ep05/index.html">第5期《电话串线》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>热线串线了。两位听众通过电话聊了起来，后来才发现他们住同一间屋子，隔了二十年。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>热线串线了。两位听众隔着电话聊了起来——后来才发现，他们住同一间屋子，隔了二十年。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep06">
-    <span class="ep-dead">第6期《停电之夜》</span>
+  <div class="ep-entry" data-ep="ep06">
+    <a href="episodes/ep06/index.html">第6期《停电之夜》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>全城停电，电台靠备用电源播出。那晚的来电数量，超过了全城的电话总数。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>全城停电，电台靠备用电源播出。那晚全城只有一扇窗亮着——亮到节目结束的那一刻。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep07">
-    <span class="ep-dead">第7期《对着镜子说话》</span>
+  <div class="ep-entry" data-ep="ep07">
+    <a href="episodes/ep07/index.html">第7期《对着镜子说话》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>互动环节：对着镜子说三声自己的名字。导播事后接到 13 通报怨电话——镜子里的人多答了一声。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>互动环节：对着镜子说三声自己的名字。三位听众打进热线——镜子里的人，多答了一声。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep08">
-    <span class="ep-dead">第8期《楼道里的广播》</span>
+  <div class="ep-entry" data-ep="ep08">
+    <a href="episodes/ep08/index.html">第8期《楼道里的广播》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>有听众反映：关掉收音机之后，楼道里还能听见本台节目。工程师检查结论：整栋楼没有布线。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>关掉收音机，楼道里还能听见本台节目。工程师的检测结论：整栋楼没有布线——可他有一层楼，根本没去过。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep09">
-    <span class="ep-dead">第9期《代班主播》</span>
+  <div class="ep-entry" data-ep="ep09">
+    <a href="episodes/ep09/index.html">第9期《代班主播》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
-      <p>夜莺请假，由代班主播播出。第二天夜莺返岗，说自己从未请过假。没有人记得代班者的声音。</p>
+      <summary class="muted small">文字稿摘要</summary>
+      <p>夜莺请假，由代班主播播出。第二天夜莺返岗，说自己从未请过假。没有人记得代班者的声音——除了听得最认真的那批听众。</p>
     </details>
   </div>
   <div class="ep-entry dead" data-ep="ep10">
     <span class="ep-dead">第10期《重播》</span>
     <details>
       <summary class="muted small">仅存摘要</summary>
-      <p>本期为重播。但有听众来信说，内容和"上次"不一样——多了一段求救。</p>
+      <p>本期为重播。但有听众来信说，内容和上次不一样——多了一段求救。求救的人，报的是夜莺的工号。</p>
     </details>
   </div>
   <div class="ep-entry dead" data-ep="ep11">
     <span class="ep-dead">第11期《信号测试》</span>
     <details>
       <summary class="muted small">仅存摘要</summary>
-      <p>整期只有测试音。事后有 41 位听众来电，说在测试音里听见了完整的一期节目。</p>
+      <p>整期只有测试音。事后有 41 位听众来电，说在测试音里听见了完整的一期节目。节目里，夜莺在念一份名单。</p>
     </details>
   </div>
   <div class="ep-entry dead" data-ep="ep12">
     <span class="ep-dead">第12期《楼顶的脚步声》</span>
     <details>
       <summary class="muted small">仅存摘要</summary>
-      <p>夜莺读了最后一封关于脚步声的听众来信，并承诺"下期做一期听众来信特辑，全部读完"。</p>
+      <p>夜莺读了最后一封关于脚步声的来信。下播前她说："下一期是听众来信特辑。最后一封信，我要留到最后一期再读。"</p>
     </details>
   </div>
 
-  <!-- 主线联动占位区块：12 期全部通关后显示（脚本自动判断）。
-       内容留空，由你自己填写（隐藏页 / 彩蛋 / 与最终期的联动剧情）。 -->
+  <!-- 主线联动：12 期全部通关后显示（脚本自动判断） -->
   <div id="all-done-secret" class="ep-secret" style="display:none;">
-    <p class="danger small">（占位：12 期全部收听后的联动内容，待填写）</p>
+    <p class="danger small">十二个字，都在你手里了。去第13期——按顺序，念出来。</p>
   </div>
 
   <!-- 第13期：断掉、灰掉。唯一入口是集齐十二字后的解锁门。 -->
   <div class="ep-entry dead">
     <span class="ep-dead">第13期《听众来信特辑》</span>
     <p class="muted small" style="margin:6px 0 4px 16px;">【信号丢失】本期文字稿不存在。母带位置空缺。</p>
-    <div class="ep-gate" style="margin:14px 0 4px 16px; max-width:420px;">
-      <p class="muted small">若你集齐了十二个字——按顺序，念出来。</p>
-      <input type="text" id="rune-answer" maxlength="24" autocomplete="off" placeholder="············">
-      <button id="rune-submit">念</button>
+
+    <!-- 十二字解锁门 -->
+    <div class="ep-rune-gate">
+      <p class="rune-gate-title">十 三</p>
+      <p class="rune-gate-sub">若你集齐了十二个字——按顺序，念出来</p>
+      <div class="rune-slots">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p>
+        <input type="text" id="rune-answer" maxlength="24" autocomplete="off" placeholder="············">
+        <button id="rune-submit">念</button>
+      </p>
       <p id="rune-msg" class="ep-gate-msg"></p>
     </div>
   </div>
@@ -131,7 +142,7 @@
   <div class="footer">FM-MIDNIGHT 资料室 · 开放时间：只有你醒着的时候</div>
 </div>
 
-<script src="js/common.js"></script>
+<script src="js/common.js?v=2.8"></script>
 <script>
 /* ---------- 背景雪花噪点（与 home.html 同款，低存在感） ---------- */
 (function () {
@@ -173,7 +184,7 @@
     }
   }
 
-  /* 主线联动：12 期全部通关后显示占位区块（内容自填） */
+  /* 主线联动：12 期全部通关后显示提示区块 */
   if (EP.progress.count() === 12) {
     document.getElementById('all-done-secret').style.display = 'block';
   }

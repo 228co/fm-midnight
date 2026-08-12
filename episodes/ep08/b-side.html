@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第8期 · 检测报告 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第8期</div>
+    <h1 class="ep-title glitch-text" data-text="检 测 报 告">检 测 报 告</h1>
+    <p class="ep-meta">播出：1999-12-21 03:33 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：B面 -->
+  <div class="ep-story">
+    <p>"收音机拔了电，楼道里那个，可还响着。"夜莺说，"上礼拜，青园路 7 号那栋楼的住户凑钱请了工程师，逐层检测广播线路。报告原件在我手上——我念，你们听。"</p>
+    <p>"工程师姓陈，做事极规矩。每层检测完，当场记时间。他从这个钟点开始，一层一层往上走：</p>
+  </div>
+
+  <!-- 谜题2：检测报告（每层 +7 分钟，唯独 4 层的时间是补的假记录） -->
+  <table class="ep-report">
+    <tr><th>楼层</th><th>检测时间</th><th>结论</th></tr>
+    <tr><td>1 层</td><td>23:07</td><td>无布线</td></tr>
+    <tr><td>2 层</td><td>23:14</td><td>无布线</td></tr>
+    <tr><td>3 层</td><td>23:21</td><td>无布线</td></tr>
+    <tr><td>4 层</td><td>23:31</td><td>无布线</td></tr>
+    <tr><td>5 层</td><td>23:35</td><td>无布线</td></tr>
+    <tr><td>6 层</td><td>23:42</td><td>无布线</td></tr>
+    <tr><td>7 层</td><td>23:49</td><td>无布线</td></tr>
+    <tr><td>8 层</td><td>23:56</td><td>无布线</td></tr>
+  </table>
+
+  <div class="ep-story">
+    <p>"结论：全楼无布线。住户就认了这个说法。"夜莺把报告放下，"可我数了他的时间。陈工程师是个极规矩的人——<strong>有一行，是他回来之后补的。</strong>"</p>
+    <p>"他根本没上过那一层。你们说，他跳过了哪一层？"</p>
+  </div>
+
+  <!-- 谜题2 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">他跳过的那一层：</p>
+    <input type="text" id="answer" maxlength="3" autocomplete="off" placeholder="· 层">
+    <button id="submit">指</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">陈工程师后来搬走了。他说那栋楼的时间，比外面慢</p>
+
+  <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep08', title: '第8期 · 检测报告 - FM-MIDNIGHT' });
+
+  // 门禁：须先拔掉插头
+  EP.require('gate1', 'index.html');
+
+  // 谜题2：检测报告时间异常，答案 4
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a',
+    flag: 'gate2',
+    deny: '报告被翻回前一页。再看看他的时间——他是个极规矩的人。',
+    okText: '对。23:21 到 23:31，他在那一层的位置，停了十分钟。或者，根本没去。',
+    goto: 'corridor.html'
+  });
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第8期 · 检测报告', '别 上 四 层'], 2000);
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第7期 · 镜面上的字 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第7期</div>
+    <h1 class="ep-title glitch-text" data-text="镜面上的字">镜面上的字</h1>
+    <p class="ep-meta">信号来源：直播间那面镜子</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>"轮到我了"——镜子里说完这四个字，直播间所有的灯同时暗了一格。导播后来说，他看见镜面上起了雾，从里面起的雾。</p>
+    <p>雾里有人用手指写了字。夜莺没有念。她把镜子转向了听众。</p>
+    <p>"自己看。"她说，"镜子里的字是反的。看懂了，替我说出来——别答应它。"</p>
+  </div>
+
+  <!-- 谜题3：擦镜子（雾下是反写的「换我了」） -->
+  <div class="ep-fogmirror" id="fogmirror">
+    <div class="ep-fog-text"><span>换</span><span>我</span><span>了</span></div>
+    <canvas id="fog"></canvas>
+  </div>
+  <p class="muted small" style="text-align:center;">镜子蒙了雾。按住，擦开它。</p>
+
+  <!-- 谜题3 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">镜面上写的三个字（翻正了再写）：</p>
+    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="···">
+    <button id="submit">念</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>夜莺听完这三个字，伸手把镜子扣在了桌上。</p>
+    <p>"以后照镜子，数清楚。三声就是三声——多出来的那一声，别答应。"她顿了顿，"答了三声，它记住你的声音。第四声，它就用你的声音，喊别人的名字了。"</p>
+    <p>"下一期，楼道里的广播。关掉的，不一定关掉了。"</p>
+  </div>
+
+  <!-- 十二字集字：第七个字「语」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，是从里面那一侧刻的，要对着光反着看。</p>
+    <div class="ep-rune flicker">语</div>
+    <p class="ep-rune-cap">十二个字里的第七个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它学会了你的声音，第一件事就是喊你</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep07', title: '第7期 · 镜面上的字 - FM-MIDNIGHT' });
+
+  // 门禁：须先完成仪式
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // ---- 擦镜子 ----
+    var box = document.getElementById('fogmirror');
+    var canvas = document.getElementById('fog');
+    var ctx = canvas.getContext('2d');
+
+    function initFog() {
+      canvas.width = box.clientWidth;
+      canvas.height = box.clientHeight;
+      ctx.globalCompositeOperation = 'source-over';
+      // 雾底
+      ctx.fillStyle = '#b8b4aa';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // 噪点与水痕
+      var seed = 7;
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      for (var i = 0; i < 2600; i++) {
+        var g = 150 + Math.floor(rnd() * 70);
+        ctx.fillStyle = 'rgba(' + g + ',' + g + ',' + (g - 8) + ',' + (0.25 + rnd() * 0.5) + ')';
+        ctx.fillRect(rnd() * canvas.width, rnd() * canvas.height, 2 + rnd() * 3, 2 + rnd() * 3);
+      }
+      for (var j = 0; j < 14; j++) {
+        ctx.strokeStyle = 'rgba(140,138,130,0.35)';
+        ctx.lineWidth = 1 + rnd() * 2;
+        ctx.beginPath();
+        var x = rnd() * canvas.width;
+        ctx.moveTo(x, rnd() * canvas.height * 0.4);
+        ctx.lineTo(x + (rnd() - 0.5) * 10, canvas.height * (0.5 + rnd() * 0.5));
+        ctx.stroke();
+      }
+    }
+    initFog();
+
+    var wiping = false;
+    function wipe(cx, cy) {
+      var rect = canvas.getBoundingClientRect();
+      var x = cx - rect.left, y = cy - rect.top;
+      ctx.globalCompositeOperation = 'destination-out';
+      var r = 42;
+      var grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+      grad.addColorStop(0, 'rgba(0,0,0,0.85)');
+      grad.addColorStop(0.7, 'rgba(0,0,0,0.4)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', function (e) { wiping = true; wipe(e.clientX, e.clientY); });
+    canvas.addEventListener('mousemove', function (e) { if (wiping) wipe(e.clientX, e.clientY); });
+    window.addEventListener('mouseup', function () { wiping = false; });
+    canvas.addEventListener('touchstart', function (e) { e.preventDefault(); wipe(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+    canvas.addEventListener('touchmove', function (e) { e.preventDefault(); wipe(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+
+    // ---- 谜题3：反字「换我了」 ----
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: '8eec1ce50aae77b5e96da6ba37180e7c1e4fe6de4a79a5d4bd3f448d106a6226',
+      flag: 'gate3',
+      deny: '镜面上的雾又合拢了一点。那是镜中字——翻正了再念。',
+      okText: '你念出了那三个字。直播间里，安静得能听见雾重新凝在玻璃上。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

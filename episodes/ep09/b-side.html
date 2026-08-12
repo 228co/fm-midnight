@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第9期 · 热线记录 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第9期</div>
+    <h1 class="ep-title glitch-text" data-text="热 线 记 录">热 线 记 录</h1>
+    <p class="ep-meta">播出：1999-12-28 03:33 · 导播间通话转写</p>
+  </div>
+
+  <!-- 故事正文：B面 -->
+  <div class="ep-story">
+    <p>"我们。"夜莺把转写折起来，"它连我的听众都认得。那晚有三位老听众打进热线，都是熟面孔——上周对着镜子说话那三位。导播间的通话记录在这，你们听。"</p>
+  </div>
+
+  <!-- 谜题2：三段热线转写（陈念那段露馅：嗓子发炎是私下告诉导播的，节目里没提过） -->
+  <div class="ep-letter">
+    <p style="text-indent:0;">「周平」——"周平啊，又是你。今晚也对着镜子呢？"</p>
+    <p style="text-indent:0;">「陈念」——"陈念，嗓子好点了吗？"</p>
+    <p style="text-indent:0;">「吴声」——"吴声，下回说名字，声音大点。"</p>
+  </div>
+
+  <div class="ep-story">
+    <p>"周平和吴声，都是节目里的事，它从录音里就能学去。"夜莺的手指停在第二段上，"可陈念的嗓子——是她上周私下打电话告诉导播的。<strong>节目里，一个字都没提过。</strong>"</p>
+    <p>"那晚坐在话筒前的，翻了我的听众档案。"她说，"它准备得比我想的久。你们说，哪一段露了馅？"</p>
+  </div>
+
+  <!-- 谜题2 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">露馅的那一段，是打给谁的：</p>
+    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="··">
+    <button id="submit">指</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">听众档案锁在资料柜里。柜里还有那个没有线的喇叭</p>
+
+  <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep09', title: '第9期 · 热线记录 - FM-MIDNIGHT' });
+
+  // 门禁：须先找出"我们"
+  EP.require('gate1', 'index.html');
+
+  // 谜题2：热线转写推理，答案 陈念
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '651bfbb933f73dc96343760621672affe2e241b36f4d30b98d7b194725168676',
+    flag: 'gate2',
+    deny: '再读一遍。不是它说错了什么——是它不该知道。',
+    okText: '对。陈念。她的嗓子，节目里从没提过。它翻过听众档案。',
+    goto: 'lastword.html'
+  });
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第9期 · 热线记录', '它 还 记 得 你'], 2000);
+</script>
+</body>
+</html>

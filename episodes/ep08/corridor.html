@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第8期 · 最响的地方 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<!-- 谜题3：全屏自由探声（整个网页都是楼道，音量峰值在 4.5 层高度） -->
+<div class="ep-soundfield" id="soundfield">
+  <span class="ep-sf-mark" style="bottom:91.6%;">6</span>
+  <span class="ep-sf-mark" style="bottom:75%;">5</span>
+  <span class="ep-sf-mark" style="bottom:58.3%;">4</span>
+  <span class="ep-sf-mark" style="bottom:41.6%;">3</span>
+  <span class="ep-sf-mark" style="bottom:25%;">2</span>
+  <span class="ep-sf-mark" style="bottom:8.3%;">1</span>
+  <div class="ep-sf-dot" id="dot"></div>
+</div>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第8期</div>
+    <h1 class="ep-title glitch-text" data-text="最响的地方">最响的地方</h1>
+    <p class="ep-meta">信号来源：青园路 7 号 · 楼道</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>节目最后，夜莺去了青园路 7 号。她站在 4 层——报告里被跳过的那一层。楼道是空的，墙上只有水渍和旧标语。</p>
+    <p>可声音还在。不在门后，不在墙里。它忽大忽小，在这截楼梯间里，有一个最响的位置。</p>
+    <p>"我把话筒留在楼道里了。"她说，"你们自己贴着听。<strong>找到它最响的地方，告诉我在第几层。</strong>"</p>
+  </div>
+
+  <p class="muted small" style="text-align:center;">点这页上任何黑暗的地方，听。声音最大的地方，就是声源。</p>
+
+  <!-- 谜题3 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">声源在第几层：</p>
+    <input type="text" id="answer" maxlength="5" autocomplete="off" placeholder="··· 层">
+    <button id="submit">答</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>4 层和 5 层中间。转角平台。夜莺顺着声音走过去——墙上挂着一个旧喇叭，铁皮都锈了。没有线。它正在播一段节目——女声，念一封没有地址的信。只播半段，播到一半，从头再来。</p>
+    <p>"那是 S 先生节目单上那期，"夜莺说，"从来没播过的节目。它在这里，播了半段。"</p>
+    <p>她伸手去摘。很轻——喇叭根本没固定在墙上，是挂着的，像挂一件外套。摘下来的那一刻，声音没有停。</p>
+    <p>"下期节目，我请假一晚。"她说，"会有人替我。你们……听得出不是我，对吧？"</p>
+  </div>
+
+  <!-- 十二字集字：第八个字「半」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字只刻了一半，另外一半，在别处的什么东西上。</p>
+    <div class="ep-rune flicker">半</div>
+    <p class="ep-rune-cap">十二个字里的第八个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它播的不是本台节目，是本台没播过的那半段</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep08', title: '第8期 · 最响的地方 - FM-MIDNIGHT' });
+
+  // 门禁：须先找出被跳过的楼层
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 自由点击探声：声源藏在 4.5 层的高度
+    var SOURCE = 4.5;
+    var field = document.getElementById('soundfield');
+    var dot = document.getElementById('dot');
+
+    function probe(clientX, clientY) {
+      var rect = field.getBoundingClientRect();
+      var y = clientY - rect.top;
+      if (y < 0 || y > rect.height) return;
+      // 纵坐标 → 楼层读数（1 层在底，6 层在顶，与标尺同一刻度）
+      var pos = (1 - y / rect.height) * 6 + 0.5;
+      var dist = Math.abs(pos - SOURCE);
+      // 背景底噪随位置起伏：远离声源趋近 0，半层正中间拉满到 1
+      var bgVol = Math.max(0, 1 - dist * 0.6);
+      if (FM.bgHandle) FM.bgHandle.setVol(bgVol);
+      // 点击瞬间附一声人声呢喃，越近越清楚
+      FM.mumble(0.85, 0.008 + bgVol * 0.15);
+      // 点击处留一个渐隐的小点
+      dot.style.left = (clientX - rect.left) + 'px';
+      dot.style.top = y + 'px';
+      dot.style.opacity = '1';
+      setTimeout(function () { dot.style.opacity = '0'; }, 700);
+    }
+
+    field.addEventListener('mousedown', function (e) { probe(e.clientX, e.clientY); });
+    field.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      probe(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: false });
+
+    // 输入门：答案 四层半
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: '8920d402e279339a7f6b26d6ff7d180d9426359449eefb01acbdab4b27eb23df',
+      flag: 'gate3',
+      deny: '她把话筒凑过去——不对。最响的地方，不在整层。再听听两层之间。',
+      okText: '对。四层半——最响的地方，在两层中间。夜莺朝你指的位置走过去了。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

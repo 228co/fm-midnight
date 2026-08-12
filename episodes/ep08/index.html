@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第8期《楼道里的广播》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第8期</div>
+    <h1 class="ep-title glitch-text" data-text="楼道里的广播">楼道里的广播</h1>
+    <p class="ep-meta">播出：1999-12-21 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>这周导播间接到的最多的报怨，是同一件事：收音机明明关了，楼道里还能听见本台的节目。打电话来的人语气都很确定——"我亲手关的。旋钮都拧到底了。"</p>
+    <p>"口说无凭。"夜莺说，"今晚做个实验。你的收音机，现在正开着——当着我的面，把它关掉。"</p>
+    <p>"关吧。我看着。"</p>
+  </div>
+
+  <!-- 谜题1：关不掉的收音机（电源开关无用，拔掉插头才安静） -->
+  <div class="ep-radio" id="radio">
+    <div class="ep-radio-face">
+      <div class="ep-radio-grille"></div>
+      <div class="ep-radio-side">
+        <div class="ep-radio-led" id="led"></div>
+        <button class="ep-radio-power" id="power">电源</button>
+      </div>
+    </div>
+    <!-- 电源线拖到插头 -->
+    <svg class="ep-radio-cord" viewBox="0 0 300 120" preserveAspectRatio="none">
+      <path d="M10 8 C 90 30, 150 90, 285 100" fill="none" stroke="#2a241d" stroke-width="4"/>
+    </svg>
+    <button class="ep-plug" id="plug" title="插头">
+      <span class="ep-plug-prongs"></span>
+    </button>
+  </div>
+  <p class="muted small" id="radio-msg" style="text-align:center;">收音机开着。雪花声低低地响。</p>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它不走开关，走墙</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep08', title: '第8期《楼道里的广播》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第8期的控制台。开关管不了它。顺着线找。');
+
+  var led = document.getElementById('led');
+  var msg = document.getElementById('radio-msg');
+  var done1 = false;
+
+  // 电源开关：按了也没用
+  document.getElementById('power').addEventListener('click', function () {
+    if (done1) return;
+    led.classList.toggle('off');
+    if (led.classList.contains('off')) {
+      msg.textContent = '灯灭了。……可它还在响。';
+    } else {
+      msg.textContent = '灯又亮了。声音一直在，从来没断过。';
+    }
+  });
+
+  // 拔掉插头：真的安静了
+  document.getElementById('plug').addEventListener('click', function () {
+    if (done1) return;
+    done1 = true;
+    led.classList.add('off');
+    if (FM.bgHandle) FM.bgHandle.setVol(0);
+    this.classList.add('pulled');
+    msg.textContent = '咔。这一回，真的安静了。';
+    EP.flag('gate1');
+    setTimeout(function () { location.href = 'b-side.html'; }, 2400);
+  });
+</script>
+</body>
+</html>

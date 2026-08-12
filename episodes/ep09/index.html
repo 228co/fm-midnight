@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第9期《代班主播》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第9期</div>
+    <h1 class="ep-title glitch-text" data-text="代班主播">代班主播</h1>
+    <p class="ep-meta">播出：1999-12-28 03:00 · 主播：夜莺（？）</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>上期下播前，夜莺说要请假一晚，会有人替她。第二天她返岗，看了值班记录，说了四个字：<strong>"我没请假。"</strong></p>
+    <p>可那晚的节目照常播出了，主播自称夜莺。台里回放录音，在场的人都说不上来哪里不对——没有人记得代班者的声音。除了听得最认真的那批听众。除了你们。</p>
+    <p>夜莺把老听众总结的"播音习惯"贴在导播间墙上，三条：</p>
+  </div>
+
+  <!-- 夜莺的三条习惯 -->
+  <div class="ep-letter">
+    <p style="text-indent:0;">一、开场必说："凌晨三点，你还在。"</p>
+    <p style="text-indent:0;">二、收尾必说："晚安，别回头。"</p>
+    <p style="text-indent:0;">三、<strong>从不说"我们"，只说"我"——直播间只有她一个人。</strong></p>
+  </div>
+
+  <!-- 代班主播的节目转写 -->
+  <div class="ep-story">
+    <p>下面是那晚代班主播的节目转写。夜莺逐字逐句看过，在几处下面，画了重重的线。</p>
+  </div>
+
+  <div class="ep-letter">
+    <p style="text-indent:0;">"凌晨三点，你还在。<strong>我们</strong>知道，今晚听的人比昨晚多。"</p>
+    <p style="text-indent:0;">"……<strong>我们</strong>下期节目，还是这个时间，还是这个频率。<strong>我们</strong>不等夜莺了。"</p>
+    <p style="text-indent:0;">"……晚安。别回头。<strong>我们</strong>看着你回去。"</p>
+  </div>
+
+  <div class="ep-story">
+    <p>"它学我。"夜莺说，"开场学，收尾学，学得一字不差。只有一个词，它漏了——那个词，我这七年从来没说过。"</p>
+    <p>"是哪个词？"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">它用了哪个夜莺从来不用的词：</p>
+    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="··">
+    <button id="submit">指</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它说话的时候，直播间里不止它一个</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep09', title: '第9期《代班主播》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第9期的控制台。直播间只有一个人。所以"我们"是谁？');
+
+  // 谜题1：它说漏的词，答案 我们
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: 'bcacb40df81b94b7561ad31c0660fb385b46812a325305fcb94763bc7fc9f03a',
+    flag: 'gate1',
+    deny: '转写又翻回第一行。对照那三条习惯，一个字一个字地对。',
+    okText: '对。"我们"。——那晚的直播间里，不止它一个。',
+    goto: 'b-side.html'
+  });
+</script>
+</body>
+</html>

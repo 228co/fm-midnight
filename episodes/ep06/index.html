@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6期《停电之夜》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第6期</div>
+    <h1 class="ep-title glitch-text" data-text="停电之夜">停电之夜</h1>
+    <p class="ep-meta">播出：1999-12-07 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>今晚九点四十分，全城停电。供电局没有公告，电话打不进去，整座城市像被人掐住了喉咙。本台靠地下室那台备用发电机，继续播出。</p>
+    <p>发电机上了年纪，电压不稳。墙上的电压表早坏了，指针一动不动。但导播间的应急灯还诚实——它跟着电压，一明，一暗。</p>
+    <p>"亮一下，记 1；灭一下，记 0。"夜莺说，"四下为一组，读成一个数。它闪三组，就是今夜全城唯一还通的电压。"</p>
+    <p>她把话筒凑近那盏灯。你听见电流的嗡鸣，一下，一下：</p>
+  </div>
+
+  <!-- 谜题1：二进制报电压（暗暗明暗 暗暗明暗 暗暗暗暗 → 0010 0010 0000 → 220） -->
+  <div class="ep-volts">
+    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-on">亮</span><span class="v-off">灭</span>
+    <i></i>
+    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-on">亮</span><span class="v-off">灭</span>
+    <i></i>
+    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-off">灭</span><span class="v-off">灭</span>
+  </div>
+
+  <div class="ep-story">
+    <p>"读出来。"她说，"读对了，电就听你的。"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">三组灯，三个数，写下今夜的电压。</p>
+    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="---">
+    <button id="submit">报</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">电压表没有坏。是今夜，全城都是 0</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep06', title: '第6期《停电之夜》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第6期的控制台。亮是 1，灭是 0，四下一组。二进制。');
+
+  // 谜题1：二进制报电压，答案 220
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '36790ecd55c2030dc553685bef719df653f413a20cdad1bfd1dc934c76686ddd',
+    flag: 'gate1',
+    deny: '灯闪得乱了。你读错了。',
+    okText: '发电机低低地应了一声。电压稳住了。',
+    goto: 'b-side.html'
+  });
+</script>
+</body>
+</html>

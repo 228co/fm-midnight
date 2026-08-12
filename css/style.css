@@ -392,3 +392,13 @@ canvas.snow.quiet { opacity: .09; }
   letter-spacing: .1em;
   cursor: default;
 }
+
+/* 深夜电台台标：压暗 + 微弱红晕 */
+.site-logo {
+  display: block;
+  width: 130px;
+  margin: 0 0 20px;
+  opacity: .85;
+  filter: drop-shadow(0 0 12px rgba(156, 31, 31, .28));
+  user-select: none;
+}

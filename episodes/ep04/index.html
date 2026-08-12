@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第4期《老楼的电梯》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第4期</div>
+    <h1 class="ep-title glitch-text" data-text="老楼的电梯">老楼的电梯</h1>
+    <p class="ep-meta">播出：1999-11-23 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>今晚的信，来自一栋老楼。写信的人说，楼里的电梯比他父亲年纪都大，每天凌晨三点自己开门，空着轿厢上上下下，像在巡逻。这封信的落款地址——夜莺查过了，那栋老楼，三年前就拆掉了。</p>
+    <p>"它每层都停。"信里写，"我数过整整一周。3 层、7 层、2 层、9 层、12 层、5 层、1 层、8 层、6 层、10 层、12 层、3 层、9 层、5 层、7 层、2 层……每一层都停。只有一层，它从来、从来不停。"</p>
+    <p>夜莺把这部电梯的面板画了下来，钉在导播间的软木板上。她说："写信的人不敢按那一层。你们呢？替他按下去。"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1：电梯面板（停层记录里 1-12 唯独缺 4） -->
+  <div class="ep-panel">
+    <button class="ep-floor-btn" data-floor="1">1</button>
+    <button class="ep-floor-btn" data-floor="2">2</button>
+    <button class="ep-floor-btn" data-floor="3">3</button>
+    <button class="ep-floor-btn" data-floor="4">4</button>
+    <button class="ep-floor-btn" data-floor="5">5</button>
+    <button class="ep-floor-btn" data-floor="6">6</button>
+    <button class="ep-floor-btn" data-floor="7">7</button>
+    <button class="ep-floor-btn" data-floor="8">8</button>
+    <button class="ep-floor-btn" data-floor="9">9</button>
+    <button class="ep-floor-btn" data-floor="10">10</button>
+    <button class="ep-floor-btn" data-floor="11">11</button>
+    <button class="ep-floor-btn" data-floor="12">12</button>
+  </div>
+  <p id="msg" class="ep-gate-msg">按下那层它从来不停的楼。</p>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">四层的按钮，比别的都凉</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep04', title: '第4期《老楼的电梯》- FM-MIDNIGHT' });
+
+  // 谜题1：电梯面板，唯一解为 4 层
+  var msg = document.getElementById('msg');
+  var wrong = 0;
+
+  document.querySelectorAll('.ep-floor-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = btn.getAttribute('data-floor');
+      if (f === '4') {
+        EP.flag('gate1');
+        msg.textContent = '四层的按钮是凉的。凉得像很久没有人按过——也确实没有人按过。电梯开始往下走。';
+        setTimeout(function () { location.href = 'b-side.html'; }, 1400);
+      } else {
+        msg.textContent = '这层到了。门开了，外面是一堵墙。';
+      }
+    });
+  });
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第4期《老楼的电梯》', '电 梯 里 有 人'], 1800);
+</script>
+</body>
+</html>

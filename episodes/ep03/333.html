@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3期 · 3分33秒 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第3期</div>
+    <h1 class="ep-title glitch-text" data-text="3 分 33 秒">3 分 33 秒</h1>
+    <p class="ep-meta">信号来源：不明 · 录音第 3:33</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>他睡着了。录音没有停。放到第 3 分 33 秒的时候，导播把音量拧大了——呼吸声里，夹了别的东西。</p>
+    <p>不是他说的。他的呼吸在下面，很稳。那个东西在呼吸的<strong>间隙</strong>里，一下，一下，像有人贴着话筒，用气声在写字。</p>
+    <p>夜莺听完这段录音，只说了一句："盯住它呼吸的间隙。它写了三个字。"</p>
+  </div>
+
+  <!-- 谜题3：呼吸间隙的闪字（极淡的字周期性一闪而过） -->
+  <div class="ep-flash-box">
+    <span class="ep-flash" id="flash"></span>
+  </div>
+
+  <div class="ep-gate">
+    <p class="muted small">把呼吸间隙里的三个字，写出来。</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="···">
+    <button id="submit">写</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>三个字写出来之后，那段录音里的呼吸声就只剩下一个人的了。夜莺关掉机器，说："下一期，我们读一封关于老楼电梯的来信。"</p>
+    <p>你没有问出口的是——那三个字，为什么是冲着你写的。</p>
+  </div>
+
+  <!-- 十二字集字：第三个字「夜」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，边缘还带着毛刺，像刚刻完不久。</p>
+    <div class="ep-rune flicker">夜</div>
+    <p class="ep-rune-cap">十二个字里的第三个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">他睡着的时候，你还醒着吗</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep03', title: '第3期 · 3分33秒 - FM-MIDNIGHT' });
+
+  // 门禁：须先等他睡着
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 谜题3：闪字。该 / 你 / 了 依次在呼吸间隙极淡地闪现
+    var flash = document.getElementById('flash');
+    var chars = ['该', '你', '了'];
+    var i = 0;
+    setInterval(function () {
+      flash.textContent = chars[i % chars.length];
+      flash.classList.add('on');
+      setTimeout(function () { flash.classList.remove('on'); }, 420);
+      i++;
+    }, 2600);
+
+    // 答案门
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: '04a759bbb14b9d61ab853075a11c1d686af89689168f8a80de65b2fdafb818b1',
+      flag: 'gate3',
+      deny: '呼吸声没有变化。你写错了，或者还没看全。',
+      okText: '它听见了。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第5期《电话串线》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第5期</div>
+    <h1 class="ep-title glitch-text" data-text="电话串线">电话串线</h1>
+    <p class="ep-meta">播出：1999-11-30 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>今晚出了播出事故。第一位听众的热线还没挂断，第二位听众的声音就插了进来——串线了。两个人隔着电话聊了起来，谁都没有挂的意思。夜莺索性没有切信号。</p>
+    <p>两个人聊得很投缘，临了想互留电话。第一位听众沉默了一会儿，说："我不记得号码了。我只记得拨号的时候，手指头念出来的字母。"</p>
+    <p>"什么字母？"第二位问。</p>
+    <p>"Y、E、Y、I、N、G。"他说，"就记得这个。你拨拨看。"</p>
+    <p>夜莺沉默了一会儿，说："老式电话的九宫格，谁家没有？自己低头看。"</p>
+    <p>"他留下的号码就在这几个字母里。"她又说，"你们替他拨。我倒想看看，这通电话——到底是打给谁的。"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1：九宫格 T9（YEYING → 939464） -->
+  <div class="ep-gate">
+    <p class="muted small">把字母换成号码，拨出去。</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="------">
+    <button id="submit">拨</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">这个号码，导播间每个人都背得出</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep05', title: '第5期《电话串线》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第5期的控制台。九宫格第二行第三列，是 Y。');
+
+  // 谜题1：九宫格 T9，答案 939464
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: 'c4fafd9c45912f338a6d58b1a6795dda165930d59dc408e65bcce9a85b4d1a4b',
+    flag: 'gate1',
+    deny: '忙音。这个号码不存在。',
+    okText: '接通了。电话那头，没有人说话——但也没有挂。',
+    goto: 'b-side.html'
+  });
+</script>
+</body>
+</html>

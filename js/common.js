@@ -79,6 +79,34 @@
       return src;
     },
 
+    /* 人声呢喃片段：带语调起伏的含糊"念信声"，听不清字 */
+    mumble: function (dur, vol) {
+      dur = dur || 0.8; vol = vol || 0.15;
+      var ac = this.ac();
+      var now = ac.currentTime;
+      var src = ac.createBufferSource();
+      src.buffer = this._noise(dur + 0.1);
+      // 共振峰扫频 = 语调的抑扬
+      var bp = ac.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.Q.value = 3;
+      bp.frequency.setValueAtTime(380, now);
+      bp.frequency.linearRampToValueAtTime(840, now + dur * 0.3);
+      bp.frequency.linearRampToValueAtTime(500, now + dur * 0.58);
+      bp.frequency.linearRampToValueAtTime(920, now + dur * 0.82);
+      bp.frequency.linearRampToValueAtTime(600, now + dur);
+      // 振幅做出"音节"感：几个小顿挫，像一句话
+      var g = ac.createGain();
+      g.gain.setValueAtTime(0, now);
+      var syl = [0.02, 0.16, 0.28, 0.46, 0.6, 0.78, 0.94];
+      syl.forEach(function (p, i) {
+        g.gain.linearRampToValueAtTime(i % 2 === 0 ? vol : vol * 0.22, now + dur * p);
+      });
+      g.gain.linearRampToValueAtTime(0, now + dur);
+      src.connect(bp); bp.connect(g); g.connect(ac.destination);
+      src.start(now); src.stop(now + dur + 0.05);
+    },
+
     /* 环境低鸣（返回停止函数） */
     hum: function (vol) {
       vol = vol || 0.05;
@@ -161,26 +189,33 @@
       n.start(now);
     },
 
-    /* 循环静电底噪：返回可调音量的句柄 {setVol, stop} */
+    /* 循环静电底噪：缓慢起伏、低闷，返回可调音量的句柄 {setVol, stop} */
     staticLoop: function (vol) {
       vol = (vol === undefined) ? 0.12 : vol;
       var ac = this.ac();
       var src = ac.createBufferSource();
       src.buffer = this._noise(2);
       src.loop = true;
-      // 稍微压低高频，让底噪更"闷"更像老收音机
+      // 大幅压低高频，底噪更"闷"更慢，像隔着墙的老收音机
       var filter = ac.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.value = 3200;
+      filter.frequency.value = 1100;
       var g = ac.createGain();
       g.gain.value = vol;
+      // 极慢的呼吸起伏（约 13 秒一个周期），让底噪"慢"下来
+      var lfo = ac.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 0.077;
+      var lfoG = ac.createGain();
+      lfoG.gain.value = vol * 0.45;
+      lfo.connect(lfoG); lfoG.connect(g.gain);
       src.connect(filter); filter.connect(g); g.connect(ac.destination);
-      src.start();
+      src.start(); lfo.start();
       return {
         setVol: function (v) {
           g.gain.setTargetAtTime(Math.max(0, v), ac.currentTime, 0.05);
         },
-        stop: function () { try { src.stop(); } catch (e) {} }
+        stop: function () { try { src.stop(); lfo.stop(); } catch (e) {} }
       };
     },
 
@@ -247,9 +282,34 @@
       });
       document.body.appendChild(btn);
       return btn;
+    },
+
+    /* ---------- 深夜站全域背景底噪 ----------
+       仅黑站页面（episodes/、home.html、archive.html）生效。
+       浏览器要求用户手势后才能出声：首次点击/按键时启动，
+       音量压得很低，像收音机没调准台的雪花底噪。 */
+    _bgStarted: false,
+    bgStatic: function (vol) {
+      if (this._bgStarted) return;
+      this._bgStarted = true;
+      var self = this;
+      var start = function () {
+        self.bgHandle = self.staticLoop(vol || 0.05);
+        window.removeEventListener('pointerdown', start);
+        window.removeEventListener('keydown', start);
+        window.removeEventListener('touchstart', start);
+      };
+      window.addEventListener('pointerdown', start);
+      window.addEventListener('keydown', start);
+      window.addEventListener('touchstart', start);
     }
   };
 
   FM.track();
   window.FM = FM;
+
+  /* 黑站页面自动挂背景底噪（压到极低，若有似无） */
+  if (/episodes\/|home\.html|archive\.html/.test(location.pathname)) {
+    FM.bgStatic(0.015);
+  }
 })();

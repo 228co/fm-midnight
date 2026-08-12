@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3期《失眠者访谈》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第3期</div>
+    <h1 class="ep-title glitch-text" data-text="失眠者访谈">失眠者访谈</h1>
+    <p class="ep-meta">播出：1999-11-16 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>今晚的嘉宾不报名字。夜莺说，称他为"那位听众"就好——那位十年没睡着过的听众。他的声音很平，平得像一条从来没有起过波澜的录音。</p>
+    <p>"您试过什么办法？"夜莺问。"都试过。"他说，"后来我就数羊。每天晚上数一千只，数了十年。"</p>
+    <p>他带来了一沓数羊的记录，纸页发黄，每天一行。夜莺随手翻开一页——那一晚只有一百只羊，她说，这是他少有的、记得很短的一晚。她把那一页念了出来：</p>
+    <p class="ep-flock">1、2、3、4、5、6、7、8、9、10、11、12、13、14、15、16、17、18、19、20、21、22、23、24、25、26、27、28、29、30、31、32、33、34、35、36、37、38、39、40、41、42、43、44、45、46、47、48、49、50、51、52、53、54、55、56、57、58、59、60、61、62、63、64、65、66、68、69、70、71、72、73、74、75、76、77、78、79、80、81、82、83、84、85、86、87、88、89、90、91、92、93、94、95、96、97、98、99、100</p>
+    <p>夜莺念完这一页，停了。直播间安静了几秒钟，她又说："您知道吗。三千六百多个晚上，每只羊都被您数到过——只有一只，您一次也没有数到过。它就藏在这一页里。"</p>
+    <p>那位听众很久没有说话。然后他笑了一下，笑声很轻："原来漏在那儿啊。"他说，"怪不得。十年来，我所有的觉，都漏在那只羊身上了。"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1：数漏的那只羊（序列中三百三十二之后直接跳到三百三十四） -->
+  <div class="ep-gate">
+    <p class="muted small">那只他从来没数到过的羊，是第几只？</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="第 ··· 只">
+    <button id="submit">找</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">那只羊现在很肥</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep03', title: '第3期《失眠者访谈》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第3期的控制台。六十六只之后，别急着往下数。');
+
+  // 谜题1：数漏的羊，答案 67
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '49d180ecf56132819571bf39d9b7b342522a2ac6d23c1418d3338251bfe469c8',
+    flag: 'gate1',
+    deny: '羊群没有停。不是那一只。',
+    okText: '找到了。那只羊，抬起头看了你一眼。',
+    goto: 'b-side.html'
+  });
+</script>
+</body>
+</html>

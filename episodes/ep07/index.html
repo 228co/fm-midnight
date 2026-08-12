@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第7期《对着镜子说话》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第7期</div>
+    <h1 class="ep-title glitch-text" data-text="对着镜子说话">对着镜子说话</h1>
+    <p class="ep-meta">播出：1999-12-14 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：A面 -->
+  <div class="ep-story">
+    <p>上周的互动环节，夜莺教了听众一个老游戏：凌晨三点，对着镜子，说三声自己的名字。节目播出后，导播间的热线响了一整夜——三个人打进来说，他们照做了，镜子里的人，多答了一声。</p>
+    <p>夜莺把三段录音都转写了出来，钉在软木板上。</p>
+  </div>
+
+  <!-- 三段转写 -->
+  <div class="ep-letter">
+    <p style="text-indent:0;">「录音一」他说了三声"我叫周平"。第四声，和他自己的声音，一模一样。他说那一瞬间他分不清，哪一声是自己说的。</p>
+    <p style="text-indent:0;">「录音二」她说了三声"我叫陈念"。第四声慢了半拍，像隔着一层水。她说那声音认得她，因为她听见那声音笑了一下。</p>
+    <p style="text-indent:0;">「录音三」他说了三声"我叫吴声"。第四声——是倒着说的。转写员照原样记了下来，一个字都不敢改：</p>
+  </div>
+
+  <!-- 谜题1：倒序句（倒回来读：别紧张，那不是回答，只是回声） -->
+  <div class="ep-reversed-note">
+    「声　回　是　只　，答　回　是　不　那　，张　紧　别」
+  </div>
+
+  <div class="ep-story">
+    <p>"三个人，三面镜子，多出来的都是第四声。"夜莺关了录音机，"你们说——镜子多答的那一声，到底是什么？"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题1 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">把那句倒着的话倒回来。镜中人多答的那一声，是什么？</p>
+    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="····">
+    <button id="submit">答</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">导播间也有一面镜子。不知哪一期开始，蒙上了布</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep07', title: '第7期《对着镜子说话》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第7期的控制台。那句话要从最后一个字，往第一个字读。');
+
+  // 谜题1：倒序句，答案 回声
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '72b977ec2e0295bb5e054e82dfe1377a66591143555b1dbbe2465f135e789c47',
+    flag: 'gate1',
+    deny: '录音带沙沙地响。你读反了——从最后一个字开始。',
+    okText: '对。回声。至少，夜莺希望那只是回声。',
+    goto: 'b-side.html'
+  });
+</script>
+</body>
+</html>

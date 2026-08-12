@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6期 · 全城只有一扇窗 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第6期</div>
+    <h1 class="ep-title glitch-text" data-text="全城只有一扇窗">全城只有一扇窗</h1>
+    <p class="ep-meta">信号来源：备用电源 · 全城断电中</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>电来了。发射机的红灯亮起来的那一刻，夜莺推开导播间的窗，对着话筒说："往外看。"</p>
+    <p>全城都是黑的。楼是黑的，街是黑的，河也是黑的——只有一扇窗，亮着。</p>
+    <p>"导播间望出去，正好能看见。"她说，"告诉我，那扇窗，在第几格。"</p>
+  </div>
+
+  <!-- 谜题3：城市夜景寻格（列 A-D 左→右，行 1-4 上→下；亮窗在 D2） -->
+  <div class="ep-citymap">
+    <img src="../../images/ep06-city.png" alt="全城停电的夜景，只有一扇窗亮着">
+    <div class="ep-citygrid">
+      <span class="cg-col" style="left:12.5%;">A</span>
+      <span class="cg-col" style="left:37.5%;">B</span>
+      <span class="cg-col" style="left:62.5%;">C</span>
+      <span class="cg-col" style="left:87.5%;">D</span>
+      <span class="cg-row" style="top:12.5%;">1</span>
+      <span class="cg-row" style="top:37.5%;">2</span>
+      <span class="cg-row" style="top:62.5%;">3</span>
+      <span class="cg-row" style="top:87.5%;">4</span>
+    </div>
+  </div>
+
+  <!-- 谜题3 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">写下那扇亮窗的格子（列字母 + 行号）。</p>
+    <input type="text" id="answer" maxlength="4" autocomplete="off" placeholder="··">
+    <button id="submit">看</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>D2。夜莺在稿纸上记下这个格子，笔停了很久。</p>
+    <p>"停电那晚，全城只有那一扇窗有电。"她说，"供电局说不可能。可它亮着——一直亮到节目结束，我念出'晚安'的那一刻，它灭了。"</p>
+    <p>"下一期，对着镜子说话。家里有镜子的，先盖住。"</p>
+  </div>
+
+  <!-- 十二字集字：第六个字「莺」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字旁边，有一小块灯油烧过的痕迹。</p>
+    <div class="ep-rune flicker">莺</div>
+    <p class="ep-rune-cap">十二个字里的第六个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">那扇窗里坐着多少人，你数过吗</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep06', title: '第6期 · 全城只有一扇窗 - FM-MIDNIGHT' });
+
+  // 门禁：须先合对闸
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 谜题3：城市夜景寻格，答案 D2
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: 'e788103ee15318fcd2af9b73b4ebbb33a903b020de7b307d71f5fed0f433e548',
+      flag: 'gate3',
+      deny: '你看错了方向。那扇窗，不在那里。',
+      okText: '对上了。导播间里，没有人说话。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

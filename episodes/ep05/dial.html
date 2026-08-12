@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第5期 · 最后一句 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第5期</div>
+    <h1 class="ep-title glitch-text" data-text="最后一句">最后一句</h1>
+    <p class="ep-meta">信号来源：不明 · 串线中断前</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>串线断开之前，第二位听众喊了最后一句话。信号太差，导播没能记下字，只凭着记忆，记下了一串数字：</p>
+    <p style="text-align:center; letter-spacing:.4em; color:#d8d2c2;">10　9　1　14</p>
+    <p>"他喊这句话的时候，用的是字母表的序号。"夜莺说，"A 是 1，B 是 2，Z 是 26。他知道自己会被听错——数字不会。"</p>
+    <p>她把那串数字抄在黑板上，问听众："他最后喊的，是哪个字？"</p>
+  </div>
+
+  <!-- 谜题3：A1Z26（10 9 1 14 → JIAN） -->
+  <div class="ep-gate">
+    <p class="muted small">把数字换成字母，写下那个字（拼音）。</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="····">
+    <button id="submit">写</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>见。二十年前的人，和二十年后的人，约了一个"见"字。夜莺放下粉笔，说："下一期，全城停电。本台靠备用电源播出——记得听。"</p>
+    <p>你没有问出口的是——青园路 7 号 302，和夜莺念观众来信时常念到的那个地址，是同一个。</p>
+  </div>
+
+  <!-- 十二字集字：第五个字「闻」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字旁边，有一圈细细的牙印。</p>
+    <div class="ep-rune flicker">闻</div>
+    <p class="ep-rune-cap">十二个字里的第五个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">串线从来没断过。是他们俩，一直没挂</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep05', title: '第5期 · 最后一句 - FM-MIDNIGHT' });
+
+  // 门禁：须先排对对话
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 谜题3：A1Z26，答案 jian
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: '7c89187f8884524fa3226f25ecac2116520620e00c5c32464f48d00dda0ddc56',
+      flag: 'gate3',
+      deny: '电话里只剩忙音。不是这个。',
+      okText: '串线接上了最后一秒。那边轻轻笑了一声。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6期 · 配电箱 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第6期</div>
+    <h1 class="ep-title glitch-text" data-text="配 电 箱">配 电 箱</h1>
+    <p class="ep-meta">播出：1999-12-07 03:19 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：B面 -->
+  <div class="ep-story">
+    <p>电压稳住了，配电箱却跳了闸。地下室那台老发电机带不动整层楼，六个开关，只能推三个上去——推错了，全楼断电，今晚的节目就到这里。</p>
+    <p>夜莺念过贴在箱盖内侧的操作规程，纸都黄了，字还在：</p>
+  </div>
+
+  <!-- 操作规程（线索） -->
+  <div class="ep-letter">
+    <p style="text-indent:0;">「备用电源操作规程 · 第三条」</p>
+    <p style="text-indent:0;">一、先保<strong>发射机</strong>。节目不能断。</p>
+    <p style="text-indent:0;">二、再保<strong>调音台</strong>。话筒不能哑。</p>
+    <p style="text-indent:0;">三、给<strong>应急灯</strong>留一路。人不能黑着。</p>
+    <p style="text-indent:0;">四、其余负载，一律断开。发电机带不动的东西，就让它黑着。</p>
+  </div>
+
+  <!-- 谜题2：开关组合（正确：发射机 + 调音台 + 应急灯） -->
+  <div class="ep-switch-row">
+    <button class="ep-switch" data-sw="tx"><span class="ep-switch-name">发射机</span><span class="ep-switch-lever"></span></button>
+    <button class="ep-switch" data-sw="mix"><span class="ep-switch-name">调音台</span><span class="ep-switch-lever"></span></button>
+    <button class="ep-switch" data-sw="lamp"><span class="ep-switch-name">应急灯</span><span class="ep-switch-lever"></span></button>
+    <button class="ep-switch" data-sw="ac"><span class="ep-switch-name">空　调</span><span class="ep-switch-lever"></span></button>
+    <button class="ep-switch" data-sw="water"><span class="ep-switch-name">热水器</span><span class="ep-switch-lever"></span></button>
+    <button class="ep-switch" data-sw="lift"><span class="ep-switch-name">电　梯</span><span class="ep-switch-lever"></span></button>
+  </div>
+
+  <!-- 合闸按钮 -->
+  <div class="ep-gate">
+    <button id="submit">合　闸</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">箱盖内侧还有一行小字：上一任抄的规程，一个开关都没抄错</p>
+
+  <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep06', title: '第6期 · 配电箱 - FM-MIDNIGHT' });
+
+  // 门禁：须先报对电压
+  EP.require('gate1', 'index.html');
+
+  // 谜题2：开关组合，正确 = 发射机 + 调音台 + 应急灯
+  var CORRECT = { tx: true, mix: true, lamp: true, ac: false, water: false, lift: false };
+  var switches = document.querySelectorAll('.ep-switch');
+  var msg = document.getElementById('msg');
+
+  switches.forEach(function (sw) {
+    sw.addEventListener('click', function () {
+      sw.classList.toggle('on');
+      msg.textContent = '';
+    });
+  });
+
+  document.getElementById('submit').addEventListener('click', function () {
+    var ok = true;
+    switches.forEach(function (sw) {
+      var want = CORRECT[sw.getAttribute('data-sw')];
+      var got = sw.classList.contains('on');
+      if (want !== got) ok = false;
+    });
+    if (ok) {
+      EP.flag('gate2');
+      msg.textContent = '开关一个个咬住了。电流声稳稳地响起来。';
+      setTimeout(function () { location.href = 'power.html'; }, 1200);
+    } else {
+      msg.textContent = '发电机咳嗽了两声，熄了。';
+    }
+  });
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第6期 · 配电箱', '别 推 错 开 关'], 2000);
+</script>
+</body>
+</html>

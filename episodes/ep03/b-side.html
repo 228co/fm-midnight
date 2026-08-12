@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3期 · 呼吸 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第3期</div>
+    <h1 class="ep-title glitch-text" data-text="呼 吸">呼 吸</h1>
+    <p class="ep-meta">播出：1999-11-16 03:33 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文：B面 -->
+  <div class="ep-story">
+    <p>访谈进行到一半，那位听众的声音忽然慢了下来。十年了，夜莺后来说，那是她第一次听见他的声音里有了睡意。</p>
+    <p>她把话筒往他那边挪了挪，对听众说："他要睡着了。十年来的第一次。"她的声音压得极低，"谁都别动。别出声。听他呼吸。"</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 谜题2：别吵醒他（保持鼠标键盘完全静止20秒） -->
+  <p class="ep-breathe" id="breath">呼　——　吸　——</p>
+  <p id="msg" class="ep-gate-msg">（保持安静。一动，他就会醒。）</p>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">他的睫毛在动。他梦见了羊。</p>
+
+  <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep03', title: '第3期 · 呼吸 - FM-MIDNIGHT' });
+
+  // 门禁：须先找到那只羊
+  EP.require('gate1', 'index.html');
+
+  if (EP.has('gate1') || FM.debug) {
+
+    // 谜题2：静止 20 秒，任何鼠标/键盘动作都会惊醒他
+    var STILL = 20;
+    var msg = document.getElementById('msg');
+    var breath = document.getElementById('breath');
+    var timer = null;
+    var doneOnce = false;
+
+    function success() {
+      if (doneOnce) return;
+      doneOnce = true;
+      msg.textContent = '他睡着了。呼吸变得绵长。你可以走了——轻一点。';
+      EP.flag('gate2');
+      setTimeout(function () { location.href = '333.html'; }, 1600);
+    }
+
+    function start() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(success, STILL * 1000);
+    }
+
+    function disturb() {
+      if (doneOnce) return;
+      msg.textContent = '他醒了。你又得重新等他。';
+      // 呼吸节奏乱一拍
+      breath.classList.remove('ep-breathe');
+      void breath.offsetWidth;
+      breath.classList.add('ep-breathe');
+      start();
+    }
+
+    ['mousemove', 'keydown', 'click', 'touchstart'].forEach(function (ev) {
+      window.addEventListener(ev, disturb);
+    });
+
+    start();
+  }
+
+  // 标签页标题闪烁：嘘
+  EP.titleBlink(['第3期 · 呼吸', '嘘 ——'], 2000);
+</script>
+</body>
+</html>

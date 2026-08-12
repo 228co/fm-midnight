@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第9期 · 最后一句话 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第9期</div>
+    <h1 class="ep-title glitch-text" data-text="最后一句话">最后一句话</h1>
+    <p class="ep-meta">信号来源：被洗掉的母带 · 一位老听众的笔记</p>
+  </div>
+
+  <!-- 故事引入 -->
+  <div class="ep-story">
+    <p>代班主播下播前，还说了最后一句话。台里想把那句话回放出来的时候，母带的那一段已经被人洗掉了——洗得很干净，前后都留着，只少了最后七秒。</p>
+    <p>但那天晚上，有一位老听众边听边记。他年纪大了，写字慢，完整句子来不及，只来得及记下每个字的拼音首字母。五个字母：</p>
+    <p style="text-align:center; letter-spacing:.6em; color:#d8d2c2; font-size:20px;">W　B　S　Y　Y</p>
+    <p>"他听得最认真。"夜莺把那张纸条压在玻璃板底下，"五个字。它下播前说的最后五个字——你们替我，把它补全。"</p>
+  </div>
+
+  <!-- 谜题3 输入门 -->
+  <div class="ep-gate">
+    <p class="muted small">W·B·S·Y·Y——它最后说的五个字：</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="·····">
+    <button id="submit">补</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>我不是夜莺。</p>
+    <p>它下播前，自己承认了。它学了开场，学了收尾，翻了档案，叫得出每个老听众的名字——最后却用一句话，把整晚的表演都拆了。像是故意留下的。</p>
+    <p>"它想让人知道。"夜莺说，"它想让人知道它来过——而且，还会来。"她把那张纸条收进听众档案，锁进资料柜。柜子里，那个没有线的喇叭，安安静静。</p>
+    <p>"下期节目是重播。"她说，"如果内容和上次不一样——写信告诉我。"</p>
+  </div>
+
+  <!-- 十二字集字：第九个字「不」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字歪歪扭扭，像刻它的人，另一只手被人按着。</p>
+    <div class="ep-rune flicker">不</div>
+    <p class="ep-rune-cap">十二个字里的第九个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它洗掉的是最后七秒。前六个半小时，它一秒都没动</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep09', title: '第9期 · 最后一句话 - FM-MIDNIGHT' });
+
+  // 门禁：须先找出露馅的热线
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    // 谜题3：拼音首字母补全，答案 我不是夜莺
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: 'a43034ba815eca128935aad33d5bf597affeb60783d081312f927d4b52b3999d',
+      flag: 'gate3',
+      deny: '纸条上的五个字母没有变。W 开头——它整晚都在自称什么？',
+      okText: '五个字补全了。玻璃板底下那张纸条，忽然显得很轻。',
+      onOk: function () {
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

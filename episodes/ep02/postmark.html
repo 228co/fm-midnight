@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第2期 · 夹层 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+</head>
+<body class="ep-darkmode">
+
+<div class="container">
+
+  <!-- 期头（埋在黑暗里，光扫到才看得见） -->
+  <div class="ep-head">
+    <div class="ep-no">第2期</div>
+    <h1 class="ep-title glitch-text" data-text="夹 层">夹 层</h1>
+    <p class="ep-meta">信号来源：不明 · 信封很厚</p>
+  </div>
+
+  <!-- 唯一留在光里的引导话 -->
+  <div class="ep-story ep-lit">
+    <p>夹层里没有信纸。夜莺把信封凑到灯下看了很久，说里面有字，可夹层里太黑了，灯照不进去。</p>
+    <p>"把光挪过去。"她说，"角落里压着四个字。找到它们，按序号念出来。"</p>
+  </div>
+
+  <!-- 四角寻字：固定在网页四个角落，埋在黑暗里 -->
+  <span class="ep-corner" style="left:4%; top:6%;">壹 · 灯</span>
+  <span class="ep-corner" style="right:5%; top:8%;">贰 · 下</span>
+  <span class="ep-corner" style="left:5%; bottom:10%;">叁 · 无</span>
+  <span class="ep-corner" style="right:4%; bottom:8%;">肆 · 人</span>
+
+  <!-- 黑暗里的照片与实物：光扫过时才撞见（微恐元素，均不拦截点击） -->
+  <img class="ep-hide-img flicker" src="../../images/ep02-stamp.png" alt="一枚旧邮票" style="left:12%; top:12%; width:110px;">
+  <img class="ep-hide-img" src="../../images/ep02-envelope.png" alt="没有地址的信封" style="right:8%; top:5%; width:150px;">
+  <img class="ep-hide-img" src="../../images/ep02-schedule.png" alt="被涂掉的节目单" style="left:8%; top:36%; width:130px;">
+  <img class="ep-hide-img" src="../../images/ep02-portrait.png" alt="一张员工合影" style="right:8%; top:34%; width:140px;">
+  <img class="ep-hide-img" src="../../images/ep02-yy-lamp.png" alt="灯下的夜莺" style="left:6%; bottom:5%; width:150px;">
+
+  <!-- 中央小故事：埋在黑暗里（值班员口述 · 存档片段） -->
+  <div class="ep-center-note">
+    <p>导播间的灯，是台里最旧的一盏。老值班员说，那盏灯下面从来坐不住人——每一任主播下播的时候都觉得，灯下还坐着一个。</p>
+    <p>夜莺不信。她在这盏灯下播了六年。</p>
+    <p>她不见的那晚，设备还开着，话筒还是热的，椅子还在慢慢地转。桌上压着一封没有地址的信。</p>
+    <p>值班员说，那晚三点半，他听见夜莺对着话筒，念了四个字。是哪四个字，他不肯复述。他说：你自己去找。找到了，就念出来——</p>
+    <p>替她念完。</p>
+  </div>
+
+  <!-- 谜题3 输入门：也埋在黑暗里 -->
+  <div class="ep-gate" style="margin-top:10vh;">
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="········">
+    <button id="submit">念</button>
+    <p id="msg" class="ep-gate-msg">夹层里一片黑。把光挪过去。</p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>四个字念出来的一瞬间，夹层里亮了——不是灯亮，是那四个字自己在亮。夜莺把信封折好，说："下一期，我们采访一位十年没睡着过的听众。"</p>
+    <p>信封空了。可你总觉得它还在变厚——像有人正往里面，塞下一封信。</p>
+  </div>
+
+  <!-- 十二字集字：第二个字「灯」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，比上一盘深了一点。</p>
+    <div class="ep-rune flicker">灯</div>
+    <p class="ep-rune-cap">十二个字里的第二个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">邮票上的脸，刚才眨了一下</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<!-- 全页黑暗遮罩：光锥镂空处随光标移动 -->
+<div class="ep-dark" id="dark"></div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep02', title: '第2期 · 夹层 - FM-MIDNIGHT' });
+
+  // 门禁：须先寄出回信
+  EP.require('gate2', 'index.html');
+
+  if (EP.has('gate2') || FM.debug) {
+
+    var dark = document.getElementById('dark');
+
+    // 光随光标移动（全页面范围）
+    function move(x, y) {
+      dark.style.setProperty('--lx', x + 'px');
+      dark.style.setProperty('--ly', y + 'px');
+    }
+    window.addEventListener('mousemove', function (e) { move(e.clientX, e.clientY); });
+    window.addEventListener('touchmove', function (e) {
+      var t = e.touches[0];
+      move(t.clientX, t.clientY);
+    }, { passive: true });
+
+    // 谜题3：光照寻字，答案 灯下无人
+    EP.gate({
+      input: '#answer',
+      button: '#submit',
+      msg: '#msg',
+      hash: '37a70047e879f24a9abbb5e65852d6fecd023b63e2326937290137e6d7370178',
+      flag: 'gate3',
+      deny: '黑暗里很安静。你念错了，或者还没找齐。',
+      okText: '四个字，亮了。',
+      onOk: function () {
+        // 黑暗褪去，光明结局显现
+        dark.remove();
+        document.body.classList.remove('ep-darkmode');
+        EP.done();
+        document.getElementById('done-mark').style.display = '';
+        document.getElementById('after').style.display = '';
+        var rune = document.getElementById('rune');
+        setTimeout(function () {
+          rune.style.display = '';
+          requestAnimationFrame(function () { rune.style.opacity = '1'; });
+        }, 1200);
+      }
+    });
+  }
+</script>
+</body>
+</html>

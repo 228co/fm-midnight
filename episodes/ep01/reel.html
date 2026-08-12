@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第1期 · 带尾 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=2.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.6">
 </head>
 <body>
 
@@ -30,6 +30,7 @@
 
   <div class="ep-story" id="after" style="display:none;">
     <p>夜莺关掉了设备。临走前她对着已经断电的话筒说了最后一句话："下一期，我们读一封没有地址的信。"</p>
+    <p>设备都关了。可你的耳机里分明还剩一点声音——很轻，像有人在频率的另一头，也在听你。</p>
   </div>
 
   <!-- 通关标记 -->
@@ -42,12 +43,6 @@
     <p class="ep-rune-cap">十二个字里的第一个</p>
   </div>
 
-  <!-- 期尾收尾卡：未完待续 -->
-  <div class="ep-tbc" id="tbc" style="display:none;">
-    <p class="ep-tbc-zh">— 未完待续 —</p>
-    <p class="ep-tbc-en">TO BE CONTINUED</p>
-  </div>
-
   <!-- 隐藏耳语 -->
   <p class="whisper">别念出声</p>
 
@@ -55,7 +50,7 @@
 
 </div>
 
-<script src="../../js/common.js"></script>
+<script src="../../js/common.js?v=2.8"></script>
 <script src="../../js/episode.js"></script>
 <script>
   EP.config({ id: 'ep01', title: '第1期 · 带尾 - FM-MIDNIGHT' });
@@ -99,10 +94,6 @@
             rune.style.display = '';
             requestAnimationFrame(function () { rune.style.opacity = '1'; });
           }, 1200);
-          // 收尾卡最后浮现
-          setTimeout(function () {
-            document.getElementById('tbc').style.display = '';
-          }, 2600);
         }
       }, 30);
     });
