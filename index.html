@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>晨曦FM 87.5 | 您身边的好声音</title>
-<link rel="stylesheet" href="css/day.css?v=2.4">
+<link rel="stylesheet" href="css/day.css?v=2.6">
 </head>
 <body>
 
@@ -13,11 +13,19 @@
   <div class="fly-close"><span id="fly-close-l">关闭×</span></div>
   <img src="images/side-ad-left.gif" alt="广告">
   <div class="fly-tag">广告</div>
+  <div class="fly-qr">
+    <img src="images/qrcode-matrix.jpg" alt="听众群二维码">
+    <div class="fly-qr-cap">微信扫码 · 进听众群</div>
+  </div>
 </div>
 <div class="side-fly right" id="fly-r">
   <div class="fly-close"><span id="fly-close-r">关闭×</span></div>
   <img src="images/side-ad-right.gif" alt="广告">
   <div class="fly-tag">广告</div>
+  <div class="fly-qr">
+    <img src="images/qrcode-matrix.jpg" alt="听众群二维码">
+    <div class="fly-qr-cap">微信扫码 · 进听众群</div>
+  </div>
 </div>
 
 <div class="topline">
@@ -448,6 +456,20 @@
   function startScare() {
     document.body.classList.add('going-dark');
     display.classList.add('rolling');
+
+    /* 反色闪烁：正常/反色来回跳三次，像老电视跳台，最后定格反色 */
+    var flickSeq = [180, 150, 260, 170, 420, 200];
+    var fi = 0;
+    function flickInvert() {
+      if (fi >= flickSeq.length) {
+        document.body.classList.add('inverted');
+        return;
+      }
+      document.body.classList.toggle('inverted', fi % 2 === 0);
+      setTimeout(flickInvert, flickSeq[fi]);
+      fi++;
+    }
+    flickInvert();
     try { FM.static(2.5, 0.2); FM.hum(0.08); } catch (e) {}
 
     /* 两侧对联广告堕入深夜：换成恐怖竖幅 GIF「欢迎来到深夜电台」 */

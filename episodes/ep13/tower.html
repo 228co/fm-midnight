@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最后一封信 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+<style>
+  body { background: #0a0908; }
+
+  /* 二维码祭台 */
+  .qr-stage {
+    max-width: 400px;
+    margin: 30px auto 16px;
+    padding: 34px 30px 26px;
+    border: 3px solid #3a362e;
+    background: linear-gradient(180deg, #141210, #0a0908);
+    box-shadow: inset 0 0 40px rgba(0,0,0,.75), 0 0 40px rgba(0,0,0,.5);
+    text-align: center;
+  }
+  .qr-frame {
+    position: relative;
+    display: inline-block;
+    padding: 14px;
+    background: #0d0c0a;
+  }
+  /* 四角锁定框 */
+  .qr-frame::before, .qr-frame::after,
+  .qr-corner-b::before, .qr-corner-b::after {
+    content: '';
+    position: absolute;
+    width: 26px; height: 26px;
+    border: 2px solid #8a8474;
+    transition: border-color .3s;
+  }
+  .qr-frame::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .qr-frame::after { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .qr-corner-b::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .qr-corner-b::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  .qr-frame img {
+    display: block;
+    width: 280px;
+    max-width: 62vw;
+    image-rendering: pixelated;
+    filter: contrast(1.1);
+  }
+
+  /* 扫描线 */
+  .qr-scanline {
+    position: absolute;
+    left: 8px; right: 8px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(156,31,31,.9), transparent);
+    box-shadow: 0 0 12px rgba(156,31,31,.6);
+    animation: scan 3.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes scan {
+    0%, 100% { top: 6%; }
+    50% { top: 92%; }
+  }
+
+  .qr-stage:hover .qr-frame::before, .qr-stage:hover .qr-frame::after,
+  .qr-stage:hover .qr-corner-b::before, .qr-stage:hover .qr-corner-b::after {
+    border-color: #9c1f1f;
+  }
+
+  /* 扫码后：发射塔接管整页 */
+  #located {
+    display: none;
+    position: fixed; inset: 0; z-index: 100;
+    background: #050404;
+    text-align: center;
+    padding-top: 24vh;
+  }
+  .located-title {
+    font-size: 46px;
+    letter-spacing: .28em;
+    color: #9c1f1f;
+    text-shadow: 0 0 24px rgba(156,31,31,.55);
+    animation: loc-flicker 1.6s infinite;
+    margin: 0 20px 26px;
+  }
+  .located-sub {
+    color: #57534a;
+    font-size: 13px;
+    letter-spacing: .4em;
+    margin-top: 8px;
+  }
+  .located-sig {
+    margin-top: 46px;
+    color: #3a362e;
+    font-size: 12px;
+    letter-spacing: .3em;
+    animation: loc-flicker 2.4s infinite;
+  }
+  @keyframes loc-flicker {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 1; }
+    50% { opacity: .35; }
+    55% { opacity: .9; }
+    70% { opacity: .5; }
+    75% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="main">
+
+  <div class="ep-head">
+    <div class="ep-no">特 别 信 号</div>
+    <h1 class="ep-title glitch-text" data-text="最后一封信">最后一封信</h1>
+    <p class="ep-meta">来源：直播间桌上 · 节目结束之后</p>
+  </div>
+
+  <div class="ep-story">
+    <p>你准备离开直播间的时候，看见椅子扶手上还贴着一张纸——刚才没有的一张。打印的，边角烧焦了，像是被人从火里抢出来过。</p>
+    <p>纸上只有一个二维码。底下用铅笔写着一行小字：</p>
+    <p style="text-align:center; color:#b8b4a8; letter-spacing:.2em;">「扫它。我们都在里面。你也是。」</p>
+    <p>字迹很熟。你在本台的每一期节目单上，都见过这个字迹。</p>
+  </div>
+
+  <!-- 二维码：点击 = 扫描 -->
+  <div class="qr-stage" id="qr-stage" title="扫描">
+    <div class="qr-frame">
+      <img src="../../images/qrcode-matrix.jpg" alt="一张烧焦了边的二维码">
+      <div class="qr-scanline"></div>
+      <span class="qr-corner-b"></span>
+    </div>
+    <p class="muted small" style="margin-top:18px; letter-spacing:.15em;">微信扫描二维码，加入听众群</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它一直在等有人扫它</p>
+
+  <p class="ep-back"><a href="13.html">← 返回第13期</a></p>
+
+</div>
+
+<!-- 扫码后：整页接管 -->
+<div id="located">
+  <h1 class="located-title glitch-text" data-text="发射塔已经找到你的位置">发射塔已经找到你的位置</h1>
+  <p class="located-sub">三角测量完成 · 信号源与接收端重合</p>
+  <p class="located-sig">■ 信号已锁定 ■</p>
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep13', title: '最后一封信 - FM-MIDNIGHT' });
+
+  var stage = document.getElementById('qr-stage');
+  var located = document.getElementById('located');
+  var scanned = false;
+
+  function takeover() {
+    if (scanned) return;
+    scanned = true;
+    // 底噪拉满
+    if (FM.bgHandle) FM.bgHandle.setVol(0.4);
+    // 先闪黑，再亮出那句话
+    located.style.display = 'block';
+    located.style.opacity = '0';
+    var t = 0;
+    var timer = setInterval(function () {
+      t += 0.08;
+      located.style.opacity = String(Math.min(1, t));
+      if (t >= 1) clearInterval(timer);
+    }, 50);
+    FM.save({ tower_scanned: true });
+    EP.snow(0.35);
+  }
+
+  // 点击二维码 = 扫描；扫过之后再进会直接是被定位的状态
+  stage.addEventListener('click', takeover);
+  if (FM.load().tower_scanned) takeover();
+</script>
+</body>
+</html>
