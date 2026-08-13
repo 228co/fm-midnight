@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第3期 · 呼吸 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -58,8 +58,14 @@
       if (doneOnce) return;
       doneOnce = true;
       msg.textContent = '他睡着了。呼吸变得绵长。你可以走了——轻一点。';
+      // drop-out：抽掉底噪，再补两段极轻的呼吸——寂静之后，只剩他睡着了的声音
+      try {
+        if (FM.bgHandle) FM.bgHandle.setVol(0);
+        FM.mumble(1.6, 0.07);
+        setTimeout(function () { FM.mumble(1.6, 0.05); }, 2200);
+      } catch (e) {}
       EP.flag('gate2');
-      setTimeout(function () { location.href = '333.html'; }, 1600);
+      setTimeout(function () { location.href = '333.html'; }, 2600);
     }
 
     function start() {
@@ -70,6 +76,8 @@
     function disturb() {
       if (doneOnce) return;
       msg.textContent = '他醒了。你又得重新等他。';
+      // 他醒的瞬间，连底噪都静下来——万籁俱寂
+      try { if (FM.bgHandle) FM.bgHandle.setVol(0); } catch (e) {}
       // 呼吸节奏乱一拍
       breath.classList.remove('ep-breathe');
       void breath.offsetWidth;

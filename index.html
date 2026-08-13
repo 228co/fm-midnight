@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>晨曦FM 87.5 | 您身边的好声音</title>
-<link rel="stylesheet" href="css/day.css?v=2.3">
+<link rel="stylesheet" href="css/day.css?v=2.4">
 </head>
 <body>
 
@@ -85,7 +85,7 @@
         <li><a href="notice.html">本台凌晨时段无节目的声明</a><img src="images/new-blink.gif" class="new-icon" alt="NEW"><span class="d">04-12</span></li>
         <li><a href="programs.html">本周节目表（4月）</a><span class="d">04-10</span></li>
         <li><a class="fake-link" data-fake>我台荣获"省级文明单位"称号</a><span class="d">04-08</span></li>
-        <li><a class="fake-link" data-fake>《上班路上》收听率创新高</a><span class="d">04-05</span></li>
+        <li><span class="fake-link" data-fake>关于前主持人"夜莺"离岗的说明</span><span class="d">04-06</span><span class="muted small">（历史新闻，请用站内搜索）</span></li>
         <li><a class="fake-link" data-fake>发射塔春季检修顺利完成</a><span class="d">04-02</span></li>
       </ul>
     </div>
@@ -112,7 +112,7 @@
         <div id="deck-off">
           <div class="safe-row">
             <div class="tune-unit">
-              <div class="knobL knobL-xl" id="knob-safe"><div class="knobL-pointer"></div></div>
+              <div class="knobL knobL-xl" id="knob-safe"><div class="knob-ticks"></div><div class="knobL-pointer"></div></div>
               <div class="tune-label">电　源</div>
             </div>
           </div>
@@ -121,6 +121,7 @@
             <div class="safe-feedback" id="safe-feedback"></div>
           </div>
           <div class="standby-line"><span class="standby-led"></span>STANDBY</div>
+          <div class="tune-tip">首次开机请按《使用说明书》操作 · 说明书可于站内搜索「说明书」找到</div>
         </div>
 
         <!-- 开机态：调频 UI -->
@@ -136,8 +137,9 @@
             </div>
           </div>
 
+          <div class="tune-tip" style="text-align:left; margin:0 0 4px;">现在直播：《都市夜话》· 主持人 陈晓芸　|　昨晚点歌榜第一《夜来香》　|　今晨天气：晴转多云 12~22℃</div>
           <div class="tune-now" id="tune-now">正在播出：晨曦FM 87.5 · <a href="fm875.html">进入直播页</a></div>
-          <div class="tune-tip">转动旋钮搜索你熟悉的频率 · 有些频段，本台概不负责</div>
+          <div class="tune-tip">转动旋钮搜索你熟悉的频率 · 有些频段不在表上，本台概不负责<br>记住：本台每日 00:30 后停止一切播音。</div>
         </div>
       </div>
 
@@ -290,23 +292,37 @@
   var nowEl = document.getElementById('tune-now');
   var locked = false;
 
+  /* 333 刷新状态：把整数位一路拧到 333，调频系统会刷新、频率字变红，之后才能收到 33.3 */
+  var refreshed = FM.has('radio_refreshed');
+
   function currentFreq() { return intPart + fracPart / 10; }
   function freqStr() { return currentFreq().toFixed(1); }
 
   function render() {
     display.innerHTML = freqStr() + ' <span class="mhz">MHz</span>';
+    display.classList.toggle('red', refreshed);
     var key = freqStr();
     if (STATIONS[key]) {
       var s = STATIONS[key];
       display.classList.remove('hot');
       nowEl.innerHTML = '正在播出：' + s.name + ' · <a href="' + s.page + '">进入直播页</a>';
-    } else if (Math.abs(currentFreq() - TARGET) < 0.05) {
+    } else if (Math.abs(currentFreq() - TARGET) < 0.05 && refreshed) {
       display.classList.add('hot');
       nowEl.innerHTML = '<span class="bad">……这个频率不在任何频段表上。</span>';
     } else {
       display.classList.remove('hot');
-      nowEl.textContent = '……只有杂音。';
+      nowEl.textContent = staticText();
     }
+  }
+
+  /* 杂音梯度：只有刷新过（见过 333）的人，越往下调，越能听出杂音里的不对劲 */
+  function staticText() {
+    if (!refreshed) return '……只有杂音。';
+    var d = Math.abs(currentFreq() - TARGET);
+    if (d >= 12)  return '……只有杂音。';
+    if (d >= 5)   return '……杂音。可杂音底下，好像压着一段人声。';
+    if (d >= 1.5) return '……这个频率不在任何频段表上，杂音却越来越清楚了。';
+    return '……近了。有人在念什么。';
   }
 
   /* ---------- 分档咔哒旋钮 ---------- */
@@ -334,7 +350,16 @@
       var ratio = range === 0 ? 0 : (opts.get() - opts.min) / range;
       pointer.style.transform = 'translate(-50%,0) rotate(' + (-135 + ratio * 270) + 'deg)';
     }
-    function clickSound() { try { FM.static(0.04, 0.05); } catch (e) {} }
+    /* 静电咔哒声随靠近 33.3 而增强：转错也有氛围代价，越近越不对劲 */
+    function clickSound() {
+      try {
+        var d = Math.abs(currentFreq() - TARGET);
+        if (!refreshed || d >= 12) { FM.static(0.04, 0.05); }
+        else if (d >= 5) { FM.static(0.08, 0.05); }
+        else if (d >= 1.5) { FM.static(0.14, 0.06); }
+        else { FM.static(0.22, 0.08); }
+      } catch (e) {}
+    }
 
     function onDown(e) {
       if (locked) return;
@@ -375,14 +400,45 @@
       window.addEventListener('touchmove', onMove, { passive: false });
       window.addEventListener('touchend', onUp);
     }
+
+    /* 鼠标滚轮：逐格转动（拧到 333 这类高格数操作必须支持滚轮，否则纯拖动无法完成） */
+    el.addEventListener('wheel', function (e) {
+      if (locked) return;
+      e.preventDefault();
+      var up = e.deltaY < 0;
+      if (up) { if (opts.get() < opts.max) { opts.set(opts.get() + 1); clickSound(); onChanged(); } }
+      else { if (opts.get() > opts.min) { opts.set(opts.get() - 1); clickSound(); onChanged(); } }
+      renderPointer(); render();
+    }, { passive: false });
+
     renderPointer();
+    return renderPointer;
   }
 
   function evX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
   function evY(e) { return e.touches ? e.touches[0].clientY : e.clientY; }
 
+  /* ---------- 333 刷新：调频系统溢出复位，频率字变红 ---------- */
+  function triggerRefresh() {
+    if (refreshed) return;
+    refreshed = true;
+    FM.flag('radio_refreshed');
+    locked = true;
+    display.classList.add('red', 'rolling');
+    try { FM.static(0.7, 0.16); } catch (e) {}
+    setTimeout(function () {
+      intPart = 87; fracPart = 5;
+      locked = false;
+      display.classList.remove('rolling');
+      if (renderIntPointer) renderIntPointer();
+      if (renderFracPointer) renderFracPointer();
+      render();
+    }, 700);
+  }
+
   function onChanged() {
-    if (Math.abs(currentFreq() - TARGET) < 0.05) {
+    if (intPart >= 333) { triggerRefresh(); return; }
+    if (Math.abs(currentFreq() - TARGET) < 0.05 && refreshed) {
       locked = true;
       setTimeout(startScare, 700);
     }
@@ -457,7 +513,7 @@
 
   function initPowerLock() {
     if (liveInd) { liveInd.textContent = '● STANDBY'; liveInd.style.color = '#ff5555'; }
-    var SEQ = [{ d: 'L', n: 9 }, { d: 'R', n: 15 }, { d: 'L', n: 7 }];
+    var SEQ = [{ d: 'L', n: 8 }, { d: 'R', n: 7 }, { d: 'L', n: 5 }];
     var curDir = null, curCount = 0, totalDeg = 0, done = false;
     var segs = [];
     var knob = document.getElementById('knob-safe');
@@ -577,11 +633,11 @@
   }
 
   /* ---------- 初始化 ---------- */
-  makeDetentKnob(document.getElementById('knob-int'), {
-    min: 20, max: 108,
+  var renderIntPointer = makeDetentKnob(document.getElementById('knob-int'), {
+    min: 20, max: 333,
     get: function () { return intPart; }, set: function (v) { intPart = v; }
   });
-  makeDetentKnob(document.getElementById('knob-frac'), {
+  var renderFracPointer = makeDetentKnob(document.getElementById('knob-frac'), {
     min: 0, max: 9,
     get: function () { return fracPart; }, set: function (v) { fracPart = v; }
   });

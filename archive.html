@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>往期节目 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="css/style.css?v=2.5">
-<link rel="stylesheet" href="css/episode.css?v=4.6">
+<link rel="stylesheet" href="css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -15,6 +15,7 @@
   <img class="site-logo" src="images/logo-midnight.png" alt="FM-MIDNIGHT 台标">
   <h1 class="glitch-text" data-text="往期节目">往期节目</h1>
   <p class="tagline">文字稿存档 · 由值班技术员整理 · 按母带上架顺序排列</p>
+  <p class="muted small" style="text-align:center; margin:0 0 14px; line-height:1.9;">整理人在每盘母带的标签背面都写了同一句话：<br>「修复不是为了让你听见。是为了让它以为，还有人记得。」</p>
 
   <!-- 剧情弧光（给作者看的排布逻辑）：
        第1~4期  怪事还关在节目里（听众来信与热线）
@@ -89,24 +90,24 @@
       <p>夜莺请假，由代班主播播出。第二天夜莺返岗，说自己从未请过假。没有人记得代班者的声音——除了听得最认真的那批听众。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep10">
-    <span class="ep-dead">第10期《重播》</span>
+  <div class="ep-entry" data-ep="ep10">
+    <a href="episodes/ep10/index.html">第10期《重播》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
+      <summary class="muted small">文字稿摘要</summary>
       <p>本期为重播。但有听众来信说，内容和上次不一样——多了一段求救。求救的人，报的是夜莺的工号。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep11">
-    <span class="ep-dead">第11期《信号测试》</span>
+  <div class="ep-entry" data-ep="ep11">
+    <a href="episodes/ep11/index.html">第11期《信号测试》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
+      <summary class="muted small">文字稿摘要</summary>
       <p>整期只有测试音。事后有 41 位听众来电，说在测试音里听见了完整的一期节目。节目里，夜莺在念一份名单。</p>
     </details>
   </div>
-  <div class="ep-entry dead" data-ep="ep12">
-    <span class="ep-dead">第12期《楼顶的脚步声》</span>
+  <div class="ep-entry" data-ep="ep12">
+    <a href="episodes/ep12/index.html">第12期《楼顶的脚步声》</a>
     <details>
-      <summary class="muted small">仅存摘要</summary>
+      <summary class="muted small">文字稿摘要</summary>
       <p>夜莺读了最后一封关于脚步声的来信。下播前她说："下一期是听众来信特辑。最后一封信，我要留到最后一期再读。"</p>
     </details>
   </div>
@@ -130,7 +131,7 @@
         <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
       <p>
-        <input type="text" id="rune-answer" maxlength="24" autocomplete="off" placeholder="············">
+        <input type="text" id="rune-answer" maxlength="24" autocomplete="off" placeholder="—— 在此念出 ——">
         <button id="rune-submit">念</button>
       </p>
       <p id="rune-msg" class="ep-gate-msg"></p>
@@ -138,6 +139,9 @@
   </div>
 
   <p style="margin-top:40px;"><a href="home.html">← 返回首页</a></p>
+
+  <!-- 隐藏耳语：这些日期，全都还没到来 -->
+  <p class="whisper">你没有发现吗——这些播出日期，全都晚于今天。</p>
 
   <div class="footer">FM-MIDNIGHT 资料室 · 开放时间：只有你醒着的时候</div>
 </div>
@@ -190,17 +194,59 @@
   }
 
   /* 第13期解锁门：答案为十二字整句「孤灯夜雨闻莺语半不似人声」。
-     通过后置 flag 并显示占位回应（最终期内容后续再做）。 */
+     通过后置全局 flag 并进入第13期终极谜题。 */
   EP.gate({
     input: '#rune-answer',
     button: '#rune-submit',
     msg: '#rune-msg',
     hash: '4d713490703a35191180578d8c8b677b7e66c5d389b7894244643768372d1b60',
-    flag: 'ep13_unlock',
+    hints: {
+      2: '十二盘母带，一盘一个字。按期数排，不许漏。',
+      4: '第一个字是「孤」，最后一个字是「声」。中间的，回去翻母带。',
+      6: '孤灯夜雨，闻莺语——半不似人声。'
+    },
     deny: '没有回应。字不对，或者还不够。',
-    okText: '刻字开始发烫。母带的位置——还空着。',
-    onOk: function () {}
+    okText: '刻字开始发烫。母带的位置——空了。空得只剩一段信号。',
+    onOk: function () {
+      FM.flag('ep13_unlock');
+      setTimeout(function () { location.href = 'episodes/ep13/333.html'; }, 700);
+    }
   });
+
+  /* 十二字门交互：打字逐格刻入字槽；答错时整块抖动。 */
+  (function () {
+    var gateEl = document.querySelector('.ep-rune-gate');
+    var input = document.getElementById('rune-answer');
+    var msgEl = document.getElementById('rune-msg');
+    var slots = document.querySelectorAll('.rune-slots span');
+    if (!gateEl || !input || !slots.length) return;
+
+    function paintSlots() {
+      var chars = input.value.slice(0, 12);
+      for (var i = 0; i < slots.length; i++) {
+        var ch = chars.charAt(i);
+        slots[i].textContent = ch || '';
+        slots[i].classList.toggle('lit', !!ch);
+        slots[i].classList.toggle('next', !ch && i === chars.length && chars.length < 12);
+      }
+    }
+    input.addEventListener('input', paintSlots);
+    paintSlots();
+
+    /* 答错反馈：消息区出现非"通过"文本时抖一下 */
+    var OK_TEXT = '刻字开始发烫。母带的位置——空了。空得只剩一段信号。';
+    gateEl.addEventListener('animationend', function (e) {
+      if (e.animationName === 'rune-shake') gateEl.classList.remove('rune-shake');
+    });
+    new MutationObserver(function () {
+      var t = (msgEl.textContent || '').trim();
+      if (t && t !== OK_TEXT) {
+        gateEl.classList.remove('rune-shake');
+        void gateEl.offsetWidth; /* 重置动画 */
+        gateEl.classList.add('rune-shake');
+      }
+    }).observe(msgEl, { childList: true, characterData: true, subtree: true });
+  })();
 })();
 </script>
 </body>

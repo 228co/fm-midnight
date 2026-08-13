@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第7期《对着镜子说话》- FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -24,29 +24,25 @@
     <p>夜莺把三段录音都转写了出来，钉在软木板上。</p>
   </div>
 
-  <!-- 三段转写 -->
+  <!-- 三段转写（周平 / 陈念 / 吴声——都是被它碰过的名字） -->
   <div class="ep-letter">
     <p style="text-indent:0;">「录音一」他说了三声"我叫周平"。第四声，和他自己的声音，一模一样。他说那一瞬间他分不清，哪一声是自己说的。</p>
     <p style="text-indent:0;">「录音二」她说了三声"我叫陈念"。第四声慢了半拍，像隔着一层水。她说那声音认得她，因为她听见那声音笑了一下。</p>
-    <p style="text-indent:0;">「录音三」他说了三声"我叫吴声"。第四声——是倒着说的。转写员照原样记了下来，一个字都不敢改：</p>
-  </div>
-
-  <!-- 谜题1：倒序句（倒回来读：别紧张，那不是回答，只是回声） -->
-  <div class="ep-reversed-note">
-    「声　回　是　只　，答　回　是　不　那　，张　紧　别」
+    <p style="text-indent:0;">「录音三」他说了三声"我叫吴声"。第四声——是倒着说的，像有人从镜子的另一面，把他的名字一个字一个字地还了回来。</p>
   </div>
 
   <div class="ep-story">
-    <p>"三个人，三面镜子，多出来的都是第四声。"夜莺关了录音机，"你们说——镜子多答的那一声，到底是什么？"</p>
+    <p>"三个人，三面镜子，多出来的都是第四声。"夜莺关了录音机，"可这第四声，不是回声。回声不会答应得刚刚好，像一直在等。"</p>
+    <p>"教你们这个游戏的时候，我漏说了一条规矩——老人家传这个游戏，还有后半句：说完三声，不管听见什么，不许答应第四声。你不答应，它就只能学你；你一旦答应，"她停了一下，"它就知道，你听得出哪个是它。"</p>
+    <p>"今晚，直播间也架了一面镜子。"她的声音低下去，"你们替我看。我不敢。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题1 输入门 -->
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">把那句倒着的话倒回来。镜中人多答的那一声，是什么？</p>
-    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="····">
-    <button id="submit">答</button>
+    <p class="muted small">A 面到这里。翻到 B 面。</p>
+    <button id="submit">听 B 面</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -62,18 +58,11 @@
 <script>
   EP.config({ id: 'ep07', title: '第7期《对着镜子说话》- FM-MIDNIGHT' });
 
-  EP.consoleHint('这里是第7期的控制台。那句话要从最后一个字，往第一个字读。');
+  EP.consoleHint('这里是第7期的控制台。多出来的那一声，不是回声。');
 
-  // 谜题1：倒序句，答案 回声
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: '72b977ec2e0295bb5e054e82dfe1377a66591143555b1dbbe2465f135e789c47',
-    flag: 'gate1',
-    deny: '录音带沙沙地响。你读反了——从最后一个字开始。',
-    okText: '对。回声。至少，夜莺希望那只是回声。',
-    goto: 'b-side.html'
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate1');
+    location.href = 'b-side.html';
   });
 </script>
 </body>

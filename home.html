@@ -23,7 +23,7 @@
   <h2>本周节目表</h2>
   <table>
     <tr><th>期数</th><th>主题</th><th>状态</th></tr>
-    <tr><td>第14期</td><td>《新主播试音》</td><td class="muted">预告</td></tr>
+    <tr><td>第14期</td><td>《新主播试音》</td><td class="muted" id="ep14-status">预告</td></tr>
     <tr class="deleted-row"><td><span class="deleted">第13期</span></td><td><span class="deleted">《听众来信特辑》</span></td><td class="danger">已删除</td></tr>
     <tr><td>第12期</td><td>《楼顶的脚步声》</td><td class="muted">已播出</td></tr>
   </table>
@@ -34,6 +34,12 @@
     二、播音中若念到你的名字，请在心里应一声。不要出声。<br>
     三、不要试图寻找发射塔的位置。它知道你住在哪里，就够了。<br>
     四、本台长期招聘主播。无需投递简历——收听本身，就是面试。
+  </p>
+  <p class="muted small" style="line-height:2.0; margin-top:10px;">
+    附：老听众口口相传、须知上没有的三条，记在心里就好——<br>
+    · 节目中间那段安静，不是广告。别换台，换台它也还在。<br>
+    · 如果今晚的开场白没有说"凌晨三点，你还在"，立刻关掉收音机。那不是她。<br>
+    · 听完别把收音机借人。它认人。
   </p>
 
   <h2>导览</h2>
@@ -105,6 +111,24 @@
     reply.style.display = 'block';
     reply.textContent = '已登记：' + v + '。夜莺会记住这个名字的。';
   });
+
+  /* 结局衔接：好/坏结局回到首页时的变化 */
+  var ending = d.ending;
+  if (ending === 'bad') {
+    var st = document.getElementById('ep14-status');
+    st.textContent = '正在播出';
+    st.className = 'danger';
+    if (d.name) {
+      reply.style.display = 'block';
+      reply.textContent = '第14期《新主播试音》——主播：' + d.name + '。';
+    }
+  } else if (ending === 'good') {
+    var st2 = document.getElementById('ep14-status');
+    st2.textContent = '已取消';
+    st2.className = 'muted';
+    reply.style.display = 'block';
+    reply.textContent = '夜莺走了。天亮了。——可你还是会在凌晨三点醒来。';
+  }
 
   /* 直接进入跳过警告页的情况：补标记 */
   FM.flag('warned');

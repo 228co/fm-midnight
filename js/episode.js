@@ -152,7 +152,10 @@
          input:   '#answer',      必填 输入框选择器
          button:  '#submit',      必填 提交按钮选择器
          msg:     '#msg',         可选 提示信息元素选择器
-         hash:    '...',          必填 答案 SHA-256 hex（针对 trim+toLowerCase 后的明文）
+         hash:    '...' 或 ['...','...'],  必填 答案 SHA-256 hex（针对 trim+toLowerCase 后的明文）；
+                                         传数组表示多个等价答案均可通过
+         normalize: function(s){}, 可选 校验前对输入做归一化（如去掉标点空格），
+                                         哈希需按归一化后的结果计算
          flag:    'gate1',        可选 通过后写入的 flag 名，默认 'gate'
          hints:   {3:'提示1'},    可选 错误次数达到 key 时在 msg 显示对应提示
          deny:    '不对。',        可选 拒绝文案，默认"不对。再想想。"
@@ -169,6 +172,7 @@
 
       var flagName = opts.flag || 'gate';
       var denyText = opts.deny || '不对。再想想。';
+      var hashes = (opts.hash instanceof Array) ? opts.hash : [opts.hash];
       var wrong = 0;
       var self = this;
 
@@ -176,8 +180,9 @@
 
       function check() {
         var val = input.value;
+        if (opts.normalize) val = opts.normalize(val);
         EP.sha256(val).then(function (hex) {
-          if (hex === opts.hash) {
+          if (hashes.indexOf(hex) >= 0) {
             self.flag(flagName);
             if (opts.okText) say(opts.okText);
             if (opts.goto) {

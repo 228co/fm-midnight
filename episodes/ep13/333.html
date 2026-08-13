@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>333 · 信号丢失 - FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+</head>
+<body>
+
+<!-- 技术员留言：都以为 333 是门。错了，333 是门牌——走廊尽头钉着的那块。
+     门牌上从来没有门。她的节目一共十三期，她的房间在她的期数里。
+     看着你的地址栏：把这一页的 333，换成 13。 -->
+
+<div class="container">
+
+  <div class="ep-head">
+    <div class="ep-no">第13期</div>
+    <h1 class="ep-title glitch-text" data-text="信 号 丢 失">信 号 丢 失</h1>
+    <p class="ep-meta">频率：33.3MHz · 时间：03:33 · 内容：（空）</p>
+  </div>
+
+  <div class="ep-story">
+    <p>你到了。网址没有错，十二个字也没有错——可这一页是空的。没有信，没有椅子，没有话筒，只有一段循环播放的测试音，嘀、嗒，嘀、嗒。</p>
+    <p>技术员老孙在值班日志里写过：333 不是房间号。333 是走廊尽头钉着的那块门牌，是给"听得见的人"立的路标。</p>
+    <p><strong>门牌上，从来没有门。</strong></p>
+    <p>她的节目，一共十三期。她的房间，在她的期数里。</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <div class="ep-gate">
+    <p class="muted small">这一页什么都没有。门不在这里——门在地址栏里。</p>
+    <p class="muted small">把网址里这一页的名字抹掉，换上她该在的位置。</p>
+  </div>
+
+  <!-- 隐藏耳语：选中文字才能看到 -->
+  <p class="whisper">把 333 换成 13。路标指着的地方，从来不在路标上。</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script>
+  // 门禁：须先在 archive 用十二字解锁
+  FM.require('ep13_unlock', '../../archive.html');
+
+  // 微弱雪花：空频道的底噪
+  var cv = document.createElement('canvas');
+  cv.className = 'snow quiet';
+  document.body.insertBefore(cv, document.body.firstChild);
+  (function () {
+    var ctx = cv.getContext('2d');
+    function resize() { cv.width = innerWidth; cv.height = innerHeight; }
+    addEventListener('resize', resize);
+    resize();
+    function draw() {
+      var img = ctx.createImageData(cv.width, cv.height);
+      var buf = new Uint32Array(img.data.buffer);
+      for (var i = 0; i < buf.length; i++) {
+        var v = Math.random() * 140;
+        buf[i] = (255 << 24) | (v << 16) | (v << 8) | v;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    setInterval(draw, 120);
+  })();
+
+  // 标题栏在低语
+  document.title = '333 · 信号丢失';
+  var titles = ['333 · 信号丢失', '门 牌 上 没 有 门', '把 门 牌 换 成 期 数'];
+  var ti = 0;
+  setInterval(function () { document.title = titles[ti % titles.length]; ti++; }, 2000);
+</script>
+</body>
+</html>

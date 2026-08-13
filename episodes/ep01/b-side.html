@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第1期 · B面 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -116,20 +116,20 @@
   // 谜题2：真话假话，唯一解为「值班带 · 六月·雾」
   var msg = document.getElementById('msg');
 
-  // 放错磁带：全屏变红，随后踢回主页
+  // 放错磁带：全屏变红惩罚，随后留在本页重来——惩罚要在场，流程不断线
   function redout(text) {
     var o = document.createElement('div');
     o.className = 'ep-redout';
     o.textContent = text;
     document.body.appendChild(o);
     requestAnimationFrame(function () { o.style.opacity = '1'; });
-    setTimeout(function () { location.href = '../../home.html'; }, 1600);
+    setTimeout(function () { location.reload(); }, 2600);
   }
 
   var deny = {
-    mar: '带子里是雨声。下了三十年，还没停。',
-    sep: '带子里是指甲刮过带仓的声音。它真的是空的。',
-    dec: '带子里是落雪声。雪落进屋里，落到你的手上。'
+    mar: '带子里是雨声。下了三十年，还没停。你听完了。它也知道你听完了。',
+    sep: '带子里是指甲刮过带仓的声音。它真的是空的。空得能听见你自己的心跳。',
+    dec: '带子里是落雪声。雪落进屋里，落到你的手上。雪化的时候，你还在这里。'
   };
 
   document.querySelectorAll('.ep-tape').forEach(function (btn) {

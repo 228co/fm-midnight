@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第2期《没有地址的信》- FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -22,33 +22,22 @@
   <div class="ep-story">
     <p>上一期下播前，夜莺说过要读一封没有地址的信。今晚开播，她把信封举到话筒旁边，让听众听拆信的声音——信封很厚，拆了很久。</p>
     <p>里面没有信纸。只有一张节目单，印着一期从未播出过的节目：播出日期是下周，主持人一栏空着，节目名被墨水涂掉了，涂痕很新。</p>
-    <p>"又是 S 先生。"夜莺说，"他寄信从来不用邮票。"信封里没有信纸，只有一张节目单——和一盘小磁带，没有标签。"他管这个叫邮资。"</p>
-    <p>她把磁带塞进录音机，按下播放键。喇叭里先是一阵雪花声，然后，是点和横。一遍又一遍。</p>
-  </div>
-
-  <!-- 谜题1：摩斯电码磁带（音频播放 ·−·· ·− −− ·−−· = LAMP） -->
-  <div class="ep-tape">
-    <p class="ep-tape-label">S 先生的「邮资」</p>
-    <button id="play-tape" class="ep-tape-btn">▶ 播放磁带</button>
-    <p class="muted small" id="tape-note">磁带是循环的。听仔细，点和横。</p>
-  </div>
-
-  <div class="ep-story">
-    <p>夜莺对着话筒沉默了一会儿，说："老听众都懂他的规矩。译出来，是什么，就照着做。他做这一切，大概只是想让我们替他点一盏——"她停住了，"算了。你们自己译。"</p>
+    <p>"又是 S 先生。"夜莺说，"他寄信从来不用邮票。"她把信封倒过来，抖了抖，抖出一盘小磁带，没有标签。"他管这个叫邮资。"</p>
+    <p>她把磁带塞进录音机。按下播放键之前，她忽然停住了，说："这盘先不放。今晚的 B 面更亮，你们先到灯底下去。"</p>
+    <p>"邮差不知道这封信。"她补了一句，手指压在信封上，没有拿开。"我们台的信，都是传达室老钱早上统一取的。这封信是今天傍晚出现在我信箱里的——信箱上着锁，钥匙在我这儿，信封是干的，可外面下了一整天的雨。"她顿了顿，"所以，听好：能进上锁的信箱、又不淋雨的东西，寄信的时候，人可能根本不用出门。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题1：摩斯电码（·−·· ·− −− ·−−· = LAMP） -->
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">把 S 先生的"邮资"译出来，写在这里。</p>
-    <input type="text" id="answer" maxlength="16" autocomplete="off" placeholder="····">
-    <button id="submit">译</button>
+    <p class="muted small">A 面到这里。翻到 B 面。</p>
+    <button id="submit">听 B 面</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
   <!-- 隐藏耳语 -->
-  <p class="whisper">点和横之间，他从来不说谎</p>
+  <p class="whisper">那盘磁带的带轴，是朝反方向卷的</p>
 
   <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
 
@@ -59,36 +48,10 @@
 <script>
   EP.config({ id: 'ep02', title: '第2期《没有地址的信》- FM-MIDNIGHT' });
 
-  // 磁带播放：雪花底噪 + 摩斯蜂鸣（·−·· ·− −− ·−−· = LAMP）
-  var tapeBtn = document.getElementById('play-tape');
-  var tapeNote = document.getElementById('tape-note');
-  tapeBtn.addEventListener('click', function () {
-    tapeBtn.disabled = true;
-    tapeBtn.textContent = '♪ 播放中…';
-    tapeNote.textContent = '点和横，四组。听完了可以重放。';
-    FM.static(0.6, 0.08);
-    setTimeout(function () {
-      var ms = FM.morse('lamp');
-      setTimeout(function () {
-        tapeBtn.disabled = false;
-        tapeBtn.textContent = '↻ 重放磁带';
-      }, ms + 200);
-    }, 650);
-  });
-
-  // F12 控制台里的点横对照表（提示会引导玩家来看）
-  EP.consoleHint('导播手册·电码页：A ·−  B −···  C −·−·  D −··  E ·  F ··−·  G −−·  H ····  I ··  J ·−−−  K −·−  L ·−··  M −−  N −·  O −−−  P ·−−·  Q −−·−  R ·−·  S ···  T −  U ··−  V ···−  W ·−−  X −··−  Y −·−−  Z −−··');
-
-  // 谜题1：摩斯电码，答案 lamp
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: 'c98e85f249002f03068e2a61e1a1df5c0db035d6cdf41d00ff6056ed63060947',
-    flag: 'gate1',
-    deny: '邮资不足。信被退了回来。',
-    okText: '译对了。灯，点上了。',
-    goto: 'b-side.html'
+  // A 面直接放行到 B 面
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate1');
+    location.href = 'b-side.html';
   });
 </script>
 </body>

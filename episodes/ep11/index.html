@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第11期《信号测试》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第11期</div>
+    <h1 class="ep-title glitch-text" data-text="信 号 测 试">信 号 测 试</h1>
+    <p class="ep-meta">播出：2000-01-11 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="ep-story">
+    <p>这期没有节目。整晚只有一段测试音：一个很长很长的"嘟——"，从三点整，一直响到三点零六分。</p>
+    <p>可下播第二天，有四十一位听众打进来，说在那段测试音里，听见了完整的一期节目。节目里，夜莺在念一份名单，一个名字一个名字地念。念到一半，有个人名，她卡住了，没念出来。</p>
+    <p>夜莺把名单拿给大家看。上面的名字，一个也认不得——每个字母都像是被人往字母表后面挪了几格。她说："S 先生以前教过我一个笨办法：把要紧的话，<strong>往后挪三格</strong>。他往台里藏的那页手稿，也是这么写的。"</p>
+    <p>"第一期的点歌单上，'往后挪了三格'。"夜莺停了一下，"原来他从那时候起，就在教我藏东西。"</p>
+    <p>四十一位听众的来电记录，导播按时间排了序。有一个细节他没敢往上写：四十一个人描述那期"不存在的节目"，从开场白到念错的位置，一模一样——连停顿的秒数都一样。四十一个人，在不同的地方，用不同的收音机，听了六分钟的"嘟——"。梦可以撞，口供可以串，<strong>停顿</strong>不会。</p>
+  </div>
+
+  <!-- 凯撒加密名单（干扰项 + 玩家名字，JS 动态渲染） -->
+  <div class="ep-letter">
+    <p class="muted small" style="text-align:center; margin-bottom:16px;">测试音里，被"挪了位"的名单（每个字母往后挪了三格）：</p>
+    <p id="cipher-list" style="text-align:center; letter-spacing:.12em; line-height:2.4; color:#8a8474; text-indent:0; white-space:pre-line;"></p>
+    <p class="muted small" style="text-align:center; margin-top:16px;">最后一行，念到一半卡住了。</p>
+  </div>
+
+  <!-- 加密信号 -->
+  <div class="ep-letter" style="text-align:center;">
+    <p class="muted small" style="margin-bottom:14px;">测试音里，藏在"嘟——"底下的四个词（还是往后挪了三格）：</p>
+    <p style="font-size:22px; letter-spacing:.3em; color:#d8d2c2; margin:6px 0;">GRQW &nbsp; VDB &nbsp; PB &nbsp; QDPH</p>
+  </div>
+
+  <!-- 谜题：解出凯撒 -->
+  <div class="ep-gate">
+    <p class="muted small">把这四个词，往前挪三格，念出来。她在求什么？</p>
+    <input type="text" id="answer" maxlength="24" autocomplete="off" placeholder="····">
+    <button id="submit">解</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>是 DON'T SAY MY NAME。<strong>别说我的名字。</strong></p>
+    <p>"她把这话藏进测试音，念给四十一个可能听见的人听。"夜莺说，"可它只该被一个人听见——听得最认真的那个。"</p>
+    <p>"名单上那些名字，周平、陈念、吴声、陈晓芸，都是假的，是它撒的网。它想钓的，是名单最后那一行——那个它一直盯着、却念不出来的名字。"</p>
+    <p>她看着你："下一期，是最后一期。那封关于脚步声的信，我要留到最后一期再读。"</p>
+    <p>你走出直播间的时候才想起来：收听须知第二条说，播音中若念到你的名字，请在心里应一声。</p>
+    <p>名单的最后一行，她没念出来——卡住了。可那一行写的是什么，你早就译出来了。你刚才，在心里把它念出来了吗？</p>
+  </div>
+
+  <!-- 十二字集字：第十一个字「人」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，多了一笔，像是有人从"人"字下面，又添了一横。</p>
+    <div class="ep-rune flicker">人</div>
+    <p class="ep-rune-cap">十二个字里的第十一个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">名单最后那一行，念不出来。因为它知道，一念，就换成你了</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep11', title: '第11期《信号测试》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第11期的控制台。每个字母，往后挪了三格。挪回来。');
+
+  /* 渲染凯撒加密名单：四个干扰项 + 末行玩家登记名 */
+  (function () {
+    var list = document.getElementById('cipher-list');
+    var fixed = ['ZHOUPING', 'CHENNIAN', 'WUSHENG', 'CHENXIAOYUN'];
+    var lines = fixed.map(function (n) { return EP.caesar(n, 3); });
+
+    var d = FM.load();
+    var name = (d.name || '').trim();
+    if (name) {
+      // 玩家登记名：字母位移、中文原样——让玩家在名单里认出自己被盯上
+      lines.push(EP.caesar(name, 3));
+    } else {
+      lines.push(EP.caesar('WUMING', 3));
+    }
+
+    list.textContent = lines.join('\n');
+  })();
+
+  // 谜题：凯撒解密 DON'T SAY MY NAME
+  // normalize：忽略撇号、空格、大小写——玩家解出哪写法都算对
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: '49164ea859623d10931fd0f9df240fcc906f1270f3daca406b78269e645d9bae',
+    normalize: function (s) { return String(s).replace(/[^a-zA-Z]/g, ''); },
+    flag: 'gate1',
+    hints: {
+      1: '每个字母，往前挪三格。A 往前就是 X。',
+      2: '四个词，全是英文大写。她在求一件事。',
+      3: '别……我的……名字。'
+    },
+    deny: '不对。把每个字母，往字母表前面挪三格。',
+    okText: '对。DON\'T SAY MY NAME。别说我的名字。',
+    onOk: function () {
+      EP.done();
+      document.getElementById('done-mark').style.display = '';
+      document.getElementById('after').style.display = '';
+      var rune = document.getElementById('rune');
+      setTimeout(function () {
+        rune.style.display = '';
+        requestAnimationFrame(function () { rune.style.opacity = '1'; });
+      }, 1200);
+    }
+  });
+</script>
+</body>
+</html>

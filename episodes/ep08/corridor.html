@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第8期 · 最响的地方 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -110,12 +110,16 @@
       probe(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: false });
 
-    // 输入门：答案 四层半
+    // 输入门：答案 四层半（兼容 "4层半"、"4.5" 写法）
     EP.gate({
       input: '#answer',
       button: '#submit',
       msg: '#msg',
-      hash: '8920d402e279339a7f6b26d6ff7d180d9426359449eefb01acbdab4b27eb23df',
+      hash: [
+        '8920d402e279339a7f6b26d6ff7d180d9426359449eefb01acbdab4b27eb23df',
+        '2906df31d026ea0898169aa1d708f9ff9e45c592a1c5e190f4bfd827aeaa332a',
+        '32209ccbf8a8e509b9027698cc173343a2695e8ecdbe899bf5335a3100c956fc'
+      ],
       flag: 'gate3',
       deny: '她把话筒凑过去——不对。最响的地方，不在整层。再听听两层之间。',
       okText: '对。四层半——最响的地方，在两层中间。夜莺朝你指的位置走过去了。',

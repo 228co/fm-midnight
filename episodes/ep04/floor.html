@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第4期 · 到层 - FM-MIDNIGHT</title>
+<title>第4期 · 电梯井 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -14,23 +14,25 @@
   <!-- 期头 -->
   <div class="ep-head">
     <div class="ep-no">第4期</div>
-    <h1 class="ep-title glitch-text" data-text="到 层">到 层</h1>
-    <p class="ep-meta">信号来源：不明 · 轿厢下行中</p>
+    <h1 class="ep-title glitch-text" data-text="电 梯 井">电 梯 井</h1>
+    <p class="ep-meta">信号来源：青园路 7 号 · 凌晨 3:33</p>
   </div>
 
-  <!-- 故事引入 -->
+  <!-- 故事正文：收尾 -->
   <div class="ep-story">
-    <p>信的最后，夹着一张撕下来的值班记录纸。老值班员记了一周——老电梯每晚空轿运行时，停过的楼层：</p>
-    <p style="text-align:center; letter-spacing:.3em; color:#d8d2c2;">2　3　5　7　11　13</p>
-    <p>"老电梯有它的脾气。"记录纸的背面写着，"它只在自己喜欢的楼层停。一周了，没有例外。"</p>
-    <p>夜莺念完，对着话筒问："那——明晚，它会停在哪一层？"</p>
+    <p>电梯最后还是停在了四层。门开的时候，轿厢里没有灯，只有一面镜子，贴在后壁上，映着楼层表——红点停在四层，一明，一灭。</p>
+    <p>写信的人没有跟着进来。他的声音从门的另一边传过来，越来越远："数一数按钮。多出来的那个，就是它住的地方。"</p>
+    <p>夜莺没有数。她把话筒伸进轿厢，让听众听电梯井里的风。风里有一点雨声，很细，像有人在很远的地方，隔着雨喊一个名字。</p>
+    <p>那个名字被雨冲掉了。只剩下一个音，一个尾音，落进井底。</p>
+    <p>"别数了。"夜莺收回话筒，"有些楼层，本来就只存在一半。"</p>
   </div>
 
-  <!-- 谜题3：质数数列（2 3 5 7 11 13 → 17） -->
+  <hr class="ep-divider">
+
+  <!-- 收尾按钮：听完本期 -->
   <div class="ep-gate">
-    <p class="muted small">明晚，它会停在哪一层？</p>
-    <input type="text" id="answer" maxlength="4" autocomplete="off" placeholder="·· 层">
-    <button id="submit">停</button>
+    <p class="muted small">电梯门关上了。合上这盘母带。</p>
+    <button id="submit">合 上</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -38,19 +40,18 @@
   <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
 
   <div class="ep-story" id="after" style="display:none;">
-    <p>答案出口的那一瞬间，电梯的铃响了一声，门开了。走廊尽头是那间三年前就拆掉的老楼——它还在这里，还在这部电梯的这一层。夜莺关掉了机器："下一期，热线串线了。"</p>
-    <p>你没有问出口的是——值班记录的最后一行，日期是昨天。楼拆了三年，记录写到了昨天。</p>
+    <p>你听见了。雨声里那个被冲掉的名字，开头是"林"。</p>
   </div>
 
   <!-- 十二字集字：第四个字「雨」 -->
   <div class="ep-rune-block" id="rune" style="display:none;">
-    <p class="muted small">你翻过这盘母带——背面的针尖刻字上，有一滴没干的水渍。</p>
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，边缘还带着毛刺，像刚刻完不久。</p>
     <div class="ep-rune flicker">雨</div>
     <p class="ep-rune-cap">十二个字里的第四个</p>
   </div>
 
   <!-- 隐藏耳语 -->
-  <p class="whisper">电梯到不了的那层，有人替你按住了开门键</p>
+  <p class="whisper">那层楼，只存在一半</p>
 
   <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
 
@@ -59,34 +60,22 @@
 <script src="../../js/common.js?v=2.8"></script>
 <script src="../../js/episode.js"></script>
 <script>
-  EP.config({ id: 'ep04', title: '第4期 · 到层 - FM-MIDNIGHT' });
+  EP.config({ id: 'ep04', title: '第4期 · 电梯井 - FM-MIDNIGHT' });
 
-  // 门禁：须先读对镜中楼层
+  // 门禁：须先看过镜子
   EP.require('gate2', 'index.html');
 
-  if (EP.has('gate2') || FM.debug) {
-
-    // 谜题3：质数数列，答案 17
-    EP.gate({
-      input: '#answer',
-      button: '#submit',
-      msg: '#msg',
-      hash: '4523540f1504cd17100c4835e85b7eefd49911580f8efff0599a8f283be6b9e3',
-      flag: 'gate3',
-      deny: '电梯没有停。这层它不喜欢。',
-      okText: '电梯颤了一下，停了。它喜欢这层。',
-      onOk: function () {
-        EP.done();
-        document.getElementById('done-mark').style.display = '';
-        document.getElementById('after').style.display = '';
-        var rune = document.getElementById('rune');
-        setTimeout(function () {
-          rune.style.display = '';
-          requestAnimationFrame(function () { rune.style.opacity = '1'; });
-        }, 1200);
-      }
-    });
-  }
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.done();
+    document.getElementById('done-mark').style.display = '';
+    document.getElementById('after').style.display = '';
+    var rune = document.getElementById('rune');
+    setTimeout(function () {
+      rune.style.display = '';
+      requestAnimationFrame(function () { rune.style.opacity = '1'; });
+    }, 1200);
+    this.disabled = true;
+  });
 </script>
 </body>
 </html>

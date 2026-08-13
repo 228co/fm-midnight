@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第6期 · 全城只有一扇窗 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -21,30 +21,18 @@
   <!-- 故事引入 -->
   <div class="ep-story">
     <p>电来了。发射机的红灯亮起来的那一刻，夜莺推开导播间的窗，对着话筒说："往外看。"</p>
-    <p>全城都是黑的。楼是黑的，街是黑的，河也是黑的——只有一扇窗，亮着。</p>
-    <p>"导播间望出去，正好能看见。"她说，"告诉我，那扇窗，在第几格。"</p>
+    <p>全城都是黑的。楼是黑的，街是黑的，河也是黑的——只有一扇窗，亮着。亮得很稳，像全城的电，都只够点它一盏。</p>
+    <p>"那是晓芸姐家。"夜莺忽然笑了，声音很轻，"陈晓芸，白天《都市夜话》的主持人。白天是她的话，晚上是我的。她总说，我下播前，她不会睡。"</p>
+    <p>那扇窗一直亮着，亮到节目结束。夜莺念出"晚安"的那一刻，它灭了。</p>
+    <p>"下一期，对着镜子说话。"她顿了一下，"家里有镜子的，先盖住。"</p>
   </div>
 
-  <!-- 谜题3：城市夜景寻格（列 A-D 左→右，行 1-4 上→下；亮窗在 D2） -->
-  <div class="ep-citymap">
-    <img src="../../images/ep06-city.png" alt="全城停电的夜景，只有一扇窗亮着">
-    <div class="ep-citygrid">
-      <span class="cg-col" style="left:12.5%;">A</span>
-      <span class="cg-col" style="left:37.5%;">B</span>
-      <span class="cg-col" style="left:62.5%;">C</span>
-      <span class="cg-col" style="left:87.5%;">D</span>
-      <span class="cg-row" style="top:12.5%;">1</span>
-      <span class="cg-row" style="top:37.5%;">2</span>
-      <span class="cg-row" style="top:62.5%;">3</span>
-      <span class="cg-row" style="top:87.5%;">4</span>
-    </div>
-  </div>
+  <hr class="ep-divider">
 
-  <!-- 谜题3 输入门 -->
+  <!-- 收尾按钮：听完本期 -->
   <div class="ep-gate">
-    <p class="muted small">写下那扇亮窗的格子（列字母 + 行号）。</p>
-    <input type="text" id="answer" maxlength="4" autocomplete="off" placeholder="··">
-    <button id="submit">看</button>
+    <p class="muted small">那扇窗灭了。合上这盘母带。</p>
+    <button id="submit">合 上</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -52,9 +40,8 @@
   <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
 
   <div class="ep-story" id="after" style="display:none;">
-    <p>D2。夜莺在稿纸上记下这个格子，笔停了很久。</p>
-    <p>"停电那晚，全城只有那一扇窗有电。"她说，"供电局说不可能。可它亮着——一直亮到节目结束，我念出'晚安'的那一刻，它灭了。"</p>
-    <p>"下一期，对着镜子说话。家里有镜子的，先盖住。"</p>
+    <p>你记下了一个名字：陈晓芸。白天是她的话，晚上是夜莺的——两个声音，守着同一座城的白天和深夜。</p>
+    <p>可那扇亮了一整夜的窗里，坐着的真是晓芸姐吗？窗里的影子，好像不止一个。</p>
   </div>
 
   <!-- 十二字集字：第六个字「莺」 -->
@@ -79,29 +66,17 @@
   // 门禁：须先合对闸
   EP.require('gate2', 'index.html');
 
-  if (EP.has('gate2') || FM.debug) {
-
-    // 谜题3：城市夜景寻格，答案 D2
-    EP.gate({
-      input: '#answer',
-      button: '#submit',
-      msg: '#msg',
-      hash: 'e788103ee15318fcd2af9b73b4ebbb33a903b020de7b307d71f5fed0f433e548',
-      flag: 'gate3',
-      deny: '你看错了方向。那扇窗，不在那里。',
-      okText: '对上了。导播间里，没有人说话。',
-      onOk: function () {
-        EP.done();
-        document.getElementById('done-mark').style.display = '';
-        document.getElementById('after').style.display = '';
-        var rune = document.getElementById('rune');
-        setTimeout(function () {
-          rune.style.display = '';
-          requestAnimationFrame(function () { rune.style.opacity = '1'; });
-        }, 1200);
-      }
-    });
-  }
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.done();
+    document.getElementById('done-mark').style.display = '';
+    document.getElementById('after').style.display = '';
+    var rune = document.getElementById('rune');
+    setTimeout(function () {
+      rune.style.display = '';
+      requestAnimationFrame(function () { rune.style.opacity = '1'; });
+    }, 1200);
+    this.disabled = true;
+  });
 </script>
 </body>
 </html>

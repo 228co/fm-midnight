@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第5期 · 串线 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -20,27 +20,22 @@
 
   <!-- 故事正文：B面 -->
   <div class="ep-story">
-    <p>电话接通之后，串线还在继续。可导播间回放录音的时候发现，录音带被洗乱了——两个人的对话还在，顺序全错了。夜莺把五句录音转写出来，钉在软木板上，每句前面标了号：</p>
+    <p>电话接通之后，串线还在继续。两个人你一句我一句，谁都没有挂。夜莺没有切信号，只是把话筒音量压低，让听众听这一段。</p>
+    <p>"喂？你听得到吗？"</p>
+    <p>"听得到。你也住青园路 7 号？"</p>
+    <p>"对，302。——你也是？"</p>
+    <p>"我这儿的日历，是 1979 年。你呢？"</p>
+    <p>"1999。……那你现在，往窗外看。"</p>
+    <p>窗外的人也在往窗里看。同一扇窗，隔着二十年，住着两个"自己"。两个人同时沉默了，谁也没有先挂。</p>
+    <p>导播说，这通电话的来电号码，是台里几年前就注销的一个分机号。夜莺说："先别查。让他把最后一句话说完。"</p>
   </div>
 
-  <!-- 谜题2：错位的对话（正确顺序 3→5→4→1→2） -->
-  <div class="ep-letter">
-    <p style="text-indent:0;">1　「我这儿的日历，是 1979 年。你呢？」</p>
-    <p style="text-indent:0;">2　「1999。……那你现在，往窗外看。」</p>
-    <p style="text-indent:0;">3　「喂？你听得到吗？」</p>
-    <p style="text-indent:0;">4　「对，302。——你也是？」</p>
-    <p style="text-indent:0;">5　「听得到。你也住青园路 7 号？」</p>
-  </div>
+  <hr class="ep-divider">
 
-  <div class="ep-story">
-    <p>"把它排回原来的顺序。"夜莺说，"排对了你就知道——那天晚上，这根电话线到底把什么，接到了一起。"</p>
-  </div>
-
-  <!-- 谜题2 输入门：按正确顺序输入编号 -->
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">按原来的对话顺序，写下五个编号。</p>
-    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="-----">
-    <button id="submit">排</button>
+    <p class="muted small">B 面到这里。听他的最后一句。</p>
+    <button id="submit">听下去</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -59,16 +54,9 @@
   // 门禁：须先拨通那个号码
   EP.require('gate1', 'index.html');
 
-  // 谜题2：对话排序，答案 35412
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: 'b234f573597fd511fd4c1231f800d409a298455eac76a5055d33937b11fa0a9c',
-    flag: 'gate2',
-    deny: '录音带又乱了。不是这个顺序。',
-    okText: '顺序对了。录音里，两个人同时沉默了。',
-    goto: 'dial.html'
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate2');
+    location.href = 'dial.html';
   });
 
   // 标签页标题闪烁

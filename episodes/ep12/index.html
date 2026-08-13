@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第12期《楼顶的脚步声》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第12期</div>
+    <h1 class="ep-title glitch-text" data-text="楼顶的脚步声">楼顶的脚步声</h1>
+    <p class="ep-meta">播出：2000-01-18 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="ep-story">
+    <p>这是最后一封来信。信封上没有寄件人，只有一句话，写在背面，字很淡："楼顶有脚步声。"</p>
+    <p>信里说：青园路 7 号那栋楼，每到凌晨三点，楼顶就有脚步声，来来回回地走。住顶楼的人上去看过，楼顶是空的，只有一台旧收音机，拔了插头，还响着。他们把它砸了，砸成几块，声音没停。</p>
+    <p>夜莺念到这里，停了一下。她说："那脚步声，我听过。它跟了我七年。"</p>
+    <p>"我坐在这把椅子上念稿的时候，它在楼顶走。我下播，收拾东西回家，它跟到我家楼顶走。我以为是我自己走路的回声，直到有一天，我发现那脚步声<strong>比我慢半拍</strong>。"</p>
+    <p>"它不是回声。回声是跟在你后面的。它，是走在你前面的——它先落下一脚，你再照着踩上去。这么多年，我一直以为是我在走路，其实是它在领着我走。"</p>
+    <p>"后来我查了，台里在我之前，还有过一个主播。S 先生。再往前，还有一个人，名字已经没人记得了，只有一个姓，<strong>林</strong>。"她顿了顿，"楼顶的脚步声，就是那个被抹掉的人。它还在楼顶，走它的节目。它走一圈，就有人要替它进去，坐那把椅子。"</p>
+    <p>"和我一个姓。"她忽然压低了声音，像是说给自己听，"七年了，我一直告诉自己，只是巧。可没有哪一个'巧'，会在楼顶走七年。"</p>
+    <p>"S 先生进去了，还没出来。"夜莺说，"现在，它开始在我头顶走了。它数着，看下一个轮到我，还是轮到听得最认真的那个。"</p>
+    <p>她念完最后一封信，把信纸折好，放进资料柜。柜子里，那个没有线的喇叭，忽然响了一下，又安静了。</p>
+    <p>"下一期，是听众来信特辑。"她的声音很轻，"最后一封信，我要留到最后一期再读。如果到时候坐在话筒前的不是我了——<strong>别信它。问它，我的真名叫什么。</strong>"</p>
+    <p>下播前的最后十秒，夜莺做了一件七年里从没做过的事。她关掉了话筒，却没有切断载波——直播间所有人都知道那意味着什么：信号还在走，整个城市还挂在频道上，只是没有人说话了。她在那十秒的空白里，让所有人听了一件事：凌晨三点的直播间，不说话的时候，是什么声音。后来有听众来信说，那十秒里他听到了纸页翻动、椅子挪动、还有一句很轻很轻的"都记下来了吗"。夜莺没有回信。那十秒的日志，她只写了两个字：留白。</p>
+  </div>
+
+  <hr class="ep-divider">
+
+  <!-- 收尾按钮：听完本期 -->
+  <div class="ep-gate">
+    <p class="muted small">十二期的最后一盘母带。翻到背面。</p>
+    <button id="submit">翻 面</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>母带背面，刻着最后一个字。十二个字，现在都在你手里了。</p>
+    <p>把它们按期数连起来读——那不是十二个散字。那是一句话。是她隔着十二期节目，留给你的最后一句话。</p>
+    <p>夜莺没有再说话。你听见楼顶有脚步声，来来回回，比你慢半拍。</p>
+  </div>
+
+  <!-- 十二字集字：第十二个字「声」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字，是最后一个。十二个字，齐了。</p>
+    <div class="ep-rune flicker">声</div>
+    <p class="ep-rune-cap">十二个字里的第十二个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">它比你慢半拍。因为它是走在前面的那个</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep12', title: '第12期《楼顶的脚步声》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第12期的控制台。十二个字，都齐了。去第13期，按顺序念出来。');
+
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.done();
+    document.getElementById('done-mark').style.display = '';
+    document.getElementById('after').style.display = '';
+    var rune = document.getElementById('rune');
+    setTimeout(function () {
+      rune.style.display = '';
+      requestAnimationFrame(function () { rune.style.opacity = '1'; });
+    }, 1200);
+    this.disabled = true;
+  });
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第12期 · 楼顶的脚步声', '它 在 你 头 顶 走'], 1800);
+</script>
+</body>
+</html>

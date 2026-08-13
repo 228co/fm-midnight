@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第4期《老楼的电梯》- FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -20,29 +20,22 @@
 
   <!-- 故事正文：A面 -->
   <div class="ep-story">
-    <p>今晚的信，来自一栋老楼。写信的人说，楼里的电梯比他父亲年纪都大，每天凌晨三点自己开门，空着轿厢上上下下，像在巡逻。这封信的落款地址——夜莺查过了，那栋老楼，三年前就拆掉了。</p>
-    <p>"它每层都停。"信里写，"我数过整整一周。3 层、7 层、2 层、9 层、12 层、5 层、1 层、8 层、6 层、10 层、12 层、3 层、9 层、5 层、7 层、2 层……每一层都停。只有一层，它从来、从来不停。"</p>
-    <p>夜莺把这部电梯的面板画了下来，钉在导播间的软木板上。她说："写信的人不敢按那一层。你们呢？替他按下去。"</p>
+    <p>今晚的信，来自一栋老楼。写信的人说，楼里的电梯比他父亲年纪都大，每天凌晨三点自己开门，空着轿厢上上下下，像在巡逻。这封信的落款地址——夜莺查过了，那栋老楼，三年前就拆掉了。那栋楼在青园路，7 号。</p>
+    <p>"它每层都停。"信里写，"我数过整整一周。3 层、7 层、2 层、9 层、12 层、5 层、1 层、8 层、6 层、10 层、11 层……每一层都停。只有一层，它从来、从来不停——四层。"</p>
+    <p>夜莺把信纸翻过来，指着落款。落款被水泡过，墨都晕开了，只剩一个姓还勉强能看清：<strong>林</strong>。</p>
+    <p>她盯着那个字看了很久，像在认一个很久没见的旧名字。最后她说："写信的人姓林。青园路 7 号，我好像去过。"</p>
+    <p>"今晚先不按电梯。"她把手从信上移开，"我先念他的信。B 面，我们看镜子里那一层。"</p>
+    <p>念信之前，夜莺补了一段题外话，像是说给直播间里某个不在场的人听："老楼的电梯有个规矩，上了年纪的都知道——空轿厢自己开门的时候，别往里看楼层显示。它停的那层，是它要去的层；你看了，就是你要去的层。"她停了停，"所以今晚不管听到第几层，心里别跟着数。跟着我念，念信上的字就好。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题1：电梯面板（停层记录里 1-12 唯独缺 4） -->
-  <div class="ep-panel">
-    <button class="ep-floor-btn" data-floor="1">1</button>
-    <button class="ep-floor-btn" data-floor="2">2</button>
-    <button class="ep-floor-btn" data-floor="3">3</button>
-    <button class="ep-floor-btn" data-floor="4">4</button>
-    <button class="ep-floor-btn" data-floor="5">5</button>
-    <button class="ep-floor-btn" data-floor="6">6</button>
-    <button class="ep-floor-btn" data-floor="7">7</button>
-    <button class="ep-floor-btn" data-floor="8">8</button>
-    <button class="ep-floor-btn" data-floor="9">9</button>
-    <button class="ep-floor-btn" data-floor="10">10</button>
-    <button class="ep-floor-btn" data-floor="11">11</button>
-    <button class="ep-floor-btn" data-floor="12">12</button>
+  <!-- 继续 -->
+  <div class="ep-gate">
+    <p class="muted small">A 面到这里。翻到 B 面。</p>
+    <button id="submit">听 B 面</button>
+    <p id="msg" class="ep-gate-msg"></p>
   </div>
-  <p id="msg" class="ep-gate-msg">按下那层它从来不停的楼。</p>
 
   <!-- 隐藏耳语 -->
   <p class="whisper">四层的按钮，比别的都凉</p>
@@ -56,21 +49,9 @@
 <script>
   EP.config({ id: 'ep04', title: '第4期《老楼的电梯》- FM-MIDNIGHT' });
 
-  // 谜题1：电梯面板，唯一解为 4 层
-  var msg = document.getElementById('msg');
-  var wrong = 0;
-
-  document.querySelectorAll('.ep-floor-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var f = btn.getAttribute('data-floor');
-      if (f === '4') {
-        EP.flag('gate1');
-        msg.textContent = '四层的按钮是凉的。凉得像很久没有人按过——也确实没有人按过。电梯开始往下走。';
-        setTimeout(function () { location.href = 'b-side.html'; }, 1400);
-      } else {
-        msg.textContent = '这层到了。门开了，外面是一堵墙。';
-      }
-    });
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate1');
+    location.href = 'b-side.html';
   });
 
   // 标签页标题闪烁

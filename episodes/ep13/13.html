@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第13期《听众来信特辑》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+<style>
+  html, body { min-height: 100%; }
+  body { background: #0a0908; }
+
+  /* 全屏雾遮罩：答错第二层，必须擦开输入框才能继续 */
+  #fog-layer {
+    position: fixed; inset: 0; z-index: 70;
+    width: 100vw; height: 100vh;
+    cursor: crosshair; touch-action: none;
+    display: none;
+  }
+
+  /* 全屏黑遮罩：答错第三层，光锥照到输入框才能继续 */
+  #dark-layer {
+    position: fixed; inset: 0; z-index: 80;
+    pointer-events: none;
+    display: none;
+    background: #000;
+    -webkit-mask-image: radial-gradient(circle 170px at var(--lx,-600px) var(--ly,-600px),
+      transparent 0 60px, rgba(0,0,0,.55) 115px, black 170px);
+    mask-image: radial-gradient(circle 170px at var(--lx,-600px) var(--ly,-600px),
+      transparent 0 60px, rgba(0,0,0,.55) 115px, black 170px);
+  }
+  body.ep-darkmode { cursor: none; }
+  body.ep-darkmode a, body.ep-darkmode button, body.ep-darkmode input { cursor: none; }
+
+  /* 同化提示条 */
+  .assim-hint {
+    position: fixed; top: 8vh; left: 0; right: 0; z-index: 90;
+    text-align: center; color: #c9c3b2; font-size: 14px;
+    letter-spacing: .25em; pointer-events: none;
+    text-shadow: 0 1px 8px rgba(0,0,0,.95);
+  }
+  .assim-hint b { color: #9c1f1f; }
+
+  /* 结局页通用 */
+  .ending-box { display: none; padding: 30px 0 60px; }
+  .ending-title {
+    text-align: center; font-size: 34px; letter-spacing: .5em;
+    color: #d8d2c2; margin: 40px 0 10px; text-indent: .5em;
+  }
+  .ending-sub { text-align: center; color: #57534a; font-size: 12px; letter-spacing: .3em; margin-bottom: 44px; }
+</style>
+</head>
+<body>
+
+<!-- 谜题态 -->
+<div id="puzzle" class="container">
+
+  <div class="ep-head">
+    <div class="ep-no">第13期</div>
+    <h1 class="ep-title glitch-text" data-text="听众来信特辑">听众来信特辑</h1>
+    <p class="ep-meta">播出：2000-01-25 03:00 · 主播：（空缺）</p>
+  </div>
+
+  <div class="ep-story">
+    <p>这是最后一期。节目单上印着《听众来信特辑》，可你推开直播间的门，椅子是空的。</p>
+    <p>夜莺不见了。桌上留着一封信，是这一期唯一的一封——写给你的。没有邮票，没有地址，落款处，只有一个墨点。</p>
+  </div>
+
+  <div class="ep-letter">
+    <p style="text-indent:0;">"十二期，你都听完了。现在，轮到你回答我一个问题。"</p>
+    <p style="text-indent:0;">"我的真名，散在前十二期里，一共三处——"</p>
+    <p style="text-indent:0;">"一、我的姓，写在青园路 7 号那封信的落款里。墨迹晕开了，可那个字还在。"</p>
+    <p style="text-indent:0;">"二、我的全名，那晚在电话线里，差一点就被念出来了——刚起了个头，后半截就被电波吞掉了。"</p>
+    <p style="text-indent:0;">"三、我的名，不能直接写。它听着。可'夜莺'的'夜'，就是把它换了个字——<strong>同一个时辰，更晚一点的叫法。</strong>"</p>
+    <p style="text-indent:0;">"念出我的真名。念对了，我把位置让出来，你走。念错了……你就坐进来。"</p>
+    <p style="text-indent:0;">"别猜。听。"</p>
+  </div>
+
+  <div class="ep-gate">
+    <p class="muted small">她的真名，是什么？</p>
+    <input type="text" id="answer" maxlength="12" autocomplete="off" placeholder="····">
+    <button id="submit">答</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+</div>
+
+<!-- 好结局 -->
+<div id="good-ending" class="container ending-box">
+  <p class="ending-title">名 字</p>
+  <p class="ending-sub">你念出了那个被藏了七年的名字</p>
+  <div class="ep-story">
+    <p>"对。"那把空椅子的方向，传来一个声音，"我叫林晚。"</p>
+    <p>你念出这两个字的时候，楼顶的脚步声，停了。七年了，它第一次停下来。</p>
+    <p>椅子上的灰尘慢慢聚拢，像是有个人坐了下去，又站了起来。导播间里那个没有线的喇叭，轻轻响了一下，说了一句"谢谢"。</p>
+    <p>"我差一点，就把自己的名字忘了。"她的声音越来越远，"差一点，就变成它了。像 S 先生那样，像青园路 7 号楼顶那个林一样。"</p>
+    <p>"现在你叫出来了。它找不到我了。"</p>
+    <p>灯光一盏一盏暗下去。最后暗掉的，是你头顶那盏。黑暗里，她最后说了一句：</p>
+    <p>"快走。别回头。天快亮了。"</p>
+    <p>你走了。你一直没有回头。</p>
+    <p>只是后来每一个凌晨三点，你都会准时醒来。醒来的那一秒，你总觉得楼顶有脚步声，刚刚停下——像是在等你先睡着，它才好继续走。</p>
+  </div>
+
+  <div class="ep-rune-block" id="good-rune" style="opacity:1;">
+    <div class="ep-rune flicker">林 晚</div>
+    <p class="ep-rune-cap">你记得她</p>
+  </div>
+
+  <p style="text-align:center; margin:34px 0 0;"><button class="replay-btn" type="button">重新来过</button></p>
+
+  <p class="ep-back"><a href="../../home.html">← 返回首页</a></p>
+</div>
+
+<!-- 坏结局 -->
+<div id="bad-ending" class="container ending-box">
+  <p class="ending-title">新 主 播</p>
+  <p class="ending-sub">第14期《新主播试音》——预告应验了</p>
+  <div class="ep-story">
+    <p>你答错了。或者，你答得太晚了。</p>
+    <p>那把空椅子，忽然不再空了。你听见楼顶的脚步声，从远处走过来，走到你头顶，停住。</p>
+    <p>然后，你发现那脚步声，是你自己的。</p>
+    <p>你坐在了话筒前。夜莺的名字，现在，是你的了。台里那些名字——周平、陈念、吴声、陈晓芸、S 先生——都成了你念稿时的听众。他们坐在那儿，一动不动，等着你念。</p>
+    <p>你翻开下一期的节目单。第14期，四个字：<strong>新主播试音</strong>。</p>
+    <p id="bad-name-line"></p>
+    <p>"别回头。"有个声音在你耳边说，"现在，轮到你播了。"</p>
+  </div>
+
+  <div class="ep-rune-block" id="bad-rune" style="opacity:1;">
+    <div class="ep-rune flicker">夜 莺</div>
+    <p class="ep-rune-cap">现在是你了</p>
+  </div>
+
+  <p style="text-align:center; margin:34px 0 0;"><button class="replay-btn" type="button">重新来过</button></p>
+
+  <p class="ep-back"><a href="../../home.html">← 返回首页</a></p>
+</div>
+
+<!-- 同化遮罩层 -->
+<canvas id="fog-layer"></canvas>
+<div id="dark-layer"></div>
+<div id="assim-hint" class="assim-hint" style="display:none;"></div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep13', title: '第13期《听众来信特辑》- FM-MIDNIGHT' });
+
+  // 门禁：须先在 archive 用十二字解锁
+  FM.require('ep13_unlock', '../../archive.html');
+
+  EP.consoleHint('这里是第13期。前十二期里，藏着她的真名。夜莺的"夜"，是它换了个字。');
+
+  var HASH_LIN = '5c84b7039cdccb8cff583e2280e21a061f494e33822dcbe0b6f3457a293300be'; // 林晚
+  var HASH_YE  = '02e5c1b1f48d096153c74bd4a28fa5a5f073a41353d4c8b1d04694f7e107ab3f'; // 夜莺
+
+  var input = document.getElementById('answer');
+  var button = document.getElementById('submit');
+  var msg = document.getElementById('msg');
+  var state = FM.load();
+  var wrong = state.ep13_wrong || 0;
+
+  /* 若已结算，直接显示结局 */
+  if (state.ending === 'good') showGood();
+  else if (state.ending === 'bad') showBad();
+  else restoreAssimilation();
+
+  /* ---------- 同化状态恢复（刷新后按错误次数重建） ---------- */
+  function restoreAssimilation() {
+    if (wrong >= 1) startSnow(0.55 + wrong * 0.15);
+    if (wrong === 2) startFog();
+    else if (wrong >= 3) startDark();
+  }
+
+  /* ---------- 第1层：雪花变密（慢慢变密，持续不散） ---------- */
+  function startSnow(target) {
+    target = target || 0.7;
+    var cv = document.createElement('canvas');
+    cv.className = 'snow';
+    cv.style.opacity = '0';
+    var W = 220, H = 140;
+    cv.width = W; cv.height = H;
+    document.body.insertBefore(cv, document.body.firstChild);
+    var ctx = cv.getContext('2d');
+    var img = ctx.createImageData(W, H);
+    var p = 0;
+    function frame() {
+      var d = img.data;
+      d.fill(0);
+      var n = Math.floor(d.length / 4 * (0.3 + target * p * 0.7));
+      for (var i = 0; i < n; i++) {
+        var q = Math.floor(Math.random() * (d.length / 4)) * 4;
+        var v = Math.random() * 255;
+        d[q] = d[q+1] = d[q+2] = v;
+        d[q+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      requestAnimationFrame(frame);
+    }
+    frame();
+    // 约 3 秒内，密度与透明度一起慢慢爬升
+    var t0 = Date.now(), dur = 3000;
+    var timer = setInterval(function () {
+      p = Math.min(1, (Date.now() - t0) / dur);
+      cv.style.opacity = String((0.15 + target * 0.5) * p);
+      if (p >= 1) clearInterval(timer);
+    }, 50);
+  }
+
+  /* ---------- 第2层：起雾（缓慢漫上来，擦开输入框后雾仍在、不散） ---------- */
+  function startFog() {
+    var fog = document.getElementById('fog-layer');
+    fog.style.display = 'block';
+    fog.style.pointerEvents = 'auto'; // 重玩后再起雾，需恢复可擦除
+    fog.style.transition = 'opacity 3s ease';
+    fog.style.opacity = '0';
+    var ctx = fog.getContext('2d');
+    var W = fog.width = innerWidth;
+    var H = fog.height = innerHeight;
+
+    function paint() {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#b8b4aa';
+      ctx.fillRect(0, 0, W, H);
+      var img = ctx.createImageData(W, H);
+      var d = img.data;
+      for (var i = 0; i < d.length; i += 4) {
+        var v = 176 + Math.random() * 30;
+        d[i] = d[i+1] = d[i+2] = v;
+        d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    paint();
+    // 雾慢慢漫上来（约 3 秒），不设到全白，留一丝轮廓让玩家找输入框
+    requestAnimationFrame(function () { fog.style.opacity = '0.92'; });
+    addEventListener('resize', function () {
+      W = fog.width = innerWidth; H = fog.height = innerHeight; paint();
+    });
+
+    function erase(x, y) {
+      ctx.globalCompositeOperation = 'destination-out';
+      var r = 54;
+      var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, 'rgba(0,0,0,1)');
+      g.addColorStop(0.6, 'rgba(0,0,0,0.85)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    var erasing = false, lastX = 0, lastY = 0;
+    fog.addEventListener('pointerdown', function (e) {
+      erasing = true; lastX = e.clientX; lastY = e.clientY; erase(lastX, lastY);
+    });
+    addEventListener('pointermove', function (e) {
+      if (!erasing) return;
+      var x = e.clientX, y = e.clientY;
+      var dx = x - lastX, dy = y - lastY;
+      var dist = Math.sqrt(dx*dx + dy*dy), step = 12;
+      for (var t = step; t < dist; t += step) {
+        erase(lastX + dx * (t / dist), lastY + dy * (t / dist));
+      }
+      erase(x, y); lastX = x; lastY = y;
+    });
+    addEventListener('pointerup', function () { erasing = false; });
+
+    // 输入框区域是否擦开
+    function inputCleared() {
+      var rect = input.getBoundingClientRect();
+      var step = 22, total = 0, clear = 0;
+      for (var x = rect.left; x < rect.right; x += step) {
+        for (var y = rect.top; y < rect.bottom; y += step) {
+          if (x < 0 || y < 0 || x >= W || y >= H) continue;
+          var a = ctx.getImageData(Math.floor(x), Math.floor(y), 1, 1).data[3];
+          total++; if (a < 40) clear++;
+        }
+      }
+      return total ? clear / total : 0;
+    }
+
+    var hint = document.getElementById('assim-hint');
+    hint.style.display = 'block';
+    hint.innerHTML = '雾漫上来了。<b>擦开</b>输入框——它想遮住你的眼睛。';
+    var timer = setInterval(function () {
+      if (inputCleared() > 0.45) {
+        clearInterval(timer);
+        // 雾不散（视觉持续），但不再拦截点击，让玩家能点输入框和按钮
+        fog.style.pointerEvents = 'none';
+        hint.innerHTML = '雾不会散了。<b>念出</b>答案，别让它听见你犹豫。';
+        input.focus();
+      }
+    }, 400);
+  }
+
+  /* ---------- 第3层：变黑（直接黑，光锥照到输入框，黑不散） ---------- */
+  function startDark() {
+    document.body.classList.add('ep-darkmode');
+    var dark = document.getElementById('dark-layer');
+    dark.style.display = 'block';
+    dark.style.opacity = '1'; // 直接黑，无过渡
+    var hint = document.getElementById('assim-hint');
+    hint.style.display = 'block';
+    hint.innerHTML = '灯灭了。把<b>光</b>照到输入框上。';
+
+    var focused = false;
+    function move(e) {
+      dark.style.setProperty('--lx', e.clientX + 'px');
+      dark.style.setProperty('--ly', e.clientY + 'px');
+      if (focused) return;
+      var rect = input.getBoundingClientRect();
+      var pad = 40;
+      if (e.clientX > rect.left - pad && e.clientX < rect.right + pad &&
+          e.clientY > rect.top - pad && e.clientY < rect.bottom + pad) {
+        focused = true;
+        // 黑不散：光锥继续照亮，只把焦点交给输入框
+        hint.innerHTML = '照着它，<b>念出</b>答案。';
+        input.focus();
+      }
+    }
+    addEventListener('mousemove', move);
+  }
+
+  /* ---------- 结算 ---------- */
+  function clearOverlays() {
+    document.getElementById('fog-layer').style.display = 'none';
+    document.getElementById('dark-layer').style.display = 'none';
+    document.body.classList.remove('ep-darkmode');
+    var snows = document.querySelectorAll('canvas.snow');
+    for (var i = 0; i < snows.length; i++) snows[i].remove();
+    document.getElementById('assim-hint').style.display = 'none';
+  }
+
+  function showGood() {
+    document.getElementById('puzzle').style.display = 'none';
+    document.getElementById('good-ending').style.display = 'block';
+  }
+  function showBad() {
+    document.getElementById('puzzle').style.display = 'none';
+    document.getElementById('bad-ending').style.display = 'block';
+    var d = FM.load();
+    var name = (d.name || '').trim();
+    var line = document.getElementById('bad-name-line');
+    if (name) {
+      line.textContent = '节目单上，新主播那一栏，已经写好了名字：' + name + '。';
+    } else {
+      line.textContent = '节目单上，新主播那一栏，空着——它等你给自己取一个名字。';
+    }
+  }
+
+  function good() {
+    FM.save({ ending: 'good', ep13_wrong: wrong });
+    EP.done();
+    clearOverlays();
+    showGood();
+  }
+  function bad() {
+    FM.save({ ending: 'bad', ep13_wrong: wrong });
+    EP.done();
+    clearOverlays();
+    showBad();
+  }
+
+  /* ---------- 提交判定 ---------- */
+  function check() {
+    var val = input.value;
+    EP.sha256(val).then(function (hex) {
+      if (hex === HASH_LIN) { good(); return; }
+      if (hex === HASH_YE) { bad(); return; }
+      wrong++;
+      FM.save({ ep13_wrong: wrong });
+      input.value = '';
+      if (wrong >= 4) { bad(); return; }
+
+      if (wrong === 1) {
+        startSnow(0.7);
+        try { FM.hum(0.05); } catch (e) {}
+        msg.textContent = '不对。雪花更密了。它离你更近了。';
+        input.focus();
+      } else if (wrong === 2) {
+        msg.textContent = '';
+        startFog();
+      } else if (wrong === 3) {
+        msg.textContent = '';
+        try { var w = FM.whisper(); w.setVol(0.1); } catch (e) {}
+        startDark();
+      }
+    }).catch(function (e) { msg.textContent = e.message || '校验出错'; });
+  }
+
+  button.addEventListener('click', check);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') check(); });
+
+  /* ---------- 重新来过：清除结局与错误次数，回到谜题态 ---------- */
+  function replay() {
+    wrong = 0;
+    FM.save({ ending: null, ep13_wrong: 0 });
+    clearOverlays();
+    input.value = '';
+    msg.textContent = '';
+    document.getElementById('puzzle').style.display = 'block';
+    document.getElementById('good-ending').style.display = 'none';
+    document.getElementById('bad-ending').style.display = 'none';
+    input.focus();
+  }
+  var replayBtns = document.querySelectorAll('.replay-btn');
+  for (var i = 0; i < replayBtns.length; i++) {
+    replayBtns[i].addEventListener('click', replay);
+  }
+
+  // 标签页标题闪烁
+  EP.titleBlink(['第13期 · 听众来信特辑', '念 出 她 的 名 字'], 2200);
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第2期 · 灯下 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -24,23 +24,22 @@
     <p>她把信念了出来。信念得很慢，因为 S 先生的字写得很慢，很工整，像怕人认不清，又像怕人认得太清。</p>
   </div>
 
-  <!-- 信文（谜题2的计数范围：仅信内汉字，标点不算） -->
+  <!-- 信文（S 先生的手稿，作为暗线） -->
   <div class="ep-letter">
     信到的时候，是夜里。他总在夜里写信。写信的灯很旧了，灯光只照亮信纸的一角。他说他不怕黑，他说他只是习惯了灯。灯亮着，他就写；灯一灭，他就等。等它再亮，等下一封信。我问他，信要寄给谁。他没有回答。他把那封信封好，放在灯下。灯下的信封渐渐变厚，他的字越来越慢。夜夜如此。夜越来越深。后来灯还亮着，他不在了。信还在来，一夜又一夜。
   </div>
 
   <div class="ep-story" style="margin-top:18px;">
-    <p>念完信，夜莺说信末还有一行规矩——S 先生定的回信规矩："回信不能超过四个字。每个字，都要是我这封信里写得最多的那几个。按次数，从多到少。"</p>
-    <p>"他连标点都数过。"夜莺补了一句，"所以标点，不算字。"</p>
+    <p>念完信，夜莺把它翻到背面。背面没有字，只有四个角上，压着淡淡的印痕——像有人曾经在黑暗里，把四个字钉在这张纸上。</p>
+    <p>"灯照不到的地方，"她说，"还藏着四个字。下一段，我把灯交到你们手里。自己去找。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题2：回信规则（信文汉字频次前四：他12 信9 灯8 夜7，第五名仅5，无并列） -->
+  <!-- 继续（本期 B 面没有谜题，进入寻字页） -->
   <div class="ep-gate">
-    <p class="muted small">替夜莺写这封回信：四个字。</p>
-    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="········">
-    <button id="submit">回 信</button>
+    <p class="muted small">把灯递给你。</p>
+    <button id="submit">接 灯</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -56,19 +55,12 @@
 <script>
   EP.config({ id: 'ep02', title: '第2期 · 灯下 - FM-MIDNIGHT' });
 
-  // 门禁：须先译出摩斯电码
+  // 门禁：须先听完 A 面
   EP.require('gate1', 'index.html');
 
-  // 谜题2：回信规则，答案 他信灯夜
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: 'd9d81d94b56c1801103a0aa5b598db3b8794987011b8a0e575845172dcf8276f',
-    flag: 'gate2',
-    deny: '回信被退回来了。你数错了。',
-    okText: '回信寄出去了。信封，从中间分开了。',
-    goto: 'postmark.html'
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate2');
+    location.href = 'postmark.html';
   });
 
   // 标签页标题闪烁

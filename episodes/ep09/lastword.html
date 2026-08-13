@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第9期 · 最后一句话 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -23,14 +23,19 @@
     <p>代班主播下播前，还说了最后一句话。台里想把那句话回放出来的时候，母带的那一段已经被人洗掉了——洗得很干净，前后都留着，只少了最后七秒。</p>
     <p>但那天晚上，有一位老听众边听边记。他年纪大了，写字慢，完整句子来不及，只来得及记下每个字的拼音首字母。五个字母：</p>
     <p style="text-align:center; letter-spacing:.6em; color:#d8d2c2; font-size:20px;">W　B　S　Y　Y</p>
-    <p>"他听得最认真。"夜莺把那张纸条压在玻璃板底下，"五个字。它下播前说的最后五个字——你们替我，把它补全。"</p>
+    <p>他补全了那五个字，写在纸条最下面：<strong>"我不是夜莺。"</strong></p>
+    <p>夜莺把纸条压在玻璃板底下，没有念出声。她翻到纸条的背面，突然停住了——背面还有一行，比那五个字更潦草，像是听到一半，手抖得厉害，只来得及写下一个字：</p>
+    <p style="text-align:center; letter-spacing:.6em; color:#9c1f1f; font-size:20px;">林</p>
+    <p>再往下，还有两个更淡的字，被笔尖划破了：<strong>我 叫</strong>。</p>
+    <p>拼起来，是半句话："我叫林——"</p>
   </div>
 
-  <!-- 谜题3 输入门 -->
+  <hr class="ep-divider">
+
+  <!-- 收尾按钮：听完本期 -->
   <div class="ep-gate">
-    <p class="muted small">W·B·S·Y·Y——它最后说的五个字：</p>
-    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="·····">
-    <button id="submit">补</button>
+    <p class="muted small">纸条翻到背面了。合上这盘母带。</p>
+    <button id="submit">合 上</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -38,9 +43,9 @@
   <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
 
   <div class="ep-story" id="after" style="display:none;">
-    <p>我不是夜莺。</p>
-    <p>它下播前，自己承认了。它学了开场，学了收尾，翻了档案，叫得出每个老听众的名字——最后却用一句话，把整晚的表演都拆了。像是故意留下的。</p>
-    <p>"它想让人知道。"夜莺说，"它想让人知道它来过——而且，还会来。"她把那张纸条收进听众档案，锁进资料柜。柜子里，那个没有线的喇叭，安安静静。</p>
+    <p>夜莺盯着那个"林"字，很久没有说话。</p>
+    <p>"夜莺，只是上节目用的名字。"她终于开口，"我的真名，很多年没人叫过了。它差一点，就从档案里翻到了。"</p>
+    <p>她把纸条收进听众档案，锁进资料柜。柜子里，那个没有线的喇叭，安安静静。</p>
     <p>"下期节目是重播。"她说，"如果内容和上次不一样——写信告诉我。"</p>
   </div>
 
@@ -66,29 +71,17 @@
   // 门禁：须先找出露馅的热线
   EP.require('gate2', 'index.html');
 
-  if (EP.has('gate2') || FM.debug) {
-
-    // 谜题3：拼音首字母补全，答案 我不是夜莺
-    EP.gate({
-      input: '#answer',
-      button: '#submit',
-      msg: '#msg',
-      hash: 'a43034ba815eca128935aad33d5bf597affeb60783d081312f927d4b52b3999d',
-      flag: 'gate3',
-      deny: '纸条上的五个字母没有变。W 开头——它整晚都在自称什么？',
-      okText: '五个字补全了。玻璃板底下那张纸条，忽然显得很轻。',
-      onOk: function () {
-        EP.done();
-        document.getElementById('done-mark').style.display = '';
-        document.getElementById('after').style.display = '';
-        var rune = document.getElementById('rune');
-        setTimeout(function () {
-          rune.style.display = '';
-          requestAnimationFrame(function () { rune.style.opacity = '1'; });
-        }, 1200);
-      }
-    });
-  }
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.done();
+    document.getElementById('done-mark').style.display = '';
+    document.getElementById('after').style.display = '';
+    var rune = document.getElementById('rune');
+    setTimeout(function () {
+      rune.style.display = '';
+      requestAnimationFrame(function () { rune.style.opacity = '1'; });
+    }, 1200);
+    this.disabled = true;
+  });
 </script>
 </body>
 </html>

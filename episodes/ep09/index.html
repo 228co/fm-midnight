@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第9期《代班主播》- FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -44,17 +44,18 @@
   </div>
 
   <div class="ep-story">
-    <p>"它学我。"夜莺说，"开场学，收尾学，学得一字不差。只有一个词，它漏了——那个词，我这七年从来没说过。"</p>
-    <p>"是哪个词？"</p>
+    <p>"它学我。"夜莺说，"开场学，收尾学，学得一字不差。只有一个词，它漏了——那个词，我这七年从来没说过。'我们'。"</p>
+    <p>她把转写折起来："那晚的直播间里，不止它一个。它说话的时候，还有别的东西，站在它旁边，一起对着话筒。"</p>
+    <p>"它连我的听众都认得。"她的声音低下去，"B 面，我听你们说，它是从哪儿认出来的。"</p>
+    <p>还有一件事，夜莺没有写进节目日志。那晚代班节目结束后，值班表上登记的设备关机时间是 03:30，和往常一样。可机房电表那一夜走的度数，是平常的三倍。多出来的电，不知道喂给了什么。她只在抽屉的便签上写了一句："它播得比我久。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题1 输入门 -->
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">它用了哪个夜莺从来不用的词：</p>
-    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="··">
-    <button id="submit">指</button>
+    <p class="muted small">A 面到这里。翻到 B 面。</p>
+    <button id="submit">听 B 面</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -72,16 +73,9 @@
 
   EP.consoleHint('这里是第9期的控制台。直播间只有一个人。所以"我们"是谁？');
 
-  // 谜题1：它说漏的词，答案 我们
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: 'bcacb40df81b94b7561ad31c0660fb385b46812a325305fcb94763bc7fc9f03a',
-    flag: 'gate1',
-    deny: '转写又翻回第一行。对照那三条习惯，一个字一个字地对。',
-    okText: '对。"我们"。——那晚的直播间里，不止它一个。',
-    goto: 'b-side.html'
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate1');
+    location.href = 'b-side.html';
   });
 </script>
 </body>

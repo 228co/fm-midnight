@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第6期《停电之夜》- FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -21,31 +21,18 @@
   <!-- 故事正文：A面 -->
   <div class="ep-story">
     <p>今晚九点四十分，全城停电。供电局没有公告，电话打不进去，整座城市像被人掐住了喉咙。本台靠地下室那台备用发电机，继续播出。</p>
-    <p>发电机上了年纪，电压不稳。墙上的电压表早坏了，指针一动不动。但导播间的应急灯还诚实——它跟着电压，一明，一暗。</p>
-    <p>"亮一下，记 1；灭一下，记 0。"夜莺说，"四下为一组，读成一个数。它闪三组，就是今夜全城唯一还通的电压。"</p>
-    <p>她把话筒凑近那盏灯。你听见电流的嗡鸣，一下，一下：</p>
-  </div>
-
-  <!-- 谜题1：二进制报电压（暗暗明暗 暗暗明暗 暗暗暗暗 → 0010 0010 0000 → 220） -->
-  <div class="ep-volts">
-    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-on">亮</span><span class="v-off">灭</span>
-    <i></i>
-    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-on">亮</span><span class="v-off">灭</span>
-    <i></i>
-    <span class="v-off">灭</span><span class="v-off">灭</span><span class="v-off">灭</span><span class="v-off">灭</span>
-  </div>
-
-  <div class="ep-story">
-    <p>"读出来。"她说，"读对了，电就听你的。"</p>
+    <p>发电机上了年纪，电压不稳。墙上的电压表早坏了，指针一动不动。只有导播间的应急灯还诚实——它跟着电压，一明，一暗。</p>
+    <p>夜莺对着话筒说："电压表坏了不要紧。灯还在亮，节目就还在。今晚我们把 B 面放到配电箱那儿去——推对了开关，电就听你的；推错了，全楼黑掉，我们就此下播。"</p>
+    <p>"它今夜只通一条路。"她说，"谁下去，谁就替我们决定，这栋楼还能不能亮到天亮。"</p>
+    <p>停电到第七分钟，门卫打上来内部电话，说大楼门口的马路对面，全城的窗子都是黑的，只有一栋楼还亮着一户——一户，很高，灯色发青。他数了数楼层，数完就不说话了。夜莺问他数到几。门卫说："十四层。我们楼，十四层。亮着的就是我们播音这一层。"他停了停，又说："可我刚从十四层下来。走廊的灯，是我亲手关的。"</p>
   </div>
 
   <hr class="ep-divider">
 
-  <!-- 谜题1 输入门 -->
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">三组灯，三个数，写下今夜的电压。</p>
-    <input type="text" id="answer" maxlength="6" autocomplete="off" placeholder="---">
-    <button id="submit">报</button>
+    <p class="muted small">A 面到这里。翻到 B 面。</p>
+    <button id="submit">听 B 面</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
@@ -61,18 +48,11 @@
 <script>
   EP.config({ id: 'ep06', title: '第6期《停电之夜》- FM-MIDNIGHT' });
 
-  EP.consoleHint('这里是第6期的控制台。亮是 1，灭是 0，四下一组。二进制。');
+  EP.consoleHint('这里是第6期的控制台。亮是 1，灭是 0。但今夜没人让你读。');
 
-  // 谜题1：二进制报电压，答案 220
-  EP.gate({
-    input: '#answer',
-    button: '#submit',
-    msg: '#msg',
-    hash: '36790ecd55c2030dc553685bef719df653f413a20cdad1bfd1dc934c76686ddd',
-    flag: 'gate1',
-    deny: '灯闪得乱了。你读错了。',
-    okText: '发电机低低地应了一声。电压稳住了。',
-    goto: 'b-side.html'
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate1');
+    location.href = 'b-side.html';
   });
 </script>
 </body>

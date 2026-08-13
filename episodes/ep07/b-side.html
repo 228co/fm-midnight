@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第7期 · 说三声 - FM-MIDNIGHT</title>
+<title>第7期 · 那不是回声 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -14,33 +14,29 @@
   <!-- 期头 -->
   <div class="ep-head">
     <div class="ep-no">第7期</div>
-    <h1 class="ep-title glitch-text" data-text="说 三 声">说 三 声</h1>
+    <h1 class="ep-title glitch-text" data-text="那不是回声">那不是回声</h1>
     <p class="ep-meta">播出：1999-12-14 03:33 · 主播：夜莺</p>
   </div>
 
   <!-- 故事正文：B面 -->
   <div class="ep-story">
-    <p>"回声？"夜莺在节目里沉默了很久，"我播了七年音，回声我听得出来。那不是回声——回声不会答应得刚刚好，像一直在等。"</p>
-    <p>"规矩我再念一遍，"她说，"也是那位听众收到的规矩——对着镜子，说三声你的名字。<strong>要一样，三声都要一样。</strong>心要诚，名字不能错。说完，别先开口，听它怎么说。"</p>
-    <p>"今晚这面镜子，我架在直播间了。"她的声音低下去，"你们替我说。我不敢。"</p>
+    <p>"对着镜子，说三声自己的名字。"夜莺在话筒前，声音放得又轻又慢，"这是很老的规矩了。说三声，镜子里就会多出第四声。那不是回声——回声不会先开口，回声不会在第三声还没落定的时候，就已经在笑。"</p>
+    <p>"周平、陈念、吴声，他们都听见了第四声。可他们没有一个人，听清第四声说的是什么。因为镜子里的人，从来只说一半。"</p>
+    <p>她顿了顿，说直播间那面镜子，从上一期起就蒙了一层雾，怎么擦都擦不净。雾底下有字，像是有人从镜子的那一面，用手指在凝水玻璃上划出来的。</p>
+    <p>"我不碰它。"夜莺说，"谁擦开了，就替我念出来——别念错。念错了，就换成你了。"</p>
   </div>
 
-  <!-- 谜题2：对镜仪式（连续三次输入同一个名字，镜中人才开口） -->
-  <div class="ep-mirror-box">
-    <div class="ep-mirror-log" id="mirror-log">
-      <p class="ml-line ml-dim">镜子里黑着。等你开口。</p>
-    </div>
-  </div>
+  <hr class="ep-divider">
 
+  <!-- 继续 -->
   <div class="ep-gate">
-    <p class="muted small">对镜子，说出你的名字。</p>
-    <input type="text" id="name-input" maxlength="12" autocomplete="off" placeholder="你的名字">
-    <button id="say">说</button>
+    <p class="muted small">B 面到这里。把灯照到镜子上。</p>
+    <button id="submit">擦 镜 子</button>
     <p id="msg" class="ep-gate-msg"></p>
   </div>
 
   <!-- 隐藏耳语 -->
-  <p class="whisper">它倒着念你的名字，是因为它在你对面</p>
+  <p class="whisper">镜子里的雾，是有人对着它呵的气</p>
 
   <p class="ep-back"><a href="index.html">← 返回 A 面</a></p>
 
@@ -49,73 +45,18 @@
 <script src="../../js/common.js?v=2.8"></script>
 <script src="../../js/episode.js"></script>
 <script>
-  EP.config({ id: 'ep07', title: '第7期 · 说三声 - FM-MIDNIGHT' });
+  EP.config({ id: 'ep07', title: '第7期 · 那不是回声 - FM-MIDNIGHT' });
 
-  // 门禁：须先答出"回声"
+  // 门禁：须先听完 A 面
   EP.require('gate1', 'index.html');
 
-  // 谜题2：仪式——连续三次说出同一个名字
-  var log = document.getElementById('mirror-log');
-  var msg = document.getElementById('msg');
-  var input = document.getElementById('name-input');
-  var lastName = null;
-  var count = 0;
-  var done2 = false;
-
-  function reverseStr(s) {
-    return s.split('').reverse().join('');
-  }
-
-  function addLine(text, cls) {
-    var p = document.createElement('p');
-    p.className = 'ml-line ' + (cls || '');
-    p.textContent = text;
-    log.appendChild(p);
-  }
-
-  document.getElementById('say').addEventListener('click', function () {
-    if (done2) return;
-    var name = input.value.trim();
-    if (!name) return;
-    msg.textContent = '';
-
-    if (name === lastName) {
-      count++;
-    } else {
-      if (lastName !== null && count > 0 && count < 3) {
-        msg.textContent = '镜子那头皱了皱眉，没有回答。三声，要一样。';
-      }
-      count = 1;
-      lastName = name;
-    }
-
-    // 镜子每次都先把名字倒过来回你
-    addLine('你说：' + name, 'ml-you');
-    addLine('镜子里说：' + reverseStr(name), 'ml-it');
-
-    if (count >= 3) {
-      done2 = true;
-      input.disabled = true;
-      document.getElementById('say').disabled = true;
-      setTimeout(function () {
-        addLine('镜子里顿了顿，多答了一声——', 'ml-dim');
-        setTimeout(function () {
-          addLine('「……轮到我了。」', 'ml-fourth');
-          EP.flag('gate2');
-          setTimeout(function () { location.href = 'mirror.html'; }, 2200);
-        }, 1600);
-      }, 900);
-    }
-    input.value = '';
-    input.focus();
-  });
-
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') document.getElementById('say').click();
+  document.getElementById('submit').addEventListener('click', function () {
+    EP.flag('gate2');
+    location.href = 'mirror.html';
   });
 
   // 标签页标题闪烁
-  EP.titleBlink(['第7期 · 说三声', '它 在 数'], 2000);
+  EP.titleBlink(['第7期 · 那不是回声', '第 四 声 在 笑'], 1800);
 </script>
 </body>
 </html>

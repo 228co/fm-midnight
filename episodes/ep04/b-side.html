@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>第4期 · 镜中 - FM-MIDNIGHT</title>
 <link rel="stylesheet" href="../../css/style.css?v=2.3">
-<link rel="stylesheet" href="../../css/episode.css?v=4.6">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
 </head>
 <body>
 
@@ -56,13 +56,17 @@
   // 门禁：须先按下 4 层
   EP.require('gate1', 'index.html');
 
-  // 谜题2：镜中数码管（2↔5 镜像），答案 12
+  // 谜题2：镜中数码管（2↔5 镜像），答案 12（兼容 "12层"、"十二" 写法）
   EP.consoleHint('这里是第4期的控制台。数码管只有七根棍。镜子里，2 和 5 是同一根。');
   EP.gate({
     input: '#answer',
     button: '#submit',
     msg: '#msg',
-    hash: '6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918',
+    hash: [
+      '6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918',
+      '83ea684817333d28ccc97c61562ac7a7029226b127121a61f801bd80d2e8743c',
+      '80b044f1afc988e190cb0b200f3c2bc63554109f22803000ca0ee0fa9f440729'
+    ],
     flag: 'gate2',
     deny: '镜子晃了一下。不是这层——记住，你是在镜子里看的。灯棍要一根一根翻回去。',
     okText: '楼层显示跳了一下。到了。',

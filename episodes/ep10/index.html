@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第10期《重播》- FM-MIDNIGHT</title>
+<link rel="stylesheet" href="../../css/style.css?v=2.3">
+<link rel="stylesheet" href="../../css/episode.css?v=4.7">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 期头 -->
+  <div class="ep-head">
+    <div class="ep-no">第10期</div>
+    <h1 class="ep-title glitch-text" data-text="重 播">重 播</h1>
+    <p class="ep-meta">播出：2000-01-04 03:00 · 主播：夜莺</p>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="ep-story">
+    <p>这期是重播。但下播第二天，有七位听众来信，说内容和上次不一样——多出来三段声音，不在节目单上，也没有人声，只有"嘀、嗒"的敲击。</p>
+    <p>其中一位老听众，年轻时在船上做过报务员。他把三段敲击抄在信纸背面，说这是一段摩斯电码。他译出了三个字母，又用红笔圈起来，重重地写了一行字：<strong>"这不是节目。是求救。"</strong></p>
+    <p>夜莺把信纸举到话筒边，说："S 先生不是普通听众。他是我的前一任——在我之前，坐在这把椅子上的人。他消失了很久，大家都以为他走了。可这封信告诉我们，他还在台里，还没有被完全吃干净。"</p>
+    <p>"他留下的手稿，一页一页，都在这间屋子里应验。"夜莺的声音低下去，"现在，他求救。他把最后一口气，编进了重播里。你们听。"</p>
+    <p>那位老报务员的信还有最后一段，夜莺没有念全，只念了一句："摩斯电码有个规矩——发报的人，手不能停，一停，收报的人就当你出事了。可这三段敲击，从头到尾没有换过气。列位，活人发报，是要有气口的。"</p>
+  </div>
+
+  <!-- 摩斯电码 -->
+  <div class="ep-letter" style="text-align:center;">
+    <p class="muted small" style="margin-bottom:14px;">重播里多出来的三段敲击（报文员抄录）：</p>
+    <p style="font-size:26px; letter-spacing:.35em; color:#d8d2c2; margin:6px 0;">···&nbsp;&nbsp;−−−&nbsp;&nbsp;···</p>
+    <p style="margin:14px 0 0;">
+      <button id="play" style="font-size:14px; letter-spacing:.2em; padding:8px 22px; border-color:#9c1f1f; color:#9c1f1f; background:#0d0c0a; cursor:pointer;">[ 听 电 码 ]</button>
+    </p>
+  </div>
+
+  <!-- 谜题：译出摩斯 -->
+  <div class="ep-gate">
+    <p class="muted small">三个字母，都是大写。他在说什么？</p>
+    <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="···">
+    <button id="submit">译</button>
+    <p id="msg" class="ep-gate-msg"></p>
+  </div>
+
+  <!-- 通关标记 -->
+  <p class="danger" id="done-mark" style="display:none;">■ 本期已收听</p>
+
+  <div class="ep-story" id="after" style="display:none;">
+    <p>是 S O S。国际通用的求救信号。他从被吃掉的那一边，把三个字母，敲了三遍。</p>
+    <p>"他早该被抹掉的。"夜莺说，"可他把名字，一个字一个字地，刻在了他自己的手稿里。那是它唯一找不到的地方。"</p>
+    <p>她顿了顿："下一期，是信号测试。测试音里，会有它念的一份名单。听清楚——你的名字，可能就在上面。"</p>
+  </div>
+
+  <!-- 十二字集字：第十个字「似」 -->
+  <div class="ep-rune-block" id="rune" style="display:none;">
+    <p class="muted small">你翻过这盘母带——背面的针尖刻字边角锋利，像刻它的人，刻得很急。</p>
+    <div class="ep-rune flicker">似</div>
+    <p class="ep-rune-cap">十二个字里的第十个</p>
+  </div>
+
+  <!-- 隐藏耳语 -->
+  <p class="whisper">S O S。他在说：还有人在里面</p>
+
+  <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
+
+</div>
+
+<script src="../../js/common.js?v=2.8"></script>
+<script src="../../js/episode.js"></script>
+<script>
+  EP.config({ id: 'ep10', title: '第10期《重播》- FM-MIDNIGHT' });
+
+  EP.consoleHint('这里是第10期的控制台。三段敲击，三个字母。');
+
+  // 播放摩斯电码（SOS）
+  document.getElementById('play').addEventListener('click', function () {
+    FM.morse('SOS');
+  });
+
+  // 谜题：译出 SOS
+  EP.gate({
+    input: '#answer',
+    button: '#submit',
+    msg: '#msg',
+    hash: 'c0946106b732f9f6ae889101ab987ed1bbcfe3eda2ad0a971be31575ad676851',
+    flag: 'gate1',
+    hints: { 1: '三个点，三个划，三个点——划比点长。', 2: '船上的人，最怕听见的三个字母。' },
+    deny: '不对。再听一遍，划比点长。',
+    okText: 'S O S。求救信号。',
+    onOk: function () {
+      EP.done();
+      document.getElementById('done-mark').style.display = '';
+      document.getElementById('after').style.display = '';
+      var rune = document.getElementById('rune');
+      setTimeout(function () {
+        rune.style.display = '';
+        requestAnimationFrame(function () { rune.style.opacity = '1'; });
+      }, 1200);
+    }
+  });
+</script>
+</body>
+</html>
