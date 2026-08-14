@@ -53,7 +53,7 @@
   <div class="ep-story" id="after" style="display:none;">
     <p>是 DON'T SAY MY NAME。<strong>别说我的名字。</strong></p>
     <p>"她把这话藏进测试音，念给四十一个可能听见的人听。"夜莺说，"可它只该被一个人听见——听得最认真的那个。"</p>
-    <p>"名单上那些名字，周平、陈念、吴声、陈晓芸，都是假的，是它撒的网。它想钓的，是名单最后那一行——那个它一直盯着、却念不出来的名字。"</p>
+    <p>"名单上那些名字，周平、陈念、吴声，都是假的，是它撒的网。它想钓的，是名单最后那一行——那个它一直盯着、却念不出来的名字。"</p>
     <p>她看着你："下一期，是最后一期。那封关于脚步声的信，我要留到最后一期再读。"</p>
     <p>你走出直播间的时候才想起来：收听须知第二条说，播音中若念到你的名字，请在心里应一声。</p>
     <p>名单的最后一行，她没念出来——卡住了。可那一行写的是什么，你早就译出来了。你刚才，在心里把它念出来了吗？</p>
@@ -81,7 +81,7 @@
   /* 渲染凯撒加密名单：四个干扰项 + 末行玩家登记名 */
   (function () {
     var list = document.getElementById('cipher-list');
-    var fixed = ['ZHOUPING', 'CHENNIAN', 'WUSHENG', 'CHENXIAOYUN'];
+    var fixed = ['ZHOUPING', 'CHENNIAN', 'WUSHENG'];
     var lines = fixed.map(function (n) { return EP.caesar(n, 3); });
 
     var d = FM.load();
