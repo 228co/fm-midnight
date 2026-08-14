@@ -68,10 +68,7 @@
 
   <div class="ep-letter">
     <p style="text-indent:0;">"十二期，你都听完了。现在，轮到你回答我一个问题。"</p>
-    <p style="text-indent:0;">"我的真名，散在前十二期里，一共三处——"</p>
-    <p style="text-indent:0;">"一、我的姓，写在青园路 7 号那封信的落款里。墨迹晕开了，可那个字还在。"</p>
-    <p style="text-indent:0;">"二、我的全名，那晚在电话线里，差一点就被念出来了——刚起了个头，后半截就被电波吞掉了。"</p>
-    <p style="text-indent:0;">"三、我的名，不能直接写。它听着。可'夜莺'的'夜'，就是把它换了个字——<strong>同一个时辰，更晚一点的叫法。</strong>"</p>
+    <p style="text-indent:0;">"我的真名，散在前十二期里。"</p>
     <p style="text-indent:0;">"念出我的真名。念对了，我把位置让出来，你走。念错了……你就坐进来。"</p>
     <p style="text-indent:0;">"别猜。听。"</p>
   </div>
@@ -149,10 +146,8 @@
   // 门禁：须先在 archive 用十二字解锁
   FM.require('ep13_unlock', '../../archive.html');
 
-  EP.consoleHint('这里是第13期。前十二期里，藏着她的真名。夜莺的"夜"，是它换了个字。');
-
-  var HASH_LIN = '5c84b7039cdccb8cff583e2280e21a061f494e33822dcbe0b6f3457a293300be'; // 林晚
-  var HASH_YE  = '02e5c1b1f48d096153c74bd4a28fa5a5f073a41353d4c8b1d04694f7e107ab3f'; // 夜莺
+  var HASH_LIN = '5c84b7039cdccb8cff583e2280e21a061f494e33822dcbe0b6f3457a293300be';
+  var HASH_YE  = '02e5c1b1f48d096153c74bd4a28fa5a5f073a41353d4c8b1d04694f7e107ab3f';
 
   var input = document.getElementById('answer');
   var button = document.getElementById('submit');

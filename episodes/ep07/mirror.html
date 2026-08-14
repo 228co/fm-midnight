@@ -88,7 +88,7 @@
 
   <!-- 答题区 -->
   <div class="mirror-answer" id="answer-box">
-    <p>镜面上的三个字，翻正了再念：</p>
+    <p>镜面上的三个字：</p>
     <input type="text" id="answer" maxlength="12" autocomplete="off" placeholder="····">
     <button id="submit">念</button>
     <p id="msg" class="ep-gate-msg"></p>
@@ -226,14 +226,14 @@
     setTimeout(function () { document.getElementById('answer').focus(); }, 300);
   }
 
-  /* ---------- 答案校验：镜中三字「换我了」 ---------- */
+  /* ---------- 答案校验 ---------- */
   EP.gate({
     input: '#answer',
     button: '#submit',
     msg: '#msg',
     hash: '8eec1ce50aae77b5e96da6ba37180e7c1e4fe6de4a79a5d4bd3f448d106a6226',
     flag: 'gate3',
-    deny: '不对。再想想——镜子里的字，要翻正了再念。',
+    deny: '不对。',
     okText: '雾散了。',
     onOk: function () {
       EP.done();
@@ -254,7 +254,7 @@
   });
 
   // 标签页标题闪烁
-  EP.titleBlink(['第7期 · 镜子', '换 我 了'], 1800);
+  EP.titleBlink(['第7期 · 镜子', '别 背 对 镜 子'], 1800);
 </script>
 </body>
 </html>

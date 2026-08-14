@@ -29,16 +29,15 @@
 
   <!-- 摩斯电码 -->
   <div class="ep-letter" style="text-align:center;">
-    <p class="muted small" style="margin-bottom:14px;">重播里多出来的三段敲击（报文员抄录）：</p>
-    <p style="font-size:26px; letter-spacing:.35em; color:#d8d2c2; margin:6px 0;">···&nbsp;&nbsp;−−−&nbsp;&nbsp;···</p>
-    <p style="margin:14px 0 0;">
+    <p class="muted small" style="margin-bottom:14px;">重播里多出来的三段敲击：</p>
+    <p style="margin:0;">
       <button id="play" style="font-size:14px; letter-spacing:.2em; padding:8px 22px; border-color:#9c1f1f; color:#9c1f1f; background:#0d0c0a; cursor:pointer;">[ 听 电 码 ]</button>
     </p>
   </div>
 
   <!-- 谜题：译出摩斯 -->
   <div class="ep-gate">
-    <p class="muted small">三个字母，都是大写。他在说什么？</p>
+    <p class="muted small">他在说什么？</p>
     <input type="text" id="answer" maxlength="8" autocomplete="off" placeholder="···">
     <button id="submit">译</button>
     <p id="msg" class="ep-gate-msg"></p>
@@ -61,7 +60,7 @@
   </div>
 
   <!-- 隐藏耳语 -->
-  <p class="whisper">S O S。他在说：还有人在里面</p>
+  <p class="whisper">还有人在里面</p>
 
   <p class="ep-back"><a href="../../archive.html">← 返回往期节目</a></p>
 
@@ -72,22 +71,19 @@
 <script>
   EP.config({ id: 'ep10', title: '第10期《重播》- FM-MIDNIGHT' });
 
-  EP.consoleHint('这里是第10期的控制台。三段敲击，三个字母。');
-
-  // 播放摩斯电码（SOS）
+  // 播放摩斯电码
   document.getElementById('play').addEventListener('click', function () {
     FM.morse('SOS');
   });
 
-  // 谜题：译出 SOS
+  // 谜题：译出摩斯电码
   EP.gate({
     input: '#answer',
     button: '#submit',
     msg: '#msg',
     hash: 'c0946106b732f9f6ae889101ab987ed1bbcfe3eda2ad0a971be31575ad676851',
     flag: 'gate1',
-    hints: { 1: '三个点，三个划，三个点——划比点长。', 2: '船上的人，最怕听见的三个字母。' },
-    deny: '不对。再听一遍，划比点长。',
+    deny: '不对。再听一遍。',
     okText: 'S O S。求救信号。',
     onOk: function () {
       EP.done();
