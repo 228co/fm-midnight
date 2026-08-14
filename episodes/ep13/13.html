@@ -154,6 +154,7 @@
   var msg = document.getElementById('msg');
   var state = FM.load();
   var wrong = state.ep13_wrong || 0;
+  var autoNavTimer = null;
 
   /* 若已结算，直接显示结局 */
   if (state.ending === 'good') showGood();
@@ -331,6 +332,7 @@
   function showGood() {
     document.getElementById('puzzle').style.display = 'none';
     document.getElementById('good-ending').style.display = 'block';
+    scheduleTower();
   }
   function showBad() {
     document.getElementById('puzzle').style.display = 'none';
@@ -343,6 +345,13 @@
     } else {
       line.textContent = '节目单上，新主播那一栏，空着——它等你给自己取一个名字。';
     }
+    scheduleTower();
+  }
+
+  /* 结局显示后，延时自动进入二维码页（手动点「→ 下一页」仍可提前） */
+  function scheduleTower() {
+    clearTimeout(autoNavTimer);
+    autoNavTimer = setTimeout(function () { location.href = 'tower.html'; }, 9000);
   }
 
   function good() {
@@ -390,6 +399,7 @@
 
   /* ---------- 重新来过：清除结局与错误次数，回到谜题态 ---------- */
   function replay() {
+    clearTimeout(autoNavTimer);
     wrong = 0;
     FM.save({ ending: null, ep13_wrong: 0 });
     clearOverlays();
