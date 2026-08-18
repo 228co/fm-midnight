@@ -926,3 +926,58 @@ body.inverted { filter: invert(1); }
   0% { color: #0033cc; }
   50% { color: #ff0000; }
 }
+
+/* ============================================================
+   移动端 / 平板响应式适配
+   ============================================================ */
+
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+
+  /* 栅格：两栏 / 三栏改单列 */
+  .cols, .forum-cols { flex-direction: column; }
+  .col-1, .col-2 { flex: none; width: 100%; }
+  .side-col, .forum-side { width: auto; }
+
+  /* 页头 */
+  .masthead h1 { font-size: 22px; }
+  .masthead .logo img { width: 72px; }
+  .masthead-row { gap: 10px; }
+  .masthead .slogan { letter-spacing: .22em; }
+  .searchbox input { width: 120px; }
+
+  /* 导航换行 */
+  .navbar a { padding: 6px 10px; font-size: 12px; }
+
+  /* 调频器 */
+  .tune-display { font-size: 32px; margin: 0 8px; padding: 8px 6px; }
+  .tune-display .mhz { font-size: 15px; }
+  .tune-knobs { gap: 24px; }
+  .knobL-lg { width: 84px; height: 84px; }
+  .knobL-sm { width: 56px; height: 56px; }
+  .knobL-xl { width: 104px; height: 104px; }
+
+  /* 表格：小屏横向滚动 */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* 对联广告：小屏缩窄（33.3 堕入时仍保留恐怖效果） */
+  .side-fly, .side-fly.doomed { width: 96px; }
+  .side-fly.left { left: 2px; }
+  .side-fly.right { right: 2px; }
+}
+
+@media (max-width: 480px) {
+  .wrap, .topline .inner, .masthead .inner, .navbar .inner {
+    padding-left: 8px; padding-right: 8px;
+  }
+  .masthead h1 { font-size: 18px; }
+  .masthead .logo img { width: 58px; }
+  .searchbox input { width: 96px; }
+
+  .tune-knobs { gap: 16px; }
+  .knobL-lg { width: 72px; height: 72px; }
+  .knobL-sm { width: 50px; height: 50px; }
+  .knobL-xl { width: 90px; height: 90px; }
+
+  .side-fly, .side-fly.doomed { width: 72px; }
+}

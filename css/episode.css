@@ -1152,3 +1152,40 @@ body:has(.ep-soundfield) .container {
   position: relative;
   z-index: 1;
 }
+
+/* ============================================================
+   移动端 / 平板响应式适配
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .ep-head { margin-bottom: 32px; }
+  .ep-title { font-size: 21px; letter-spacing: .18em; }
+  .ep-story { line-height: 1.9; }
+  .ep-gate { padding: 16px 12px; }
+  .ep-gate input[type="text"] { width: 100%; font-size: 16px; }
+  .ep-rune { font-size: 44px; }
+  .ep-runes { letter-spacing: .3em; }
+
+  /* 雾镜：高度与反字缩小，仍留出可擦除面积 */
+  .ep-fogmirror { height: 220px; }
+  .ep-fog-text { gap: 16px; }
+  .ep-fog-text span { font-size: 58px; }
+  .ep-fog-text span:nth-child(1) { font-size: 62px; }
+  .ep-fog-text span:nth-child(2) { font-size: 56px; }
+  .ep-fog-text span:nth-child(3) { font-size: 58px; }
+
+  /* 第8期收音机：电源线收窄，避免横向溢出 */
+  .ep-radio-cord { width: 150px; }
+}
+
+@media (max-width: 480px) {
+  .ep-title { font-size: 19px; }
+  .ep-story p { margin-bottom: 14px; }
+  .ep-gate { padding: 14px 10px; }
+  .ep-rune { font-size: 38px; }
+  .ep-fogmirror { height: 190px; }
+  .ep-fog-text span { font-size: 48px; }
+  .ep-fog-text span:nth-child(1) { font-size: 52px; }
+  .ep-fog-text span:nth-child(2) { font-size: 46px; }
+  .ep-fog-text span:nth-child(3) { font-size: 48px; }
+}

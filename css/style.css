@@ -402,3 +402,36 @@ canvas.snow.quiet { opacity: .09; }
   filter: drop-shadow(0 0 12px rgba(156, 31, 31, .28));
   user-select: none;
 }
+
+/* ============================================================
+   移动端 / 平板响应式适配
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .container { padding: 28px 16px 110px; }
+  h1 { font-size: 24px; letter-spacing: .2em; }
+  h2 { font-size: 16px; }
+
+  /* 表格：小屏横向滚动 */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* 表单与按钮：触屏友好，16px 防止 iOS 聚焦自动缩放 */
+  input[type="text"], input[type="number"] { font-size: 16px; max-width: 100%; }
+  button, .btn { padding: 12px 20px; font-size: 14px; }
+
+  /* 深夜调频器 */
+  .tuner-display { font-size: 34px; padding: 14px 12px; }
+  .knob-row { gap: 28px; }
+  .knob-large { width: 92px; height: 92px; }
+  .knob-small { width: 58px; height: 58px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 22px 14px 90px; }
+  h1 { font-size: 20px; letter-spacing: .15em; }
+  .tagline { font-size: 13px; letter-spacing: .15em; }
+  .tuner-display { font-size: 26px; }
+  .knob-row { gap: 16px; }
+  .knob-large { width: 76px; height: 76px; }
+  .knob-small { width: 50px; height: 50px; }
+}
