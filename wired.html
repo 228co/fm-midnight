@@ -295,25 +295,27 @@ hr {
       startChip();
     } catch (e) {}
   }
-  /* ── 8-bit 芯片音乐：NES 2A03 风格（square 主旋律 + triangle 低音），哀歌 ── */
+  /* ── 8-bit 芯片音乐：学 GB 初代忧郁 BGM 的作曲手法 ──
+     慢速 · 大量留白 · 旋律绕着主音转 · 下行叹息 · 方波冷音色
+     （借鉴紫苑镇一类曲子的织体，旋律为原创） */
   var chGain = null, chTimer = null, chStep = 0, nextTime = 0;
-  var CH_MAIN = [   // 主旋律（方波）：下行哀歌 + 半音叹息，结尾不解决
-    220, 0, 196, 0, 164.81, 0, 146.83, 0,      // A3 G3 E3 D3 低吟下行
-    164.81, 0, 155.56, 0, 0, 0, 0, 0,          // E3 → D#3 半音叹息
-    261.63, 0, 293.66, 0, 329.63, 0, 293.66, 261.63, // 爬到最高点后坠落
-    246.94, 0, 220, 0, 155.56, 0, 0, 0         // B3 A3 停在半音，悬而未决
+  var CH_MAIN = [   // 主旋律（方波）：绕着 A 转 + 半音收尾，多休止
+    220, 0, 196, 0, 220, 0, 174.61, 0,      // A3 G3 A3 F3 绕着主音转
+    164.81, 0, 174.61, 0, 164.81, 0, 146.83, 0, // E3 F3 E3 D3 下行叹息
+    164.81, 0, 196, 0, 220, 0, 196, 0,       // E3 G3 A3 G3 隔空呼应
+    164.81, 0, 146.83, 0, 138.59, 0, 0, 0   // E3 D3 C#3 停在半音，不解决
   ];
-  var CH_BASS = [   // 低音（三角波）：缓慢长音托底
-    110, 0, 0, 0, 0, 0, 0, 0,                 // A2
-    110, 0, 0, 0, 0, 0, 0, 0,                 // A2
-    87.31, 0, 0, 0, 0, 0, 87.31, 0,           // F2
-    73.42, 0, 0, 0, 0, 0, 0, 0                // D2
+  var CH_BASS = [   // 低音（三角波）：每 4 步一个长根音，哀伤和声循环
+    110, 0, 0, 0, 110, 0, 0, 0,             // A2  A2
+    87.31, 0, 0, 0, 82.41, 0, 0, 0,         // F2  E2
+    130.81, 0, 0, 0, 110, 0, 0, 0,          // C3  A2
+    87.31, 0, 0, 0, 82.41, 0, 0, 0          // F2  E2
   ];
-  var CH_STEP = 0.42;  // 慢速（约 71 BPM 的 8 分音符），越慢越哀
+  var CH_STEP = 0.38;  // 极慢的 8 分音符，留白感
   function startChip() {
     if (!AC || chGain) return;
     chGain = AC.createGain();
-    chGain.gain.value = 0.07;
+    chGain.gain.value = 0.06;   // 更安静，更忧郁
     chGain.connect(AC.destination);
     nextTime = AC.currentTime + 0.06;
     chTimer = setInterval(scheduleChip, 40);  // lookahead 调度，多声道对齐
@@ -333,8 +335,8 @@ hr {
     while (nextTime < AC.currentTime + 0.35) {
       var i = chStep % 32;
       var t = nextTime;
-      if (CH_MAIN[i]) playNote('square', CH_MAIN[i], t, CH_STEP * 0.8, 0.38);
-      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 2.2, 0.30); // 长音延音
+      if (CH_MAIN[i]) playNote('square', CH_MAIN[i], t, CH_STEP * 0.85, 0.34);
+      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 3.8, 0.26); // 长音托底
       nextTime += CH_STEP;
       chStep++;
     }
