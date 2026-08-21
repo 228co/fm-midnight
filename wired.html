@@ -105,34 +105,7 @@ hr {
   max-width: 90%;
   overflow: hidden;
 }
-/* 名字登记 */
-.namebox { margin: 24px 0; }
-.namebox input {
-  background: #000;
-  color: #c1b492;
-  border: 1px solid #c82147;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 13px;
-  letter-spacing: 4px;
-  padding: 6px 10px;
-  outline: none;
-  width: 200px;
-}
-.namebox button {
-  background: #000;
-  color: #c82147;
-  border: 1px solid #c82147;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 13px;
-  letter-spacing: 4px;
-  padding: 6px 12px;
-  cursor: pointer;
-}
-.namebox button:hover { color: #c1b492; border-color: #c1b492; }
-.name-reply { font-size: 11px; margin-top: 10px; min-height: 16px; color: #c1b492; }
-/* 真名彩蛋：灯灭 */
-#lamps { position: fixed; inset: 0; background: #000; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 3s; }
-#lamps.on { opacity: 1; }
+/* 名字登记已移除 */
 #footer { margin-top: auto; padding-top: 60px; color: #c82147; font-size: 9px; }
 #footer span { background: #000; padding: 3px; }
 .navline { font-size: 11px; margin-top: 28px; letter-spacing: 4px; }
@@ -197,8 +170,6 @@ hr {
 </head>
 <body>
 
-<!-- 灯灭覆盖层（真名彩蛋） -->
-<div id="lamps"></div>
 <!-- 星空闪烁背景 -->
 <canvas id="noise"></canvas>
 
@@ -248,13 +219,6 @@ hr {
 
   <!-- 接收日志 -->
   <div class="logs" id="logs"></div>
-
-  <!-- 名字登记（读取主线存档） -->
-  <div class="namebox">
-    <input type="text" id="name-input" placeholder="你的名字" maxlength="12">
-    <button id="name-btn">登记</button>
-    <div class="name-reply" id="name-reply"></div>
-  </div>
 
   <p class="tiny">二、播音中若念到你的名字，请在心里应一声。不要出声。</p>
 
@@ -348,46 +312,6 @@ hr {
     }
     document.getElementById('corrupt').textContent = moji;
   })();
-
-  /* ── 主线存档联动：读取玩家名字 ── */
-  var KEY = 'fm_midnight_save_v1';
-  var WKEY = 'fm_wired_save';
-  var nameReply = document.getElementById('name-reply');
-  function mainName() {
-    try { return JSON.parse(localStorage.getItem(KEY) || '{}').name || ''; } catch (e) { return ''; }
-  }
-  var haveName = mainName();
-  if (haveName) {
-    document.getElementById('name-input').value = haveName;
-    nameReply.textContent = '名单已收录：' + haveName + '。夜莺记得你。';
-  }
-  document.getElementById('name-btn').addEventListener('click', function () {
-    var v = document.getElementById('name-input').value.trim();
-    if (!v) { nameReply.textContent = '……名字呢？'; return; }
-    nameReply.textContent = '已登记：' + v + '。夜莺会记住这个名字的。';
-    try {
-      var w = JSON.parse(localStorage.getItem(WKEY) || '{}');
-      w.name = v; w.entered = Date.now();
-      localStorage.setItem(WKEY, JSON.stringify(w));
-    } catch (e) {}
-    /* 同步写入主线存档（与 home.html 一致） */
-    try {
-      var m = JSON.parse(localStorage.getItem(KEY) || '{}');
-      m.name = v; localStorage.setItem(KEY, JSON.stringify(m));
-    } catch (e) {}
-  });
-
-  /* ── 真名彩蛋：输入「林晚」→ 灯灭 ── */
-  var input = document.getElementById('name-input');
-  input.addEventListener('keydown', function (e) {
-    if (e.key !== 'Enter') return;
-    var v = input.value.trim();
-    if (v === '林晚' || v === 'Lin Wan' || v === 'LINWAN' || v === 'linwan') {
-      document.getElementById('lamps').classList.add('on');
-      nameReply.textContent = '……灯熄了。谢谢你。';
-      setTimeout(function () { nameReply.textContent = '她可以走了。'; }, 3000);
-    }
-  });
 
   /* ── 访客计数仪式 ── */
   var vis = document.getElementById('cnt');
