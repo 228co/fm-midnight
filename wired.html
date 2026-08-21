@@ -311,7 +311,7 @@ hr {
     130.81, 0, 0, 0, 110, 0, 0, 0,          // C3  A2（宫→羽）
     82.41, 0, 0, 0, 110, 0, 0, 0            // E2  A2（徵→羽）
   ];
-  var CH_STEP = 0.38;  // 极慢的 8 分音符，留白感
+  var CH_STEP = 0.34;  // 慢速 8 分音符，带留白感
   function startChip() {
     if (!AC || chGain) return;
     chGain = AC.createGain();
@@ -336,7 +336,7 @@ hr {
       var i = chStep % 32;
       var t = nextTime;
       if (CH_MAIN[i]) playNote('square', CH_MAIN[i], t, CH_STEP * 0.85, 0.42);
-      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 3.8, 0.34); // 长音托底
+      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 4.0, 0.34); // 长音托底
       nextTime += CH_STEP;
       chStep++;
     }
