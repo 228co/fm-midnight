@@ -292,7 +292,41 @@ hr {
       var src = AC.createBufferSource(); src.buffer = buf; src.loop = true;
       var ng = AC.createGain(); ng.gain.value = 0.35; src.connect(ng); ng.connect(AC.destination); src.start();
       drones = [o]; oscGain = g;
+      startMelody();
     } catch (e) {}
+  }
+  /* ── 1-bit 音乐：PC Speaker 质感方波旋律（夜莺主题循环） ── */
+  var melodyGain = null, melodyTimer = null, stepIdx = 0;
+  var MELODY = [
+    220, 0, 261.63, 0, 329.63, 0, 0, 0,      // 引子：A 小调缓行
+    392, 0, 440, 0, 0, 0, 0, 0,              // 上行：一只鸟醒了
+    523.25, 0, 493.88, 0, 523.25, 0, 493.88, 0, // 鸟鸣颤音（1-bit 化）
+    440, 0, 392, 0, 329.63, 0, 0, 0          // 回落：它又飞走了
+  ];
+  var STEP_MS = 210;
+  function startMelody() {
+    if (!AC || melodyGain) return;
+    melodyGain = AC.createGain();
+    melodyGain.gain.value = 0.06;
+    melodyGain.connect(AC.destination);
+    scheduleStep();
+  }
+  function scheduleStep() {
+    if (!melodyGain) return;
+    var f = MELODY[stepIdx % MELODY.length];
+    if (f > 0) {
+      var o = AC.createOscillator();
+      o.type = 'square';
+      o.frequency.value = f;
+      var g = AC.createGain();
+      g.gain.setValueAtTime(0.9, AC.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, AC.currentTime + STEP_MS / 1000 * 0.85);
+      o.connect(g); g.connect(melodyGain);
+      o.start(AC.currentTime);
+      o.stop(AC.currentTime + STEP_MS / 1000);
+    }
+    stepIdx++;
+    melodyTimer = setTimeout(scheduleStep, STEP_MS);
   }
   /* 首次交互才出声（现代浏览器自动播放限制） */
   document.addEventListener('pointerdown', initAudio, { once: true });
@@ -357,6 +391,8 @@ hr {
       exitBtn.style.display = 'none';
       exitLink.style.display = 'inline-block';
       if (AC && oscGain) oscGain.gain.value = 0;
+      if (melodyTimer) { clearTimeout(melodyTimer); melodyTimer = null; }
+      if (melodyGain) melodyGain.gain.value = 0;
     }
   });
 
