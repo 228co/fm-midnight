@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⌈ 33.3 MHz ⌋ WIRED</title>
+<style>
+/* ── wired 铁律：8px 字距 · 关闭抗锯齿 · 像素锯齿保留 ── */
+* {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 8px;
+  image-rendering: pixelated;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+}
+body {
+  background: #000;
+  color: #c1b492;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  overflow-x: hidden;
+}
+/* 星空闪烁背景（Canvas 生成，零图片素材） */
+#noise {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.wrap {
+  position: relative;
+  z-index: 1;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 64px 0 40px;
+  box-sizing: border-box;
+}
+/* 中文正文恢复可读字距（官方 #note 的做法） */
+.ls0 { letter-spacing: 0; }
+a { color: #c82147; text-decoration: none; }
+a:hover { color: #c1b492; animation: wiredB2 1s ease-out infinite; }
+h1 {
+  font: 20px "Times New Roman", Times, serif;
+  font-weight: normal;
+  color: #c1b492;
+}
+h6, .intro, .tiny { font-size: 9px; }
+.tiny { color: #c82147; letter-spacing: 4px; }
+hr {
+  border: 0;
+  border-bottom: 2px solid #c82147;
+  width: 100%;
+  margin: 32px 0;
+}
+@keyframes blink { 50% { color: #000; } }
+@keyframes wiredB2 {
+  50% { color: #c1b492; text-shadow: #c1b492 1px 1px 6px; }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade { animation: fadeIn 2s ease forwards; }
+.del1 { animation: blink 2s linear infinite; animation-delay: .4s; }
+.del2 { animation: blink 2s linear infinite; animation-delay: .8s; }
+.del3 { animation: blink 2s linear infinite; animation-delay: 1.2s; }
+.del4 { animation: blink 2s linear infinite; animation-delay: 1.6s; }
+.sig { color: #c82147; font-size: 11px; margin: 28px 0 0; }
+.sig b { color: #c1b492; font-weight: normal; }
+/* 十二字刻字：逐字浮现 + 错峰闪烁 */
+.engrave {
+  margin: 28px 0 4px;
+  font-size: 17px;
+  color: #c82147;
+  line-height: 2.2;
+}
+.engrave span { display: inline-block; animation: blink 3s linear infinite; }
+.engrave .g1 { animation-delay: 0s; }
+.engrave .g2 { animation-delay: .25s; }
+.engrave .g3 { animation-delay: .5s; }
+.engrave .g4 { animation-delay: .75s; }
+.engrave .g5 { animation-delay: 1s; }
+.engrave .g6 { animation-delay: 1.25s; }
+.engrave .g7 { animation-delay: 1.5s; }
+.engrave .g8 { animation-delay: 1.75s; }
+.engrave .g9 { animation-delay: 2s; }
+.engrave .g10 { animation-delay: 2.25s; }
+.engrave .g11 { animation-delay: 2.5s; }
+.engrave .g12 { animation-delay: 2.75s; }
+/* mojibake 乱码高亮框 */
+.corrupt {
+  background: #fff;
+  color: #000;
+  display: inline-block;
+  padding: 4px 8px;
+  letter-spacing: 0;
+  font-size: 13px;
+  margin: 24px 0;
+  max-width: 90%;
+  overflow: hidden;
+}
+/* 名字登记 */
+.namebox { margin: 24px 0; }
+.namebox input {
+  background: #000;
+  color: #c1b492;
+  border: 1px solid #c82147;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  letter-spacing: 4px;
+  padding: 6px 10px;
+  outline: none;
+  width: 200px;
+}
+.namebox button {
+  background: #000;
+  color: #c82147;
+  border: 1px solid #c82147;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  letter-spacing: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.namebox button:hover { color: #c1b492; border-color: #c1b492; }
+.name-reply { font-size: 11px; margin-top: 10px; min-height: 16px; color: #c1b492; }
+/* 真名彩蛋：灯灭 */
+#lamps { position: fixed; inset: 0; background: #000; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 3s; }
+#lamps.on { opacity: 1; }
+#footer { margin-top: auto; padding-top: 60px; color: #c82147; font-size: 9px; }
+#footer span { background: #000; padding: 3px; }
+.navline { font-size: 11px; margin-top: 28px; letter-spacing: 4px; }
+</style>
+</head>
+<body>
+
+<!-- 灯灭覆盖层（真名彩蛋） -->
+<div id="lamps"></div>
+<!-- 星空闪烁背景 -->
+<canvas id="noise"></canvas>
+
+<div class="wrap">
+
+  <h1>⌈ 33.3 MHz ⌋</h1>
+  <p class="intro" style="margin-top:14px;">WIRED SOUND FOR WIRED LISTENERS</p>
+  <p class="intro" style="margin-top:6px; color:#c82147;">║▒░ ║▒░ ♫ ░▒║ ░▒║</p>
+  <p class="intro" style="margin-top:14px; color:#c1b492;">この放送は、午前3時だけのものです。</p>
+  <p class="tiny" style="margin-top:4px;">[ mach mich traurig ]</p>
+
+  <hr>
+
+  <p class="sig"><b>SIGNAL LOCKED</b><br>三角测量完成 · 信号源与接收端重合</p>
+
+  <p style="margin-top:32px;" class="fade">你找到的不是信号。<br>是它找到了你。</p>
+
+  <!-- 十二字刻字 -->
+  <div class="engrave" id="engrave">
+    <span class="g1">孤</span><span class="g2">灯</span><span class="g3">夜</span><span class="g4">雨</span>
+    <span class="g5">闻</span><span class="g6">莺</span><span class="g7">语</span><span class="g8">半</span>
+    <span class="g9">不</span><span class="g10">似</span><span class="g11">人</span><span class="g12">声</span>
+  </div>
+  <p class="tiny">十二个刻字 · 母带背面 · 它一直在念</p>
+
+  <hr>
+
+  <p>扫了那张二维码的人，都在里面。</p>
+  <p style="margin-top:16px;">你也是。</p>
+
+  <!-- 乱码高亮框（mojibake：UTF-8 误读拉丁） -->
+  <div class="corrupt" id="corrupt" title="读不出来"></div>
+
+  <!-- 名字登记（读取主线存档） -->
+  <div class="namebox">
+    <input type="text" id="name-input" placeholder="你的名字" maxlength="12">
+    <button id="name-btn">登记</button>
+    <div class="name-reply" id="name-reply"></div>
+  </div>
+
+  <p class="tiny">二、播音中若念到你的名字，请在心里应一声。不要出声。</p>
+
+  <div class="navline">
+    <a href="episodes/ep13/13.html">← 返回第13期</a>
+    <span style="color:#c82147;"> · </span>
+    <a href="episodes/ep13/tower.html">发射塔 →</a>
+  </div>
+
+  <div id="footer">
+    <span>You are invisible. <a href="#" id="go-visible">[ Go visible ]</a></span><br>
+    <span style="letter-spacing:2px;" class="ls0">freq 33.3 MHz · 收听人数 <b id="cnt">0000333</b> · 版权所有 © 1999</span>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  /* ── 星空闪烁背景：Canvas 星星场，每颗星独立频率明暗呼吸，零图片素材 ── */
+  var c = document.getElementById('noise');
+  var ctx = c.getContext('2d');
+  var stars = [];
+  var STAR_COLORS = ['#d2738a', '#d2738a', '#c1b492', '#ffffff'];  // 粉·米·白，无红
+  function initStars() {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    stars = [];
+    var n = Math.floor(c.width * c.height / 6000);  // 星点密度（稀疏夜空）
+    for (var i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * c.width,
+        y: Math.random() * c.height,
+        s: Math.random() < 0.7 ? 1 : 2,            // 偶发 2px 亮星
+        color: STAR_COLORS[(Math.random() * STAR_COLORS.length) | 0],
+        base: 0.6 + Math.random() * 0.4,           // 基础亮度（更亮）
+        freq: 0.5 + Math.random() * 2,             // 闪烁频率
+        phase: Math.random() * Math.PI * 2         // 相位错开
+      });
+    }
+  }
+  var t0 = Date.now();
+  function drawStars() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, c.width, c.height);
+    var t = (Date.now() - t0) / 1000;
+    for (var i = 0; i < stars.length; i++) {
+      var st = stars[i];
+      var tw = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * st.freq + st.phase));
+      ctx.globalAlpha = st.base * tw;
+      ctx.fillStyle = st.color;
+      ctx.fillRect(st.x, st.y, st.s, st.s);
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(drawStars);
+  }
+  initStars();
+  drawStars();
+  window.addEventListener('resize', initStars);
+
+  /* ── 环境音：Web Audio 合成（55Hz 低鸣 + 静电），无音频文件 ── */
+  var AC = null, drones = [], oscGain = null;
+  function initAudio() {
+    if (AC) return;
+    try {
+      AC = new (window.AudioContext || window.webkitAudioContext)();
+      var g = AC.createGain(); g.gain.value = 0.05; g.connect(AC.destination);
+      var o = AC.createOscillator(); o.frequency.value = 55; o.type = 'sine'; o.connect(g); o.start();
+      /* 静电噪声 */
+      var buf = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * 0.015;
+      var src = AC.createBufferSource(); src.buffer = buf; src.loop = true;
+      var ng = AC.createGain(); ng.gain.value = 0.35; src.connect(ng); ng.connect(AC.destination); src.start();
+      drones = [o]; oscGain = g;
+    } catch (e) {}
+  }
+  /* 首次交互才出声（现代浏览器自动播放限制） */
+  document.addEventListener('pointerdown', initAudio, { once: true });
+  document.addEventListener('keydown', initAudio, { once: true });
+
+  /* ── mojibake 乱码：UTF-8 中文按 Latin-1 误读 ── */
+  (function () {
+    var txt = '我们都在里面你也是';
+    var moji = '';
+    for (var i = 0; i < txt.length; i++) {
+      var bytes = [];
+      var u = txt.charCodeAt(i);
+      if (u < 0x80) bytes.push(u);
+      else if (u < 0x800) bytes.push(0xC0 | (u >> 6), 0x80 | (u & 63));
+      else bytes.push(0xE0 | (u >> 12), 0x80 | ((u >> 6) & 63), 0x80 | (u & 63));
+      for (var j = 0; j < bytes.length; j++) moji += String.fromCharCode(bytes[j]);
+    }
+    document.getElementById('corrupt').textContent = moji;
+  })();
+
+  /* ── 主线存档联动：读取玩家名字 ── */
+  var KEY = 'fm_midnight_save_v1';
+  var WKEY = 'fm_wired_save';
+  var nameReply = document.getElementById('name-reply');
+  function mainName() {
+    try { return JSON.parse(localStorage.getItem(KEY) || '{}').name || ''; } catch (e) { return ''; }
+  }
+  var haveName = mainName();
+  if (haveName) {
+    document.getElementById('name-input').value = haveName;
+    nameReply.textContent = '名单已收录：' + haveName + '。夜莺记得你。';
+  }
+  document.getElementById('name-btn').addEventListener('click', function () {
+    var v = document.getElementById('name-input').value.trim();
+    if (!v) { nameReply.textContent = '……名字呢？'; return; }
+    nameReply.textContent = '已登记：' + v + '。夜莺会记住这个名字的。';
+    try {
+      var w = JSON.parse(localStorage.getItem(WKEY) || '{}');
+      w.name = v; w.entered = Date.now();
+      localStorage.setItem(WKEY, JSON.stringify(w));
+    } catch (e) {}
+    /* 同步写入主线存档（与 home.html 一致） */
+    try {
+      var m = JSON.parse(localStorage.getItem(KEY) || '{}');
+      m.name = v; localStorage.setItem(KEY, JSON.stringify(m));
+    } catch (e) {}
+  });
+
+  /* ── 真名彩蛋：输入「林晚」→ 灯灭 ── */
+  var input = document.getElementById('name-input');
+  input.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var v = input.value.trim();
+    if (v === '林晚' || v === 'Lin Wan' || v === 'LINWAN' || v === 'linwan') {
+      document.getElementById('lamps').classList.add('on');
+      nameReply.textContent = '……灯熄了。谢谢你。';
+      setTimeout(function () { nameReply.textContent = '她可以走了。'; }, 3000);
+    }
+  });
+
+  /* ── 访客计数仪式 ── */
+  var vis = document.getElementById('cnt');
+  var VISKEY = 'fm_wired_visits';
+  var n = 333;
+  try { n = parseInt(localStorage.getItem(VISKEY) || '332', 10) + 1; localStorage.setItem(VISKEY, String(n)); } catch (e) {}
+  vis.textContent = ('000000' + n).slice(-7);
+
+  /* Go visible */
+  var go = document.getElementById('go-visible');
+  var visible = false;
+  go.addEventListener('click', function (e) {
+    e.preventDefault();
+    visible = !visible;
+    go.textContent = visible ? '[ You are visible ]' : '[ Go visible ]';
+    if (visible && AC && oscGain) oscGain.gain.value = 0.10;
+  });
+})();
+</script>
+</body>
+</html>

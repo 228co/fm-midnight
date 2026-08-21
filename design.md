@@ -42,6 +42,28 @@ episodes/ep13/333.html（假页面：门牌上没有门；把网址里的 333 �
 episodes/ep13/13.html（终极谜题：真名；答错被同化三层：雪花 → 雾 → 黑）
 ```
 
+### 彩蛋页：wired.html（33.3 MHz · Wired 深层）
+
+- 入口：`images/qrcode-matrix.png` 二维码（编码相对路径 `wired.html`，wired 烧焦边风格），
+  仅出现在 episodes/ep13/tower.html 剧情处。
+- 定位：深夜电台的 Wired 深层。读取主线存档 `fm_midnight_save_v1` 中的玩家名字，
+  十二字刻字逐字浮现，mojibake 乱码框，名字登记同步写回主线存档。
+- 彩蛋：在名字框输入「林晚」（真名）→ 灯灭，夜莺离开。
+- 技术：单文件零外链素材，Canvas 抖动噪点背景 + Web Audio 合成音效（55Hz 低鸣/静电）。
+- 存档：独立键 `fm_wired_save`；访问计数键 `fm_wired_visits`。
+
+### 彩蛋页：group.html（听众群 · 群号 875）
+
+- 入口：`images/qrcode-group.png` 二维码（编码 `group.html`，wired 点阵辉光边框、无烧焦边），
+  出现在 index.html 左右对联广告「微信扫码 · 进听众群」处。
+- 定位：扫码进入的诡异聊天室。成员老周/水仙/小舟/阿青/西碧天逐个意识到自己出不去了，
+  玩家被拉入群后群满员，群公告「本群已满员」。
+- 联动：读取主线存档玩家名字作为入群 ID；发送消息后夜莺回一句「这里没有回音」，
+  随后输入框失效；输入「林晚」触发夜莺告别。
+- 注意：此页**不得**出现烧焦二维码 / 33.3 深层线索，避免在伪装层剧透 tower.html 谜题。
+- 技术：同 wired.html（单文件、Canvas 噪点、Web Audio 合成音效）。
+- 存档：与 wired.html 共用 `fm_wired_visits` 访问计数。
+
 ## 12 期谜题与刻字总表
 
 | 期 | 标题 | 核心谜题 | 答案 | 刻字 |
