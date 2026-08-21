@@ -136,6 +136,63 @@ hr {
 #footer { margin-top: auto; padding-top: 60px; color: #c82147; font-size: 9px; }
 #footer span { background: #000; padding: 3px; }
 .navline { font-size: 11px; margin-top: 28px; letter-spacing: 4px; }
+/* 电台状态栏 */
+.statusbar {
+  width: 640px;
+  max-width: 94%;
+  border: 1px solid #c82147;
+  color: #c82147;
+  font-size: 9px;
+  letter-spacing: 3px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+.rec { color: #c82147; animation: blink 1.2s linear infinite; }
+/* 夜莺独白 */
+.monologue {
+  margin: 28px 0 0;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 2;
+  color: #c1b492;
+  max-width: 620px;
+}
+.monologue .who { color: #c82147; }
+/* 接收日志 */
+.logs {
+  width: 640px;
+  max-width: 94%;
+  border: 1px solid #c82147;
+  background: #000;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 2;
+  margin: 24px 0;
+  box-sizing: border-box;
+}
+.logs .t { color: #c82147; }
+.logs .d { color: #5a5a5a; }
+/* 关闭收音机（封闭出口） */
+.exit-btn {
+  margin-top: 20px;
+  display: inline-block;
+  color: #c82147;
+  border: 1px solid #c82147;
+  padding: 6px 16px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  cursor: pointer;
+  background: #000;
+}
+.exit-btn:hover { color: #c1b492; border-color: #c1b492; }
+.exit-reply { font-size: 9px; margin-top: 10px; min-height: 12px; color: #c1b492; }
+#exit-link { display: none; margin-top: 10px; font-size: 11px; }
+@keyframes redflash { 0%,100% { background: #000; } 50% { background: #3a0000; } }
+.flashred { animation: redflash 0.6s linear 3; }
 </style>
 </head>
 <body>
@@ -155,6 +212,13 @@ hr {
 
   <hr>
 
+  <!-- 电台状态栏 -->
+  <div class="statusbar">
+    <span>33.3 MHz</span>
+    <span>REC <span class="rec">●</span></span>
+    <span>NO WAY BACK</span>
+  </div>
+
   <p class="sig"><b>SIGNAL LOCKED</b><br>三角测量完成 · 信号源与接收端重合</p>
 
   <p style="margin-top:32px;" class="fade">你找到的不是信号。<br>是它找到了你。</p>
@@ -167,6 +231,13 @@ hr {
   </div>
   <p class="tiny">十二个刻字 · 母带背面 · 它一直在念</p>
 
+  <!-- 夜莺独白 -->
+  <div class="monologue">
+    <p>「……如果你听到了这盘带子，说明我还在。</p>
+    <p>别关收音机。关了，就再也找不到我了。」</p>
+    <p class="who" style="margin-top:8px;">—— 夜莺 · 1999.03.12 凌晨</p>
+  </div>
+
   <hr>
 
   <p>扫了那张二维码的人，都在里面。</p>
@@ -174,6 +245,9 @@ hr {
 
   <!-- 乱码高亮框（mojibake：UTF-8 误读拉丁） -->
   <div class="corrupt" id="corrupt" title="读不出来"></div>
+
+  <!-- 接收日志 -->
+  <div class="logs" id="logs"></div>
 
   <!-- 名字登记（读取主线存档） -->
   <div class="namebox">
@@ -184,11 +258,10 @@ hr {
 
   <p class="tiny">二、播音中若念到你的名字，请在心里应一声。不要出声。</p>
 
-  <div class="navline">
-    <a href="episodes/ep13/13.html">← 返回第13期</a>
-    <span style="color:#c82147;"> · </span>
-    <a href="episodes/ep13/tower.html">发射塔 →</a>
-  </div>
+  <!-- 封闭出口：关不掉，直到它放你走 -->
+  <div class="exit-btn" id="exit-btn">[ 关闭收音机 ]</div>
+  <div class="exit-reply" id="exit-reply"></div>
+  <a id="exit-link" href="index.html">← 它放你走了。离开。</a>
 
   <div id="footer">
     <span>You are invisible. <a href="#" id="go-visible">[ Go visible ]</a></span><br>
@@ -322,6 +395,46 @@ hr {
   var n = 333;
   try { n = parseInt(localStorage.getItem(VISKEY) || '332', 10) + 1; localStorage.setItem(VISKEY, String(n)); } catch (e) {}
   vis.textContent = ('000000' + n).slice(-7);
+
+  /* ── 接收日志：逐条浮现 ── */
+  var logsEl = document.getElementById('logs');
+  var logScript = [
+    { t: '02:58', d: '捕获未知频率 33.3 MHz' },
+    { t: '02:59', d: '信号源正在移动' },
+    { t: '03:00', d: '信号源与你重合' },
+    { t: '03:01', d: '它开始念你的名字' },
+    { t: '03:02', d: '你应了。—— 信号锁定' }
+  ];
+  var li = 0;
+  function tickLog() {
+    if (li >= logScript.length) return;
+    var e = logScript[li++];
+    var div = document.createElement('div');
+    div.innerHTML = '<span class="t">' + e.t + '</span> <span class="d">' + e.d + '</span>';
+    logsEl.appendChild(div);
+    setTimeout(tickLog, 1600);
+  }
+  setTimeout(tickLog, 2200);
+
+  /* ── 关闭收音机：三次才放你走（封闭出口） ── */
+  var exitBtn = document.getElementById('exit-btn');
+  var exitReply = document.getElementById('exit-reply');
+  var exitLink = document.getElementById('exit-link');
+  var clicks = 0;
+  exitBtn.addEventListener('click', function () {
+    clicks++;
+    if (clicks === 1) {
+      exitReply.textContent = '没有信号可以回去。';
+    } else if (clicks === 2) {
+      exitReply.textContent = '你还在收听。';
+    } else {
+      document.body.classList.add('flashred');
+      exitReply.textContent = '……她终于放你走了。';
+      exitBtn.style.display = 'none';
+      exitLink.style.display = 'inline-block';
+      if (AC && oscGain) oscGain.gain.value = 0;
+    }
+  });
 
   /* Go visible */
   var go = document.getElementById('go-visible');
