@@ -283,14 +283,14 @@ hr {
     if (AC) return;
     try {
       AC = new (window.AudioContext || window.webkitAudioContext)();
-      var g = AC.createGain(); g.gain.value = 0.05; g.connect(AC.destination);
+      var g = AC.createGain(); g.gain.value = 0.04; g.connect(AC.destination);
       var o = AC.createOscillator(); o.frequency.value = 55; o.type = 'sine'; o.connect(g); o.start();
       /* 静电噪声 */
       var buf = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate);
       var d = buf.getChannelData(0);
       for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * 0.015;
       var src = AC.createBufferSource(); src.buffer = buf; src.loop = true;
-      var ng = AC.createGain(); ng.gain.value = 0.35; src.connect(ng); ng.connect(AC.destination); src.start();
+      var ng = AC.createGain(); ng.gain.value = 0.20; src.connect(ng); ng.connect(AC.destination); src.start();
       drones = [o]; oscGain = g;
       startChip();
     } catch (e) {}
