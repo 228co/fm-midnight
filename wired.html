@@ -315,7 +315,7 @@ hr {
   function startChip() {
     if (!AC || chGain) return;
     chGain = AC.createGain();
-    chGain.gain.value = 0.06;   // 更安静，更忧郁
+    chGain.gain.value = 0.10;   // 主音量
     chGain.connect(AC.destination);
     nextTime = AC.currentTime + 0.06;
     chTimer = setInterval(scheduleChip, 40);  // lookahead 调度，多声道对齐
@@ -335,8 +335,8 @@ hr {
     while (nextTime < AC.currentTime + 0.35) {
       var i = chStep % 32;
       var t = nextTime;
-      if (CH_MAIN[i]) playNote('square', CH_MAIN[i], t, CH_STEP * 0.85, 0.34);
-      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 3.8, 0.26); // 长音托底
+      if (CH_MAIN[i]) playNote('square', CH_MAIN[i], t, CH_STEP * 0.85, 0.42);
+      if (CH_BASS[i]) playNote('triangle', CH_BASS[i], t, CH_STEP * 3.8, 0.34); // 长音托底
       nextTime += CH_STEP;
       chStep++;
     }
